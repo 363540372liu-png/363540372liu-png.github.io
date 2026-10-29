@@ -15,3 +15,5 @@
 
 # Ignore MDX files
 *.mdx
+# Preserve author/CMS Markdown source formatting; Astro validates these files.
+/src/content/**/*.md

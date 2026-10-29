@@ -7,7 +7,9 @@
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
   --color-border: var(--border);
-  --font-app: "Manrope", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-app:
+    "Manrope", "Source Han Sans SC", "Noto Sans CJK SC", "Microsoft YaHei",
+    "PingFang SC", sans-serif;
 }
 
 /* Light theme values */

@@ -1,0 +1,121 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import JournalCard from "@/components/JournalCard.astro";
+import { regions } from "@/data/regions";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import "@/styles/explorer.css";
+export async function getStaticPaths() {
+  const posts = getSortedPosts(await getCollection("posts"));
+  return regions.flatMap(region => {
+    const entries = posts.filter(post => post.data.region === region.id);
+    const count = Math.max(1, Math.ceil(entries.length / 6));
+    return Array.from({ length: count }, (_, index) => ({
+      params: {
+        region: region.id,
+        page: index === 0 ? undefined : String(index + 1),
+      },
+      props: {
+        region,
+        entries: entries.slice(index * 6, (index + 1) * 6),
+        current: index + 1,
+        count,
+        total: entries.length,
+      },
+    }));
+  });
+}
+const { region, entries, current, count, total } = Astro.props;
+---
+
+<Layout
+  title={region.name + " | Polar Explorer"}
+  description={region.description}
+  ><Header /><main
+    id="main-content"
+    class="explorer-page"
+    style={"--region-accent:" + region.color}
+  >
+    <nav class="region-tabs" aria-label="探索区域">
+      {
+        regions.map(item => (
+          <a
+            href={"/regions/" + item.id + "/"}
+            aria-current={item.id === region.id ? "page" : undefined}
+          >
+            {item.name}
+          </a>
+        ))
+      }
+    </nav><section class="region-heading">
+      <div>
+        <p class="section-kicker">{region.english}</p><h1>{region.name}</h1><p
+          class="region-description"
+        >
+          {region.description}
+        </p><p class="region-location">{region.location}</p>{
+          region.fictional && (
+            <p class="station-motto">
+              Not every place needs to exist on a map.
+            </p>
+          )
+        }
+      </div><div class="region-seal" aria-hidden="true">
+        <span>{region.symbol}</span><small>AN UNFINISHED ATLAS</small>
+      </div>
+    </section><div class="region-list-heading">
+      <h2>区域日志</h2><span>{total} 篇记录</span>
+    </div>{
+      entries.length > 0 ? (
+        <div class="journal-grid">
+          {entries.map(post => (
+            <JournalCard {post} />
+          ))}
+        </div>
+      ) : (
+        <section class="region-empty">
+          <>
+            <p class="section-kicker">UNMAPPED / 留白</p>
+            <h2>
+              {region.id === "inaccessibility"
+                ? "方向尚未定义"
+                : "这里还没有公开记录"}
+            </h2>
+            <p>
+              {region.id === "inaccessibility"
+                ? "这一页暂时留白，主题由记录者在未来决定。"
+                : "当有文章被选择归入这里，它会出现在这片区域。"}
+            </p>
+            <a href="/posts/">浏览全站文章 ↗</a>
+          </>
+        </section>
+      )
+    }{
+      count > 1 && (
+        <nav class="region-pagination" aria-label="区域文章分页">
+          {current > 1 && (
+            <a
+              href={
+                current === 2
+                  ? "/regions/" + region.id + "/"
+                  : "/regions/" + region.id + "/" + (current - 1) + "/"
+              }
+            >
+              上一页
+            </a>
+          )}
+          <span>
+            {current} / {count}
+          </span>
+          {current < count && (
+            <a href={"/regions/" + region.id + "/" + (current + 1) + "/"}>
+              下一页
+            </a>
+          )}
+        </nav>
+      )
+    }<a class="return-map" href="/#hero">← 返回首页地图</a>
+  </main><Footer /></Layout
+>

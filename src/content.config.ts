@@ -2,6 +2,7 @@ import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
 import { glob } from "astro/loaders";
 import config from "@/config";
+import { regionIds } from "@/data/regions";
 
 export const BLOG_PATH = "src/content/posts";
 
@@ -25,6 +26,7 @@ const posts = defineCollection({
       pubDatetime: contentDate,
       modDatetime: contentDate.optional().nullable(),
       title: z.string(),
+      region: z.enum(regionIds).optional(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),
       tags: z.array(z.string()).default(["others"]),
