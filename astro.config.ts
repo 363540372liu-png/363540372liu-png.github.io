@@ -62,11 +62,21 @@ export default defineConfig({
     {
       name: "Google Sans Code",
       cssVariable: "--font-google-sans-code",
-      provider: fontProviders.google(),
-      fallbacks: ["monospace"],
-      weights: [300, 400, 500, 600, 700],
-      styles: ["normal", "italic"],
-      formats: ["woff", "ttf"],
+      provider: fontProviders.local(),
+      options: {
+        variants: [
+          {
+            src: ["./public/fonts/Regular.ttf"],
+            weight: 400,
+            style: "normal",
+          },
+          {
+            src: ["./public/fonts/Bold.ttf"],
+            weight: 700,
+            style: "normal",
+          },
+        ],
+      },
     },
   ],
   env: {

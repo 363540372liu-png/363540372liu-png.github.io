@@ -1,0 +1,117 @@
+---
+import { discoveries } from "@/data/polar";
+const coast =
+  "M306 105 L345 87 379 106 407 99 435 119 463 116 485 144 515 154 529 184 555 201 548 226 573 251 563 281 577 311 560 340 568 367 540 389 526 421 496 431 477 458 445 449 424 473 392 465 366 481 340 462 315 468 289 445 261 452 240 427 213 420 201 394 174 387 166 365 144 359 133 336 115 333 100 307 84 296 75 270 61 258 57 232 42 220 48 204 64 214 71 235 90 245 100 267 120 276 136 294 158 298 173 316 195 306 214 290 237 285 246 260 262 245 251 222 263 201 251 180 270 164 267 139 290 131 Z";
+---
+
+<div class="atlas">
+  <svg
+    viewBox="0 0 640 560"
+    role="img"
+    aria-label="南极原创艺术示意地图，非精确地理数据"
+    ><defs
+      ><path id="coast" d={coast}></path><clipPath id="clip"
+        ><use href="#coast"></use></clipPath
+      ><filter id="relief"
+        ><feDropShadow
+          dx="0"
+          dy="8"
+          stdDeviation="10"
+          flood-color="#48768a"
+          flood-opacity=".2"></feDropShadow></filter
+      ><radialGradient id="ice"
+        ><stop stop-color="white"></stop><stop offset="1" stop-color="#cee3eb"
+        ></stop></radialGradient
+      ></defs
+    ><g fill="none" stroke="#9bb7c4" stroke-width=".6" opacity=".35"
+      ><circle cx="330" cy="280" r="240"></circle><circle
+        cx="330"
+        cy="280"
+        r="185"></circle><path
+        d="M20 280H620M330 20V540M120 70L540 490M120 490L540 70"></path></g
+    ><use href="#coast" fill="#bfd8e2" transform="translate(0 5)"></use><use
+      href="#coast"
+      fill="url(#ice)"
+      stroke="white"
+      stroke-width="2"
+      filter="url(#relief)"></use><g clip-path="url(#clip)"
+      >{
+        Array.from({ length: 32 }, (_, i) => (
+          <path
+            d={coast}
+            transform={
+              "translate(" +
+              340 * i * 0.022 +
+              " " +
+              290 * i * 0.022 +
+              ") scale(" +
+              (1 - i * 0.022) +
+              ")"
+            }
+            fill="none"
+            stroke={i % 4 === 0 ? "#93b9ca" : "#b7d2dd"}
+            stroke-width={i % 4 === 0 ? ".9" : ".55"}
+          />
+        ))
+      }<path
+        d="M180 355Q270 300 300 175M265 420Q315 340 470 210M335 447Q350 365 520 330"
+        stroke="white"
+        stroke-width="8"
+        fill="none"
+        opacity=".5"></path></g
+    ><g fill="#668797" font-size="9" letter-spacing="3"
+      ><text x="380" y="66">EAST ANTARCTICA</text><text x="26" y="415"
+        >SOUTHERN OCEAN</text
+      ><text x="308" y="531">90° S</text></g
+    ></svg
+  >
+  <a class="map-node notes" href="/posts/"
+    ><span>01</span><b>Field Notes ↗</b></a
+  ><a class="map-node station" href="/projects/"
+    ><span>02</span><b>Research Station ↗</b></a
+  ><a class="map-node observer" href="/about/"
+    ><span>03</span><b>Observer ↗</b></a
+  >{
+    discoveries.map((item, i) => (
+      <button
+        class:list={["map-node", i === 0 ? "core" : "signal"]}
+        data-discovery={item.id}
+        aria-haspopup="dialog"
+      >
+        <>
+          <span>0{i + 4}</span>
+          <b>{item.title} +</b>
+        </>
+      </button>
+    ))
+  }
+</div>
+{
+  discoveries.map(item => (
+    <dialog id={item.id} aria-labelledby={item.id + "-title"}>
+      <>
+        <form method="dialog">
+          <button aria-label="关闭面板">关闭 ×</button>
+        </form>
+        <p class="eyebrow">DISCOVERY / 可编辑占位</p>
+        <h2 id={item.id + "-title"}>{item.title}</h2>
+        <p>{item.text}</p>
+      </>
+    </dialog>
+  ))
+}
+<script>
+  document.addEventListener("astro:page-load", () => {
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-discovery]")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          const panel = document.getElementById(
+            button.dataset.discovery!
+          ) as HTMLDialogElement;
+          panel.showModal();
+          panel.addEventListener("close", () => button.focus(), { once: true });
+        });
+      });
+  });
+</script>

@@ -1,0 +1,309 @@
+.polar-home {
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 48px;
+}
+.polar-hero {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  min-height: 680px;
+}
+.eyebrow,
+.hero-foot,
+.map-caption,
+.atlas-index {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+}
+.eyebrow {
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.hero-copy h1 {
+  font-size: 4.5rem;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  font-weight: 400;
+}
+.hero-copy h1 span {
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.16em;
+  margin-top: 24px;
+}
+.intro {
+  font-size: 0.875rem;
+  line-height: 2;
+  margin: 32px 0;
+  color: var(--muted-foreground);
+}
+.hero-links {
+  display: flex;
+  gap: 24px;
+  font-size: 0.875rem;
+}
+.hero-links a:first-child {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 12px 16px;
+}
+.hero-links a {
+  padding: 12px 0;
+}
+.hero-foot {
+  margin-top: 64px;
+  color: var(--muted-foreground);
+}
+.atlas {
+  position: relative;
+}
+.atlas svg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+.map-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.map-node span {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid #8eafbf;
+  border-radius: 50%;
+  background: var(--background);
+  box-shadow: 0 0 0 5px #8eafbf15;
+}
+.map-node b {
+  font-weight: 400;
+  background: var(--background);
+  padding: 4px 8px;
+  opacity: 0.7;
+  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.map-node:hover b,
+.map-node:focus-visible b {
+  opacity: 1;
+}
+.map-node:hover span {
+  box-shadow: 0 0 0 8px #8eafbf30;
+}
+.notes {
+  left: 30%;
+  top: 49%;
+}
+.station {
+  left: 58%;
+  top: 35%;
+}
+.observer {
+  left: 52%;
+  top: 66%;
+}
+.core {
+  left: 40%;
+  top: 29%;
+}
+.signal {
+  left: 71%;
+  top: 55%;
+}
+.core b,
+.signal b {
+  opacity: 0;
+}
+.core:hover b,
+.core:focus-visible b,
+.signal:hover b,
+.signal:focus-visible b {
+  opacity: 1;
+}
+.map-caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.atlas-index {
+  border-block: 1px solid var(--border);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-foreground);
+}
+.journal-section {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  padding: 80px 0;
+}
+.polar-home h2 {
+  font-size: 1.875rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.polar-home h3 {
+  font-size: 1.25rem;
+}
+.text-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 0.875rem;
+}
+.sample-note {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.explore-section {
+  background: var(--muted);
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+.lower-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  padding: 80px 0;
+}
+.lower-grid article {
+  margin-top: 32px;
+}
+.lower-grid p {
+  line-height: 1.8;
+}
+.lower-grid h3 {
+  margin: 16px 0;
+}
+dialog {
+  margin: auto;
+  max-width: min(480px, 90vw);
+  padding: 32px;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+dialog::backdrop {
+  background: #18334466;
+  backdrop-filter: blur(4px);
+}
+dialog form {
+  text-align: right;
+}
+dialog h2 {
+  font-size: 1.5rem;
+  margin: 16px 0;
+}
+dialog p {
+  line-height: 1.8;
+}
+dialog button {
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.hero-copy,
+.hero-map {
+  animation: arrive 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-map {
+  animation-delay: 0.18s;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 1000px) {
+  body:has(.polar-home) > header {
+    max-width: 1280px;
+    padding-inline: 48px;
+  }
+}
+@media (max-width: 800px) {
+  .polar-home {
+    padding: 0 24px;
+  }
+  .polar-hero {
+    grid-template-columns: 1fr;
+    padding-top: 48px;
+    min-height: 0;
+  }
+  .hero-copy h1 {
+    font-size: 3.75rem;
+  }
+  .hero-foot {
+    margin-top: 32px;
+  }
+  .hero-map {
+    margin-block: 32px;
+  }
+  .map-node b {
+    font-size: 0.75rem;
+  }
+  .core b,
+  .signal b {
+    opacity: 0.7;
+  }
+  .map-caption {
+    gap: 16px;
+    letter-spacing: 0;
+  }
+  .atlas-index {
+    gap: 16px;
+  }
+  .atlas-index span:nth-child(2) {
+    display: none;
+  }
+  .journal-section,
+  .lower-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 48px 0;
+  }
+  .explore-section {
+    display: block;
+    padding: 24px;
+  }
+  .explore-section > p {
+    margin-top: 24px;
+  }
+  .map-node {
+    flex-direction: column;
+    gap: 0;
+  }
+  .station {
+    left: 57%;
+  }
+  .signal {
+    left: 73%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy,
+  .hero-map {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+  .map-node b {
+    transition: none;
+  }
+}
