@@ -1,37 +1,26 @@
 ---
-title: "About"
-description: "A bit about me and this blog."
+title: "关于"
+description: "关于企鹅的个人空间，以及这个博客会记录的事情。"
 ---
 
-AstroPaper is a minimal, accessible and SEO-friendly blog theme built with [Astro](https://astro.build/) and [Tailwind CSS](https://tailwindcss.com/).
+你好，我是**企鹅**。欢迎来到我的个人空间。
 
-![Astro Paper](@/assets/images/astropaper-og.jpg)
+我希望这里不只是一个用来发布文章的地方，也是一份可以长期回看的记录。
 
-AstroPaper provides a solid foundation for blogs, or even portfolios\_ with full markdown support, built-in dark mode, and a clean layout that works out-of-the-box.
+## 为什么写博客？
 
-The blog posts in this theme also serve as guides, docs or example articles\_ making AstroPaper a flexible starting point for your next content-driven site.
+学习知识时，能够把一个概念讲清楚，比简单收藏资料更重要；做项目时，把解决问题的过程留下来，也许比结果本身更值得回顾。
 
-## Features
+因此，我准备在这里记录：
 
-AstroPaper comes with a set of useful features that make content publishing easy and effective:
+- **技术与项目**：工程实践、实验过程和遇到的问题。
+- **学习笔记**：对知识的理解，以及后续的修正。
+- **生活与思考**：感兴趣的事物、阅读和个人观点。
 
-- SEO-friendly
-- Fast performance
-- Light & dark mode
-- Highly customizable
-- Organizable blog posts
-- Responsive & accessible
-- Static search with [PageFind](https://pagefind.app/)
-- Automatic social image generation
+## 这个网站
 
-and so much more.
+本博客基于开源主题 [AstroPaper](https://github.com/satnaing/astro-paper)，使用 [Astro](https://astro.build/) 构建，并托管在 GitHub Pages。
 
-## Show your support
+网站仍在逐步完善；现在看到的部分文章属于原主题的示例内容，未来会陆续替换为原创文章。
 
-If you like [AstroPaper](https://github.com/satnaing/astro-paper), consider giving it a star ⭐️.
-
-Found a bug 🐛 or have an improvement ✨ in mind? Feel free to open an [issue](https://github.com/satnaing/astro-paper/issues), submit a [pull request](https://github.com/satnaing/astro-paper/pulls) or start a [discussion](https://github.com/satnaing/astro-paper/discussions).
-
-If you find this theme helpful, you can also [sponsor me on GitHub](https://github.com/sponsors/satnaing) or [buy me a coffee](https://buymeacoffee.com/satnaing) to show your support — every penny counts.
-
-Kyay zuu! 🙏🏼
+你也可以通过 [GitHub](https://github.com/363540372liu-png) 查看我的公开项目。
