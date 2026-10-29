@@ -1,0 +1,574 @@
+.polar-home {
+  max-width: 1280px;
+  margin: auto;
+  padding: 0 48px;
+}
+.polar-hero {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  align-items: center;
+  min-height: 680px;
+}
+.eyebrow,
+.hero-foot,
+.map-caption,
+.atlas-index {
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+}
+.eyebrow {
+  color: var(--accent);
+  margin-bottom: 24px;
+}
+.hero-copy h1 {
+  font-size: 4.5rem;
+  line-height: 1;
+  letter-spacing: -0.06em;
+  font-weight: 400;
+}
+.hero-copy h1 span {
+  display: block;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  letter-spacing: 0.16em;
+  margin-top: 24px;
+}
+.intro {
+  font-size: 1rem;
+  line-height: 1.75;
+  margin: 32px 0;
+  color: var(--foreground);
+}
+.hero-links {
+  display: flex;
+  gap: 24px;
+  font-size: 0.875rem;
+}
+.hero-links a:first-child {
+  background: var(--foreground);
+  color: var(--background);
+  padding: 12px 16px;
+}
+.hero-links a {
+  padding: 12px 0;
+}
+.hero-foot {
+  margin-top: 64px;
+  color: var(--muted-foreground);
+}
+.atlas {
+  position: relative;
+}
+.map-node {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  min-height: 48px;
+  font-size: 0.75rem;
+  z-index: 2;
+}
+.map-node > span {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border: 1px solid #8eafbf80;
+  border-radius: 50%;
+  background: var(--background);
+  color: var(--accent);
+}
+.map-node > span::before {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 1px solid #79a9bd;
+  border-radius: 50%;
+  opacity: 0;
+  transform: scale(0.8);
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.map-node b {
+  position: absolute;
+  left: 40px;
+  top: 0;
+  min-width: 184px;
+  padding: 12px 16px;
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  box-shadow: 0 8px 24px #27465d12;
+  font-weight: 500;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(4px);
+  transition:
+    opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    visibility 0.3s;
+}
+.map-node b::before {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 100%;
+  left: -16px;
+  top: 0;
+}
+.map-node small {
+  display: block;
+  margin-top: 8px;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+.map-node:hover,
+.map-node:focus-visible {
+  z-index: 4;
+}
+.map-node:hover b,
+.map-node:focus-visible b {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+}
+.map-node:is(:hover, :focus-visible) > span {
+  color: var(--foreground);
+}
+.map-node:is(:hover, :focus-visible) > span::before {
+  transform: scale(1.25);
+  opacity: 0.65;
+}
+.map-node:active > span {
+  transform: scale(0.96);
+}
+.explore-hint {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  text-align: center;
+  margin: 16px 0;
+}
+.notes {
+  left: 30%;
+  top: 49%;
+}
+.station {
+  left: 58%;
+  top: 35%;
+}
+.observer {
+  left: 52%;
+  top: 66%;
+}
+.core {
+  left: 40%;
+  top: 29%;
+}
+.signal {
+  left: 71%;
+  top: 55%;
+}
+.core b,
+.signal b {
+  opacity: 0;
+}
+.core:hover b,
+.core:focus-visible b,
+.signal:hover b,
+.signal:focus-visible b {
+  opacity: 1;
+}
+.map-caption {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.atlas-index {
+  border-block: 1px solid var(--border);
+  padding: 24px 0;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted-foreground);
+}
+.journal-section {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 80px;
+  padding: 80px 0;
+}
+.polar-home h2 {
+  font-size: 1.875rem;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.polar-home h3 {
+  font-size: 1.25rem;
+}
+.text-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 0.875rem;
+}
+.sample-note {
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+}
+.explore-section {
+  background: var(--muted);
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+.lower-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 96px;
+  padding: 80px 0;
+}
+.lower-grid article {
+  margin-top: 32px;
+}
+.lower-grid p {
+  line-height: 1.8;
+}
+.lower-grid h3 {
+  margin: 16px 0;
+}
+dialog {
+  margin: auto;
+  max-width: min(480px, 90vw);
+  padding: 32px;
+  background: var(--background);
+  color: var(--foreground);
+  border: 1px solid var(--border);
+}
+dialog::backdrop {
+  background: #18334466;
+  backdrop-filter: blur(4px);
+}
+dialog form {
+  text-align: right;
+}
+dialog h2 {
+  font-size: 1.5rem;
+  margin: 16px 0;
+}
+dialog p {
+  line-height: 1.8;
+}
+dialog button {
+  min-height: 44px;
+  padding: 8px 12px;
+}
+.hero-copy,
+.hero-map {
+  animation: arrive 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.hero-map {
+  animation-delay: 0.18s;
+}
+@keyframes arrive {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 1000px) {
+  body:has(.polar-home) > header {
+    max-width: 1280px;
+    padding-inline: 48px;
+  }
+}
+@media (max-width: 800px) {
+  .polar-home {
+    padding: 0 24px;
+  }
+  .polar-hero {
+    grid-template-columns: 1fr;
+    padding-top: 48px;
+    min-height: 0;
+  }
+  .hero-copy h1 {
+    font-size: 3.75rem;
+  }
+  .hero-foot {
+    margin-top: 32px;
+  }
+  .hero-map {
+    margin-block: 32px;
+  }
+  .map-node b {
+    font-size: 0.75rem;
+  }
+  .core b,
+  .signal b {
+    opacity: 0.7;
+  }
+  .map-caption {
+    gap: 16px;
+    letter-spacing: 0;
+  }
+  .atlas-index {
+    gap: 16px;
+  }
+  .atlas-index span:nth-child(2) {
+    display: none;
+  }
+  .journal-section,
+  .lower-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 48px 0;
+  }
+  .explore-section {
+    display: block;
+    padding: 24px;
+  }
+  .explore-section > p {
+    margin-top: 24px;
+  }
+  .map-node {
+    flex-direction: column;
+    gap: 0;
+  }
+  .station {
+    left: 57%;
+  }
+  .signal {
+    left: 73%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-copy,
+  .hero-map {
+    animation: none;
+  }
+  * {
+    scroll-behavior: auto !important;
+  }
+  .map-node b {
+    transition: none;
+  }
+}
+
+@media (hover: none), (max-width: 800px) {
+  .map-node b {
+    visibility: visible;
+    opacity: 1;
+    transform: none;
+    position: static;
+    min-width: 0;
+    border: 0;
+    box-shadow: none;
+    padding: 4px;
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+  .map-node small {
+    display: none;
+  }
+  .map-node {
+    width: 48px;
+    min-height: 48px;
+    flex-direction: column;
+  }
+  .map-node b::before {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .map-node b,
+  .map-node > span::before,
+  .terrain {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* The source image is shown in full; only the outer ocean edge fades into the page. */
+.atlas {
+  aspect-ratio: 1;
+  isolation: isolate;
+}
+.atlas-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-image:
+    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
+    linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+.atlas-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hero-map {
+  width: calc(100% + 64px);
+  margin-left: -16px;
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+.intro {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.map-node {
+  transform: translate(-50%, -50%);
+}
+.notes {
+  left: 30%;
+  top: 44%;
+}
+.station {
+  left: 62%;
+  top: 35%;
+}
+.observer {
+  left: 64%;
+  top: 69%;
+}
+.core {
+  left: 45%;
+  top: 54%;
+}
+.signal {
+  left: 78%;
+  top: 51%;
+}
+.signal b {
+  left: auto;
+  right: 40px;
+}
+.signal b::before {
+  left: auto;
+  right: -16px;
+}
+.map-node > span {
+  background: #a9d3e080;
+  box-shadow: 0 0 8px #9acbdd40;
+}
+.map-node > span::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid #68a7bf;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: node-breath 9s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  pointer-events: none;
+}
+.station > span::after {
+  animation-delay: -3s;
+}
+.observer > span::after {
+  animation-delay: -6s;
+}
+@keyframes node-breath {
+  from {
+    opacity: 0.08;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+.motion-paused .map-node > span::after {
+  animation-play-state: paused;
+}
+[data-theme="dark"] .atlas-art {
+  opacity: 0.8;
+}
+@media (max-width: 800px) {
+  .hero-map {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+  }
+  .map-caption {
+    padding-inline: 16px;
+  }
+  .map-node b {
+    font-size: 0.75rem;
+    width: max-content;
+    max-width: 140px;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .intro {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+}
+@media (hover: none), (prefers-reduced-motion: reduce), (max-width: 800px) {
+  .map-node > span::after {
+    animation: none;
+    opacity: 0.15;
+  }
+}
+
+/* Editorial treatment preserves the reference relief while calming the ocean. */
+.atlas-art img {
+  filter: saturate(0.58) contrast(0.87) brightness(1.09);
+}
+.atlas-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f8fafc;
+  opacity: 0.12;
+  pointer-events: none;
+}
+[data-theme="dark"] .atlas-art::after {
+  background: #181818;
+  opacity: 0.16;
+}
+[data-theme="dark"] .atlas-art img {
+  filter: saturate(0.5) contrast(0.9);
+}
+@media (min-width: 801px) {
+  .hero-map {
+    width: calc(100% + 32px);
+    margin-left: 0;
+  }
+}
+
+/* Quiet visual markers; the original 48px interactive targets stay intact. */
+.map-node:is(.core, .signal) > span {
+  width: 4px;
+  height: 4px;
+  background: #b7d7e14d;
+  border-color: #8eafbf50;
+  box-shadow: none;
+}
+.map-node:is(.core, .signal) > span::after {
+  content: none;
+}
+.map-node:is(:hover, :focus-visible) > span {
+  background: #8bbfd3;
+}
+@media (hover: none), (max-width: 800px) {
+  .map-node:is(.core, .signal) b {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .map-node:is(.core, .signal):is(:hover, :focus-visible) b {
+    visibility: visible;
+    opacity: 1;
+  }
+}

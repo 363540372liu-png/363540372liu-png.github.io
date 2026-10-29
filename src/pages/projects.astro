@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import { projects } from "@/data/polar";
+---
+
+<Layout title="Research Station | Polar Explorer"
+  ><Header /><main id="main-content" class="app-layout my-16">
+    <p>02 / RESEARCH STATION</p><h1 class="my-8 text-4xl">Projects</h1>{
+      projects.map(project => (
+        <article class="my-8">
+          <>
+            <p>{project.status}</p>
+            <h2 class="my-4 text-2xl">{project.title}</h2>
+            <p>{project.description}</p>
+          </>
+        </article>
+      ))
+    }<a href="/" class="underline">返回地图</a>
+  </main><Footer /></Layout
+>
