@@ -73,9 +73,10 @@
   position: relative;
   display: grid;
   place-items: center;
-  width: 24px;
-  height: 24px;
-  border: 1px solid #8eafbf;
+  width: 6px;
+  height: 6px;
+  flex-shrink: 0;
+  border: 1px solid #8eafbf80;
   border-radius: 50%;
   background: var(--background);
   color: var(--accent);
@@ -86,7 +87,7 @@
   inset: -5px;
   border: 1px solid #79a9bd;
   border-radius: 50%;
-  opacity: 0.25;
+  opacity: 0;
   transform: scale(0.8);
   transition:
     transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
@@ -461,8 +462,8 @@ dialog button {
   right: -16px;
 }
 .map-node > span {
-  background: #f8fafce6;
-  color: #39768e;
+  background: #a9d3e080;
+  box-shadow: 0 0 8px #9acbdd40;
 }
 .map-node > span::after {
   content: "";
@@ -544,5 +545,30 @@ dialog button {
   .hero-map {
     width: calc(100% + 32px);
     margin-left: 0;
+  }
+}
+
+/* Quiet visual markers; the original 48px interactive targets stay intact. */
+.map-node:is(.core, .signal) > span {
+  width: 4px;
+  height: 4px;
+  background: #b7d7e14d;
+  border-color: #8eafbf50;
+  box-shadow: none;
+}
+.map-node:is(.core, .signal) > span::after {
+  content: none;
+}
+.map-node:is(:hover, :focus-visible) > span {
+  background: #8bbfd3;
+}
+@media (hover: none), (max-width: 800px) {
+  .map-node:is(.core, .signal) b {
+    visibility: hidden;
+    opacity: 0;
+  }
+  .map-node:is(.core, .signal):is(:hover, :focus-visible) b {
+    visibility: visible;
+    opacity: 1;
   }
 }

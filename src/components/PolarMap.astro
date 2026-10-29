@@ -19,32 +19,38 @@ import polarReference from "@/assets/polar-reference.png";
   </div>
   <a
     class="map-node notes"
-    aria-label="01 Field Notes：文章、观察与沿途思考"
+    aria-label="Field Notes：文章、观察与沿途思考"
     href="/posts/"
-    ><span>01</span><b>Field Notes ↗<small>文章、观察与沿途思考</small></b></a
+    ><span aria-hidden="true"></span><b
+      >Field Notes ↗<small>文章、观察与沿途思考</small></b
+    ></a
   ><a
     class="map-node station"
-    aria-label="02 Research Station：项目、实验与实践记录"
+    aria-label="Research Station：项目、实验与实践记录"
     href="/projects/"
-    ><span>02</span><b>Research Station ↗<small>项目、实验与实践记录</small></b
+    ><span aria-hidden="true"></span><b
+      >Research Station ↗<small>项目、实验与实践记录</small></b
     ></a
-  ><a class="map-node observer" aria-label="03 Observer：关于我" href="/about/"
-    ><span>03</span><b>Observer ↗<small>认识地图背后的记录者</small></b></a
+  ><a class="map-node observer" aria-label="Observer：关于我" href="/about/"
+    ><span aria-hidden="true"></span><b
+      >Observer ↗<small>认识地图背后的记录者</small></b
+    ></a
   >{
     discoveries.map((item, i) => (
       <button
         class:list={["map-node", i === 0 ? "core" : "signal"]}
         data-discovery={item.id}
         aria-haspopup="dialog"
+        aria-label={item.title}
       >
         <>
-          <span>0{i + 4}</span>
+          <span aria-hidden="true" />
           <b>{item.title} +</b>
         </>
       </button>
     ))
   }
-</div><p class="explore-hint">探索编号 · 悬停或聚焦查看站点</p>
+</div><p class="explore-hint">探索微光 · 悬停或聚焦查看站点</p>
 {
   discoveries.map(item => (
     <dialog id={item.id} aria-labelledby={item.id + "-title"}>
