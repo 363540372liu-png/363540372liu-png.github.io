@@ -1,0 +1,85 @@
+media:
+  input: public/images
+  output: /images
+
+content:
+  - name: posts
+    label: 文章管理
+    type: collection
+    path: src/content/posts
+    format: yaml-frontmatter
+    subfolders: true
+    # MDX contains imports/JSX; keep it out of the WYSIWYG save pipeline.
+    exclude: ["*.mdx", "**/*.mdx", "**/assets/**"]
+    filename:
+      template: "{year}-{month}-{day}-{primary}.md"
+      field: create
+    view:
+      primary: title
+      sort: pubDatetime
+      order: desc
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 摘要
+        type: text
+        required: true
+      - name: pubDatetime
+        label: 发布时间
+        type: date
+        required: true
+        description: 按当前浏览器本地时间选择，保存时包含时区偏移。
+        options:
+          time: true
+          format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+      - name: tags
+        label: 标签
+        type: string
+        list: true
+        default: [others]
+      - name: draft
+        label: 草稿
+        type: boolean
+        default: true
+      - name: featured
+        label: 精选
+        type: boolean
+        default: false
+      - name: body
+        label: 正文
+        type: rich-text
+        description: 含公式、HTML、callout 等特殊语法时，请使用 Source 模式编辑并检查保存差异。MDX 请通过 GitHub 编辑。
+        options:
+          format: markdown
+          switcher: true
+
+  - name: about
+    label: 关于我
+    type: file
+    path: src/content/pages/about.md
+    format: yaml-frontmatter
+    operations:
+      create: false
+      rename: false
+      delete: false
+    fields:
+      - name: title
+        label: 标题
+        type: string
+        required: true
+      - name: description
+        label: 摘要
+        type: text
+      - name: body
+        label: 正文
+        type: rich-text
+        options:
+          format: markdown
+          switcher: true
+
+settings:
+  content:
+    merge: true

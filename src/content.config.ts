@@ -5,13 +5,25 @@ import config from "@/config";
 
 export const BLOG_PATH = "src/content/posts";
 
+// CMS YAML writers may quote timestamps; normalize ISO strings before z.date().
+// Retain existing YAML Date values and reject non-date scalars.
+const contentDate = z.preprocess(value => {
+  if (
+    typeof value === "string" &&
+    z.iso.datetime({ offset: true }).safeParse(value).success
+  ) {
+    return new Date(value);
+  }
+  return value;
+}, z.date());
+
 const posts = defineCollection({
   loader: glob({ pattern: "**/[^_]*.{md,mdx}", base: `./${BLOG_PATH}` }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(config.site.author),
-      pubDatetime: z.date(),
-      modDatetime: z.date().optional().nullable(),
+      pubDatetime: contentDate,
+      modDatetime: contentDate.optional().nullable(),
       title: z.string(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),
