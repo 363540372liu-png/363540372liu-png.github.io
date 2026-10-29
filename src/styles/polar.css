@@ -59,11 +59,6 @@
 .atlas {
   position: relative;
 }
-.atlas svg {
-  width: 100%;
-  height: auto;
-  overflow: visible;
-}
 .map-node {
   position: absolute;
   display: flex;
@@ -151,40 +146,11 @@
 .map-node:active > span {
   transform: scale(0.96);
 }
-.atlas svg {
-  pointer-events: none;
-}
 .explore-hint {
   font-size: 0.75rem;
   color: var(--muted-foreground);
   text-align: center;
   margin: 16px 0;
-}
-.ice-light {
-  animation: ice-reflection 14s cubic-bezier(0.65, 0, 0.35, 1) infinite
-    alternate;
-}
-@keyframes ice-reflection {
-  from {
-    opacity: 0.25;
-    transform: translate(-4px, 0);
-  }
-  to {
-    opacity: 0.85;
-    transform: translate(4px, 2px);
-  }
-}
-.motion-paused .ice-light {
-  animation-play-state: paused;
-}
-.atlas:has(.map-node:is(:hover, :focus-visible)) .terrain {
-  opacity: 0.85;
-}
-.terrain {
-  transition: opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-}
-[data-theme="dark"] .atlas svg {
-  opacity: 0.8;
 }
 .notes {
   left: 30%;
@@ -421,20 +387,162 @@ dialog button {
   .map-node b::before {
     display: none;
   }
-  .ice-light {
-    animation: none;
-    opacity: 0.4;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .ice-light {
-    animation: none;
-    opacity: 0.4;
-  }
   .map-node b,
   .map-node > span::before,
   .terrain {
     transition: none;
     transform: none;
+  }
+}
+
+/* The source image is shown in full; only the outer ocean edge fades into the page. */
+.atlas {
+  aspect-ratio: 1;
+  isolation: isolate;
+}
+.atlas-art {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mask-image:
+    linear-gradient(to right, transparent, #000 20%, #000 80%, transparent),
+    linear-gradient(to bottom, transparent, #000 18%, #000 82%, transparent);
+  mask-composite: intersect;
+}
+.atlas-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.hero-map {
+  width: calc(100% + 64px);
+  margin-left: -16px;
+}
+.hero-copy {
+  position: relative;
+  z-index: 1;
+}
+.intro {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.map-node {
+  transform: translate(-50%, -50%);
+}
+.notes {
+  left: 30%;
+  top: 44%;
+}
+.station {
+  left: 62%;
+  top: 35%;
+}
+.observer {
+  left: 64%;
+  top: 69%;
+}
+.core {
+  left: 45%;
+  top: 54%;
+}
+.signal {
+  left: 78%;
+  top: 51%;
+}
+.signal b {
+  left: auto;
+  right: 40px;
+}
+.signal b::before {
+  left: auto;
+  right: -16px;
+}
+.map-node > span {
+  background: #f8fafce6;
+  color: #39768e;
+}
+.map-node > span::after {
+  content: "";
+  position: absolute;
+  inset: -4px;
+  border: 1px solid #68a7bf;
+  border-radius: 50%;
+  opacity: 0.12;
+  animation: node-breath 9s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
+  pointer-events: none;
+}
+.station > span::after {
+  animation-delay: -3s;
+}
+.observer > span::after {
+  animation-delay: -6s;
+}
+@keyframes node-breath {
+  from {
+    opacity: 0.08;
+  }
+  to {
+    opacity: 0.3;
+  }
+}
+.motion-paused .map-node > span::after {
+  animation-play-state: paused;
+}
+[data-theme="dark"] .atlas-art {
+  opacity: 0.8;
+}
+@media (max-width: 800px) {
+  .hero-map {
+    width: calc(100% + 32px);
+    margin-left: -16px;
+  }
+  .map-caption {
+    padding-inline: 16px;
+  }
+  .map-node b {
+    font-size: 0.75rem;
+    width: max-content;
+    max-width: 140px;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .intro {
+    font-size: 1rem;
+    line-height: 1.75rem;
+  }
+}
+@media (hover: none), (prefers-reduced-motion: reduce), (max-width: 800px) {
+  .map-node > span::after {
+    animation: none;
+    opacity: 0.15;
+  }
+}
+
+/* Editorial treatment preserves the reference relief while calming the ocean. */
+.atlas-art img {
+  filter: saturate(0.58) contrast(0.87) brightness(1.09);
+}
+.atlas-art::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f8fafc;
+  opacity: 0.12;
+  pointer-events: none;
+}
+[data-theme="dark"] .atlas-art::after {
+  background: #181818;
+  opacity: 0.16;
+}
+[data-theme="dark"] .atlas-art img {
+  filter: saturate(0.5) contrast(0.9);
+}
+@media (min-width: 801px) {
+  .hero-map {
+    width: calc(100% + 32px);
+    margin-left: 0;
   }
 }

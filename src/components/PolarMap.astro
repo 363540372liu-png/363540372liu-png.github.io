@@ -1,95 +1,34 @@
 ---
 import { discoveries } from "@/data/polar";
-const coast =
-  "M306 105 L345 87 379 106 407 99 435 119 463 116 485 144 515 154 529 184 555 201 548 226 573 251 563 281 577 311 560 340 568 367 540 389 526 421 496 431 477 458 445 449 424 473 392 465 366 481 340 462 315 468 289 445 261 452 240 427 213 420 201 394 174 387 166 365 144 359 133 336 115 333 100 307 84 296 75 270 61 258 57 232 42 220 48 204 64 214 71 235 90 245 100 267 120 276 136 294 158 298 173 316 195 306 214 290 237 285 246 260 262 245 251 222 263 201 251 180 270 164 267 139 290 131 Z";
+import { Image } from "astro:assets";
+import polarReference from "@/assets/polar-reference.png";
 ---
 
 <div class="atlas">
-  <svg
-    viewBox="0 0 640 560"
-    role="img"
-    aria-label="南极原创艺术示意地图，非精确地理数据"
-    ><defs
-      ><path id="coast" d={coast}></path><clipPath id="clip"
-        ><use href="#coast"></use></clipPath
-      ><filter id="relief"
-        ><feDropShadow
-          dx="0"
-          dy="8"
-          stdDeviation="10"
-          flood-color="#48768a"
-          flood-opacity=".2"></feDropShadow></filter
-      ><radialGradient id="ice"
-        ><stop stop-color="white"></stop><stop offset="1" stop-color="#cee3eb"
-        ></stop></radialGradient
-      ></defs
-    ><g fill="none" stroke="#9bb7c4" stroke-width=".6" opacity=".35"
-      ><circle cx="330" cy="280" r="240"></circle><circle
-        cx="330"
-        cy="280"
-        r="185"></circle><path
-        d="M20 280H620M330 20V540M120 70L540 490M120 490L540 70"></path></g
-    ><use href="#coast" fill="#bfd8e2" transform="translate(0 5)"></use><use
-      href="#coast"
-      fill="url(#ice)"
-      stroke="white"
-      stroke-width="2"
-      filter="url(#relief)"></use><g class="terrain" clip-path="url(#clip)"
-      >{
-        [
-          { x: 410, y: 260, rx: 145, ry: 125, count: 13 },
-          { x: 240, y: 375, rx: 100, ry: 65, count: 7 },
-        ].flatMap(region =>
-          Array.from({ length: region.count }, (_, i) => {
-            const scale = 1 - i / (region.count + 2);
-            const points = Array.from({ length: 65 }, (_, j) => {
-              const angle = (j / 64) * Math.PI * 2;
-              const wave =
-                1 +
-                0.055 * Math.sin(angle * 3 + i * 0.12) +
-                0.035 * Math.cos(angle * 5);
-              return [
-                region.x + Math.cos(angle) * region.rx * scale * wave,
-                region.y + Math.sin(angle) * region.ry * scale * wave,
-              ];
-            });
-            return (
-              <path
-                d={
-                  points
-                    .map((point, j) => (j ? "L" : "M") + point.join(" "))
-                    .join(" ") + " Z"
-                }
-                fill="none"
-                stroke="#9bbecb"
-                stroke-width={i % 4 === 0 ? ".8" : ".5"}
-                opacity=".55"
-              />
-            );
-          })
-        )
-      }<path
-        d="M180 355Q270 300 300 175M265 420Q315 340 470 210M335 447Q350 365 520 330"
-        stroke="white"
-        stroke-width="2"
-        fill="none"
-        opacity=".25"></path></g
-    ><g class="ice-light" clip-path="url(#clip)" fill="white"
-      ><ellipse cx="380" cy="240" rx="130" ry="75" opacity=".18"
-      ></ellipse><ellipse cx="300" cy="370" rx="95" ry="45" opacity=".12"
-      ></ellipse></g
-    ><g fill="#668797" opacity=".6" font-size="9" letter-spacing="3"
-      ><text x="380" y="66">EAST ANTARCTICA</text><text x="26" y="415"
-        >SOUTHERN OCEAN</text
-      ><text x="308" y="531">90° S</text></g
-    ></svg
-  >
-  <a class="map-node notes" href="/posts/"
+  <div class="atlas-art">
+    <Image
+      src={polarReference}
+      alt="南极冰白大陆与浅蓝海洋的浮雕地图，使用提供的参考图"
+      widths={[640, 960, 1440]}
+      sizes="(max-width: 800px) 100vw, 65vw"
+      format="webp"
+      quality={85}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <a
+    class="map-node notes"
+    aria-label="01 Field Notes：文章、观察与沿途思考"
+    href="/posts/"
     ><span>01</span><b>Field Notes ↗<small>文章、观察与沿途思考</small></b></a
-  ><a class="map-node station" href="/projects/"
+  ><a
+    class="map-node station"
+    aria-label="02 Research Station：项目、实验与实践记录"
+    href="/projects/"
     ><span>02</span><b>Research Station ↗<small>项目、实验与实践记录</small></b
     ></a
-  ><a class="map-node observer" href="/about/"
+  ><a class="map-node observer" aria-label="03 Observer：关于我" href="/about/"
     ><span>03</span><b>Observer ↗<small>认识地图背后的记录者</small></b></a
   >{
     discoveries.map((item, i) => (
