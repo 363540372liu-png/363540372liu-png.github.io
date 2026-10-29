@@ -1,0 +1,24 @@
+{
+  "dataset": "ETOPO_2022_v1_60s_surface",
+  "source_service": "https://gis.ngdc.noaa.gov/arcgis/rest/services/DEM_mosaics/DEM_all/ImageServer",
+  "export_parameters": {
+    "f": "json",
+    "bbox": "-3400000,-3400000,3400000,3400000",
+    "bboxSR": 3031,
+    "imageSR": 3031,
+    "size": "2048,2048",
+    "format": "tiff",
+    "pixelType": "F32",
+    "noData": -99999,
+    "interpolation": "RSP_BilinearInterpolation",
+    "mosaicRule": "{\"mosaicMethod\": \"esriMosaicLockRaster\", \"lockRasterIds\": [2534]}",
+    "renderingRule": "{\"rasterFunction\": \"None\"}"
+  },
+  "source_sha256": "437dc0c50f990a0b3ee322dd1bb1e28360ca6017b7013131d410ae28eb313c21",
+  "output_sha256": "4e4354173842e8910cba778f30b66a65edfdd6e56baa7538b6e4a942535066ec",
+  "pixel_size_metres": 3320.3125,
+  "elevation_range_metres": [
+    -8208.294921875,
+    4352.8623046875
+  ]
+}

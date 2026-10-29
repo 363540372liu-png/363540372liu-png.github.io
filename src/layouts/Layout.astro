@@ -1,5 +1,4 @@
 ---
-import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
@@ -45,10 +44,6 @@ const rssHref = getRelativeLocaleUrl(
     <meta name="generator" content={Astro.generator} />
 
     <!-- Font -->
-    <Font
-      cssVariable="--font-google-sans-code"
-      preload={[{ subset: "latin", weight: 400, style: "normal" }]}
-    />
 
     <!-- Primary meta -->
     <title>{title}</title>
@@ -102,10 +97,7 @@ const rssHref = getRelativeLocaleUrl(
     <script is:inline>
       (function () {
         const stored = localStorage.getItem("theme");
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)"
-        ).matches;
-        const theme = stored ?? (prefersDark ? "dark" : "light");
+        const theme = stored === "dark" ? "dark" : "light";
         const root = document.firstElementChild;
         root?.setAttribute("data-theme", theme);
         root?.classList.toggle("dark", theme === "dark");

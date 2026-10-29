@@ -1,0 +1,109 @@
+---
+import { discoveries } from "@/data/polar";
+import { Image } from "astro:assets";
+import polarReference from "@/assets/antarctica-etopo-2022.webp";
+---
+
+<div class="atlas">
+  <div class="atlas-art">
+    <Image
+      src={polarReference}
+      alt="基于 NOAA ETOPO 2022 冰面高程独立渲染的南极与南大洋艺术浮雕地图"
+      widths={[640, 960, 1440]}
+      sizes="(max-width: 800px) 100vw, 65vw"
+      format="webp"
+      quality={85}
+      loading="eager"
+      fetchpriority="high"
+    />
+  </div>
+  <a
+    class="map-node notes"
+    aria-label="Field Notes：文章、观察与沿途思考"
+    href="/posts/"
+    ><span aria-hidden="true"></span><b
+      >Field Notes ↗<small>文章、观察与沿途思考</small></b
+    ></a
+  ><a
+    class="map-node station"
+    aria-label="Research Station：项目、实验与实践记录"
+    href="/projects/"
+    ><span aria-hidden="true"></span><b
+      >Research Station ↗<small>项目、实验与实践记录</small></b
+    ></a
+  ><a class="map-node observer" aria-label="Observer：关于我" href="/about/"
+    ><span aria-hidden="true"></span><b
+      >Observer ↗<small>认识地图背后的记录者</small></b
+    ></a
+  >{
+    discoveries.map((item, i) => (
+      <button
+        class:list={["map-node", i === 0 ? "core" : "signal"]}
+        data-discovery={item.id}
+        aria-haspopup="dialog"
+        aria-label={item.title}
+      >
+        <>
+          <span aria-hidden="true" />
+          <b>{item.title} +</b>
+        </>
+      </button>
+    ))
+  }
+</div><p class="explore-hint">探索微光 · 悬停或聚焦查看站点</p>
+{
+  discoveries.map(item => (
+    <dialog id={item.id} aria-labelledby={item.id + "-title"}>
+      <>
+        <form method="dialog">
+          <button aria-label="关闭面板">关闭 ×</button>
+        </form>
+        <p class="eyebrow">DISCOVERY / 可编辑占位</p>
+        <h2 id={item.id + "-title"}>{item.title}</h2>
+        <p>{item.text}</p>
+      </>
+    </dialog>
+  ))
+}
+<script>
+  let cleanupMotion: (() => void) | undefined;
+  document.addEventListener("astro:before-swap", () => cleanupMotion?.());
+  document.addEventListener("astro:page-load", () => {
+    cleanupMotion?.();
+    const atlas = document.querySelector<HTMLElement>(".atlas");
+    if (atlas) {
+      let visible = true;
+      const update = () =>
+        atlas.classList.toggle(
+          "motion-paused",
+          document.hidden || !document.hasFocus() || !visible
+        );
+      const observer = new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        update();
+      });
+      observer.observe(atlas);
+      document.addEventListener("visibilitychange", update);
+      window.addEventListener("focus", update);
+      window.addEventListener("blur", update);
+      update();
+      cleanupMotion = () => {
+        observer.disconnect();
+        document.removeEventListener("visibilitychange", update);
+        window.removeEventListener("focus", update);
+        window.removeEventListener("blur", update);
+      };
+    }
+    document
+      .querySelectorAll<HTMLButtonElement>("[data-discovery]")
+      .forEach(button => {
+        button.addEventListener("click", () => {
+          const panel = document.getElementById(
+            button.dataset.discovery!
+          ) as HTMLDialogElement;
+          panel.showModal();
+          panel.addEventListener("close", () => button.focus(), { once: true });
+        });
+      });
+  });
+</script>

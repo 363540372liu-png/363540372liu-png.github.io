@@ -37,3 +37,8 @@
 :target {
   scroll-margin-block: 1rem;
 }
+
+code,
+pre {
+  font-family: ui-monospace, Consolas, monospace;
+}
