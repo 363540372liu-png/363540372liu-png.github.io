@@ -34,43 +34,63 @@ const coast =
       fill="url(#ice)"
       stroke="white"
       stroke-width="2"
-      filter="url(#relief)"></use><g clip-path="url(#clip)"
+      filter="url(#relief)"></use><g class="terrain" clip-path="url(#clip)"
       >{
-        Array.from({ length: 32 }, (_, i) => (
-          <path
-            d={coast}
-            transform={
-              "translate(" +
-              340 * i * 0.022 +
-              " " +
-              290 * i * 0.022 +
-              ") scale(" +
-              (1 - i * 0.022) +
-              ")"
-            }
-            fill="none"
-            stroke={i % 4 === 0 ? "#93b9ca" : "#b7d2dd"}
-            stroke-width={i % 4 === 0 ? ".9" : ".55"}
-          />
-        ))
+        [
+          { x: 410, y: 260, rx: 145, ry: 125, count: 13 },
+          { x: 240, y: 375, rx: 100, ry: 65, count: 7 },
+        ].flatMap(region =>
+          Array.from({ length: region.count }, (_, i) => {
+            const scale = 1 - i / (region.count + 2);
+            const points = Array.from({ length: 65 }, (_, j) => {
+              const angle = (j / 64) * Math.PI * 2;
+              const wave =
+                1 +
+                0.055 * Math.sin(angle * 3 + i * 0.12) +
+                0.035 * Math.cos(angle * 5);
+              return [
+                region.x + Math.cos(angle) * region.rx * scale * wave,
+                region.y + Math.sin(angle) * region.ry * scale * wave,
+              ];
+            });
+            return (
+              <path
+                d={
+                  points
+                    .map((point, j) => (j ? "L" : "M") + point.join(" "))
+                    .join(" ") + " Z"
+                }
+                fill="none"
+                stroke="#9bbecb"
+                stroke-width={i % 4 === 0 ? ".8" : ".5"}
+                opacity=".55"
+              />
+            );
+          })
+        )
       }<path
         d="M180 355Q270 300 300 175M265 420Q315 340 470 210M335 447Q350 365 520 330"
         stroke="white"
-        stroke-width="8"
+        stroke-width="2"
         fill="none"
-        opacity=".5"></path></g
-    ><g fill="#668797" font-size="9" letter-spacing="3"
+        opacity=".25"></path></g
+    ><g class="ice-light" clip-path="url(#clip)" fill="white"
+      ><ellipse cx="380" cy="240" rx="130" ry="75" opacity=".18"
+      ></ellipse><ellipse cx="300" cy="370" rx="95" ry="45" opacity=".12"
+      ></ellipse></g
+    ><g fill="#668797" opacity=".6" font-size="9" letter-spacing="3"
       ><text x="380" y="66">EAST ANTARCTICA</text><text x="26" y="415"
         >SOUTHERN OCEAN</text
       ><text x="308" y="531">90° S</text></g
     ></svg
   >
   <a class="map-node notes" href="/posts/"
-    ><span>01</span><b>Field Notes ↗</b></a
+    ><span>01</span><b>Field Notes ↗<small>文章、观察与沿途思考</small></b></a
   ><a class="map-node station" href="/projects/"
-    ><span>02</span><b>Research Station ↗</b></a
+    ><span>02</span><b>Research Station ↗<small>项目、实验与实践记录</small></b
+    ></a
   ><a class="map-node observer" href="/about/"
-    ><span>03</span><b>Observer ↗</b></a
+    ><span>03</span><b>Observer ↗<small>认识地图背后的记录者</small></b></a
   >{
     discoveries.map((item, i) => (
       <button
@@ -85,7 +105,7 @@ const coast =
       </button>
     ))
   }
-</div>
+</div><p class="explore-hint">探索编号 · 悬停或聚焦查看站点</p>
 {
   discoveries.map(item => (
     <dialog id={item.id} aria-labelledby={item.id + "-title"}>
@@ -101,7 +121,34 @@ const coast =
   ))
 }
 <script>
+  let cleanupMotion: (() => void) | undefined;
+  document.addEventListener("astro:before-swap", () => cleanupMotion?.());
   document.addEventListener("astro:page-load", () => {
+    cleanupMotion?.();
+    const atlas = document.querySelector<HTMLElement>(".atlas");
+    if (atlas) {
+      let visible = true;
+      const update = () =>
+        atlas.classList.toggle(
+          "motion-paused",
+          document.hidden || !document.hasFocus() || !visible
+        );
+      const observer = new IntersectionObserver(entries => {
+        visible = entries[0].isIntersecting;
+        update();
+      });
+      observer.observe(atlas);
+      document.addEventListener("visibilitychange", update);
+      window.addEventListener("focus", update);
+      window.addEventListener("blur", update);
+      update();
+      cleanupMotion = () => {
+        observer.disconnect();
+        document.removeEventListener("visibilitychange", update);
+        window.removeEventListener("focus", update);
+        window.removeEventListener("blur", update);
+      };
+    }
     document
       .querySelectorAll<HTMLButtonElement>("[data-discovery]")
       .forEach(button => {
