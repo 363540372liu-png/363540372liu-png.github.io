@@ -1,15 +1,3 @@
-export const discoveries = [
-  {
-    id: "ice-core",
-    title: "Ice Core",
-    text: "想法占位：这里将放置一段值得回看的个人思考。",
-  },
-  {
-    id: "signal",
-    title: "Signal",
-    text: "探索占位：这里将更新最近阅读、观察或尝试的事物。",
-  },
-];
 export type Project = {
   title: string;
   description: string;
