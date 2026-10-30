@@ -5,7 +5,7 @@ export default {
     home: "Home",
     posts: "Posts",
     tags: "Tags",
-    about: "About",
+    about: "The Observer",
     archives: "Archives",
     search: "Search",
   },

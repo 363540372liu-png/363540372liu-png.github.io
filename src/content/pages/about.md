@@ -1,6 +1,6 @@
 ---
-title: 关于我
-description: 关于企鹅的个人空间，以及这个博客的一切。
+title: 观察者
+description: 记录者的自我介绍，以及 Polar Explorer 这张尚未完成的地图。
 ---
 你好，我是**加班的企鹅**。
 

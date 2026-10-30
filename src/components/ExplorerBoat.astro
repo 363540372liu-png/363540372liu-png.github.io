@@ -5,7 +5,7 @@
 <a
   class="explorer-boat"
   href="/about/"
-  aria-label="About the Explorer"
+  aria-label="观察者 / The Observer"
   data-explorer-boat
 >
   <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
@@ -46,21 +46,21 @@
         class="boat-halo"
         cx="49"
         cy="58"
-        r="6"
-        fill="#d8eaf0"
-        fill-opacity=".18"
-        stroke="#a2c0cc"
-        stroke-width=".6"></circle>
+        r="12"
+        fill="none"
+        stroke="#79a9bd"
+        stroke-width="1.5"></circle>
       <circle
+        class="boat-dot"
         cx="49"
         cy="58"
-        r="2.1"
-        fill="#dfedf1"
-        stroke="#9cb9c5"
-        stroke-width=".5"></circle>
+        r="5.8"
+        fill="#d8eaf0"
+        stroke="#8eafbf"
+        stroke-width=".9"></circle>
     </g>
   </svg>
-  <span class="boat-label">About the Explorer ↗</span>
+  <span class="boat-label">观察者 / The Observer ↗</span>
 </a>
 
 <style>
@@ -87,7 +87,15 @@
   }
   .boat-halo {
     opacity: 0;
-    transition: opacity 0.25s ease;
+    transform: scale(0.8);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .boat-dot {
+    transition: fill 0.25s ease;
   }
   .boat-label {
     position: absolute;
@@ -111,19 +119,24 @@
       visibility 0.25s ease;
     pointer-events: none;
   }
-  .explorer-boat:is(:hover, :focus-visible) .boat-halo {
-    opacity: 1;
+  .explorer-boat:is(:hover, :focus-visible, :active) .boat-halo {
+    opacity: 0.65;
+    transform: scale(1.25);
+  }
+  .explorer-boat:is(:hover, :focus-visible, :active) .boat-dot {
+    fill: #8bbfd3;
   }
   .explorer-boat:is(:hover, :focus-visible) .boat-label {
     opacity: 1;
     visibility: visible;
   }
   .explorer-boat:focus-visible {
-    outline: 1px solid #9cb9c5;
+    outline: 2px solid #79a9bd;
     outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
     .boat-halo,
+    .boat-dot,
     .boat-label {
       transition: none;
     }
