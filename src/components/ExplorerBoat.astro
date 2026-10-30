@@ -70,7 +70,7 @@
     top: 47%;
     width: clamp(48px, 9%, 68px);
     aspect-ratio: 1;
-    transform: translate(-50%, -50%) rotate(-12deg);
+    transform: translate3d(-50%, -50%, 0) rotate(-12deg);
     z-index: 3;
     display: block;
     border-radius: 50%;
@@ -156,20 +156,42 @@
     entered = true;
     const reduce = matchMedia("(prefers-reduced-motion: reduce)");
     if (reduce.matches) return;
-    // A cubic course in map percentages keeps the SVG and its hit area together,
-    // including if the viewport changes midway through the voyage.
-    const frames = Array.from({ length: 61 }, (_, i) => {
-      const t = i / 60;
-      const u = 1 - t;
-      return {
-        left: `${u ** 3 * 7 + 3 * u * u * t * 7.5 + 3 * u * t * t * 11 + t ** 3 * 15.5}%`,
-        top: `${u ** 3 * 67 + 3 * u * u * t * 53 + 3 * u * t * t * 47 + t ** 3 * 47}%`,
-      };
-    });
-    const voyage = boat.animate(frames, {
+    // Keep layout anchored at the dock. Animate the whole link on the compositor
+    // instead of rounding left/top layout coordinates on every frame.
+    const atlas = boat.parentElement!;
+    const framesForSize = () => {
+      const { width, height } = atlas.getBoundingClientRect();
+      return Array.from({ length: 121 }, (_, i) => {
+        const t = i / 120;
+        const u = 1 - t;
+        const x =
+          u ** 3 * 7 + 3 * u * u * t * 7.5 + 3 * u * t * t * 11 + t ** 3 * 15.5;
+        const y =
+          u ** 3 * 67 + 3 * u * u * t * 53 + 3 * u * t * t * 47 + t ** 3 * 47;
+        const dx = ((x - 15.5) / 100) * width;
+        const dy = ((y - 47) / 100) * height;
+        return {
+          transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) rotate(-12deg)`,
+        };
+      });
+    };
+    boat.style.willChange = "transform";
+    const voyage = boat.animate(framesForSize(), {
       duration: 4400,
       easing: "cubic-bezier(.25,.1,.25,1)",
     });
+    voyage.addEventListener(
+      "finish",
+      () => boat.style.removeProperty("will-change"),
+      { once: true }
+    );
+    // Reproject the same course after a resize without resetting its clock.
+    const resize = new ResizeObserver(() => {
+      if (voyage.playState !== "finished") {
+        (voyage.effect as KeyframeEffect).setKeyframes(framesForSize());
+      }
+    });
+    resize.observe(atlas);
     const controller = new AbortController();
     const { signal } = controller;
     // Keyboard focus docks immediately; pointer intent pauses in place to avoid a missed click.
@@ -206,7 +228,9 @@
     syncVisibility();
     dispose = () => {
       controller.abort();
+      resize.disconnect();
       voyage.cancel();
+      boat.style.removeProperty("will-change");
     };
   });
 </script>
