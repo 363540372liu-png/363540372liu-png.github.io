@@ -51,7 +51,7 @@ import polarReference from "@/assets/antarctica-etopo-2022.webp";
   <ExplorerBoat />
 </div><nav class="region-mobile-nav" aria-label="四大探索区域">
   {regions.map(region => <a href={`/regions/${region.id}/`}>{region.name}</a>)}
-</nav><p class="explore-hint">探索微光 · 四处坐标，四种观察</p>
+</nav>
 <script>
   let cleanupMotion: (() => void) | undefined;
   document.addEventListener("astro:before-swap", () => cleanupMotion?.());
