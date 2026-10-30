@@ -57,26 +57,6 @@
   font-size: 0.875rem;
   color: var(--muted-foreground);
 }
-.region-seal {
-  aspect-ratio: 1;
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: var(--region-accent);
-  outline: 1px solid var(--border);
-  outline-offset: 12px;
-}
-.region-seal span {
-  font-size: 3.75rem;
-}
-.region-seal small {
-  font-size: 0.75rem;
-  letter-spacing: 0.08em;
-  margin-top: 16px;
-}
 .region-list-heading,
 .section-heading {
   display: flex;
@@ -157,9 +137,10 @@
   padding: 4px 0;
 }
 .region-empty {
-  padding: 48px;
-  background: var(--muted);
-  margin: 24px 0;
+  padding: 24px 0;
+  background: transparent;
+  border-top: 1px solid var(--border);
+  margin: 16px 0;
 }
 .region-empty h2 {
   font-size: 1.875rem;
@@ -277,9 +258,7 @@
     gap: 32px;
     margin-bottom: 40px;
   }
-  .region-seal {
-    display: none;
-  }
+
   .page-heading,
   .region-heading h1 {
     font-size: 2.25rem;
@@ -341,5 +320,155 @@
 @media (min-width: 801px) {
   .journal-grid.has-featured > .journal-card:last-child:nth-child(4) {
     grid-column: 1 / -1;
+  }
+}
+
+.home-regions {
+  padding: 64px 0 40px;
+}
+.home-regions .section-heading {
+  margin-bottom: 8px;
+}
+.section-aside {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+}
+.home-regions .region-directory {
+  padding: 24px 0 0;
+}
+.region-directory a {
+  position: relative;
+  border-top: 1px solid var(--border);
+  padding: 24px 8px 24px 0;
+  transition: border-color 0.25s var(--explorer-ease);
+}
+.region-directory a:is(:hover, :focus-visible) {
+  border-color: var(--region-accent);
+  opacity: 1;
+}
+.region-directory .region-index {
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  margin-bottom: 8px;
+}
+.region-directory p {
+  font-size: 0.875rem;
+  color: var(--muted-foreground);
+  line-height: 1.75;
+  margin-top: 8px;
+}
+.region-directory .entry-arrow {
+  font-size: 1.125rem;
+  align-self: flex-end;
+}
+.home-about {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 64px;
+  padding: 64px 0 80px;
+  border-top: 1px solid var(--border);
+}
+.home-about .about-line {
+  font-size: 2.25rem;
+  line-height: 1.4;
+  letter-spacing: -0.03em;
+  margin-bottom: 24px;
+}
+.home-about p:not(.eyebrow):not(.about-line) {
+  max-width: 520px;
+  line-height: 1.9;
+  color: var(--muted-foreground);
+}
+.region-mini-map {
+  position: relative;
+  aspect-ratio: 1;
+  margin: 0;
+  width: 100%;
+  max-width: 280px;
+  justify-self: end;
+}
+.mini-map-art {
+  position: absolute;
+  inset: 0;
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 72%);
+  opacity: 0.65;
+}
+.mini-map-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(0.35);
+}
+.mini-map-point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  background: var(--point-color);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--point-color) 15%, transparent);
+}
+.region-mini-map figcaption {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--muted-foreground);
+  letter-spacing: 0.08em;
+}
+.region-empty h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  margin-bottom: 8px;
+}
+.region-empty .section-kicker {
+  margin-bottom: 12px;
+}
+.region-empty a {
+  margin-top: 16px;
+  font-size: 0.875rem;
+}
+@media (max-width: 800px) {
+  .home-regions {
+    padding: 40px 0 24px;
+  }
+  .home-about {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 40px 0 48px;
+  }
+  .home-about .about-line {
+    font-size: 1.875rem;
+  }
+  .region-heading {
+    grid-template-columns: minmax(0, 1fr) 112px;
+    gap: 16px;
+  }
+  .region-heading-copy {
+    min-width: 0;
+  }
+  .region-heading h1 {
+    font-size: 1.875rem;
+    line-height: 1.3;
+  }
+  .region-heading .region-description {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  .region-mini-map {
+    align-self: start;
+    max-width: 112px;
+  }
+  .region-mini-map figcaption {
+    bottom: -24px;
+    font-size: 0.75rem;
+    letter-spacing: 0;
+  }
+  .region-empty {
+    padding: 24px 0;
+  }
+  .section-aside {
+    display: none;
   }
 }

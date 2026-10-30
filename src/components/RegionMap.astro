@@ -1,0 +1,30 @@
+---
+import { Image } from "astro:assets";
+import relief from "@/assets/antarctica-etopo-2022.webp";
+import { regions } from "@/data/regions";
+type Props = { region: (typeof regions)[number] };
+const { region } = Astro.props;
+---
+
+<figure
+  class="region-mini-map"
+  aria-label={region.name + "位置示意，" + region.location}
+>
+  <div class="mini-map-art">
+    <Image
+      src={relief}
+      alt=""
+      width={360}
+      format="webp"
+      quality={78}
+      loading="eager"
+    />
+  </div>
+  <span
+    class="mini-map-point"
+    style={`left:${region.position.left}%;top:${region.position.top}%;--point-color:${region.color}`}
+    aria-hidden="true"></span>
+  <figcaption>
+    {region.fictional ? "FICTIONAL / 虚构位置" : "ANTARCTIC ATLAS / 区域位置"}
+  </figcaption>
+</figure>

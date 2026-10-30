@@ -7,7 +7,10 @@ type Props = { post: CollectionEntry<"posts">; large?: boolean };
 const { post, large = false } = Astro.props;
 ---
 
-<article class:list={["journal-card", { "journal-card-large": large }]}>
+<article
+  data-reveal
+  class:list={["journal-card", { "journal-card-large": large }]}
+>
   <Datetime {...post.data} /><h3>
     <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)}
       >{post.data.title}<span aria-hidden="true"> ↗</span></a

@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import RegionMap from "@/components/RegionMap.astro";
 import JournalCard from "@/components/JournalCard.astro";
 import { regions } from "@/data/regions";
 import { getSortedPosts } from "@/utils/getSortedPosts";
@@ -49,8 +50,8 @@ const { region, entries, current, count, total } = Astro.props;
           </a>
         ))
       }
-    </nav><section class="region-heading">
-      <div>
+    </nav><section class="region-heading" data-region-intro>
+      <div class="region-heading-copy">
         <p class="section-kicker">{region.english}</p><h1>{region.name}</h1><p
           class="region-description"
         >
@@ -62,9 +63,7 @@ const { region, entries, current, count, total } = Astro.props;
             </p>
           )
         }
-      </div><div class="region-seal" aria-hidden="true">
-        <span>{region.symbol}</span><small>AN UNFINISHED ATLAS</small>
-      </div>
+      </div><RegionMap {region} />
     </section><div class="region-list-heading">
       <h2>区域日志</h2><span>{total} 篇记录</span>
     </div>{
