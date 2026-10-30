@@ -77,7 +77,7 @@ content:
           switcher: true
 
   - name: about
-    label: 关于我
+    label: 观察者
     type: file
     path: src/content/pages/about.md
     format: yaml-frontmatter

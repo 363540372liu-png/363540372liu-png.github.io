@@ -1,0 +1,236 @@
+---
+// Original vector artwork. The beacon belongs to the boat's SVG, never the map.
+---
+
+<a
+  class="explorer-boat"
+  href="/about/"
+  aria-label="观察者 / The Observer"
+  data-explorer-boat
+>
+  <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <!-- Quiet oblique deck, slender mast and two stitched terracotta sails. -->
+      <path
+        d="M13 57 Q36 52 66 56 Q54 64 30 63 Q20 62 13 57Z"
+        fill="#a58a80"
+        stroke="#8f8880"
+        stroke-width=".5"></path>
+      <path d="M19 57 Q38 55 59 57 Q43 61 29 60Z" fill="#c8b7a5"></path>
+      <path
+        d="M38 12 L39 58 M38 15 L16 56 M40 19 L64 56"
+        fill="none"
+        stroke="#89918b"
+        stroke-width=".65"></path>
+      <path
+        d="M36 16 Q23 30 20 49 L36 52Z"
+        fill="#b38d7e"
+        stroke="#a58b7e"
+        stroke-width=".4"></path>
+      <path
+        d="M42 24 L59 51 L42 53Z"
+        fill="#c09a89"
+        stroke="#a58b7e"
+        stroke-width=".4"></path>
+      <path
+        d="M32 24 Q26 35 24 46 M46 33 L53 47"
+        fill="none"
+        stroke="#dbc6b5"
+        stroke-width=".55"></path>
+      <path
+        d="M32 55 L35 52 L43 53 L46 57"
+        fill="#c5b5a5"
+        stroke="#9c998d"
+        stroke-width=".45"></path>
+      <circle
+        class="boat-halo"
+        cx="49"
+        cy="58"
+        r="12"
+        fill="none"
+        stroke="#79a9bd"
+        stroke-width="1.5"></circle>
+      <circle
+        class="boat-dot"
+        cx="49"
+        cy="58"
+        r="5.8"
+        fill="#d8eaf0"
+        stroke="#8eafbf"
+        stroke-width=".9"></circle>
+    </g>
+  </svg>
+  <span class="boat-label">观察者 / The Observer ↗</span>
+</a>
+
+<style>
+  .explorer-boat {
+    position: absolute;
+    left: 15.5%;
+    top: 47%;
+    width: clamp(48px, 9%, 68px);
+    aspect-ratio: 1;
+    transform: translate3d(-50%, -50%, 0) rotate(-12deg);
+    z-index: 3;
+    display: block;
+    border-radius: 50%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: #a9d3e040;
+  }
+  .explorer-boat svg {
+    width: 65%;
+    height: 65%;
+    position: absolute;
+    left: 17.5%;
+    top: 17.5%;
+    overflow: visible;
+  }
+  .boat-halo {
+    opacity: 0;
+    transform: scale(0.8);
+    transform-box: fill-box;
+    transform-origin: center;
+    transition:
+      opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .boat-dot {
+    transition: fill 0.25s ease;
+  }
+  .boat-label {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: max-content;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+    box-shadow: 0 8px 24px #27465d12;
+    transform: rotate(12deg);
+    transform-origin: bottom left;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
+    pointer-events: none;
+  }
+  .explorer-boat:is(:hover, :focus-visible, :active) .boat-halo {
+    opacity: 0.65;
+    transform: scale(1.25);
+  }
+  .explorer-boat:is(:hover, :focus-visible, :active) .boat-dot {
+    fill: #8bbfd3;
+  }
+  .explorer-boat:is(:hover, :focus-visible) .boat-label {
+    opacity: 1;
+    visibility: visible;
+  }
+  .explorer-boat:focus-visible {
+    outline: 2px solid #79a9bd;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .boat-halo,
+    .boat-dot,
+    .boat-label {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  let entered = false;
+  let dispose: (() => void) | undefined;
+  document.addEventListener("astro:before-swap", () => dispose?.());
+  document.addEventListener("astro:page-load", () => {
+    dispose?.();
+    const boat = document.querySelector<HTMLAnchorElement>(
+      "[data-explorer-boat]"
+    );
+    if (!boat || entered) return;
+    entered = true;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduce.matches) return;
+    // Keep layout anchored at the dock. Animate the whole link on the compositor
+    // instead of rounding left/top layout coordinates on every frame.
+    const atlas = boat.parentElement!;
+    const framesForSize = () => {
+      const { width, height } = atlas.getBoundingClientRect();
+      return Array.from({ length: 121 }, (_, i) => {
+        const t = i / 120;
+        const u = 1 - t;
+        const x =
+          u ** 3 * 7 + 3 * u * u * t * 7.5 + 3 * u * t * t * 11 + t ** 3 * 15.5;
+        const y =
+          u ** 3 * 67 + 3 * u * u * t * 53 + 3 * u * t * t * 47 + t ** 3 * 47;
+        const dx = ((x - 15.5) / 100) * width;
+        const dy = ((y - 47) / 100) * height;
+        return {
+          transform: `translate3d(calc(-50% + ${dx}px), calc(-50% + ${dy}px), 0) rotate(-12deg)`,
+        };
+      });
+    };
+    boat.style.willChange = "transform";
+    const voyage = boat.animate(framesForSize(), {
+      duration: 4400,
+      easing: "cubic-bezier(.25,.1,.25,1)",
+    });
+    voyage.addEventListener(
+      "finish",
+      () => boat.style.removeProperty("will-change"),
+      { once: true }
+    );
+    // Reproject the same course after a resize without resetting its clock.
+    const resize = new ResizeObserver(() => {
+      if (voyage.playState !== "finished") {
+        (voyage.effect as KeyframeEffect).setKeyframes(framesForSize());
+      }
+    });
+    resize.observe(atlas);
+    const controller = new AbortController();
+    const { signal } = controller;
+    // Keyboard focus docks immediately; pointer intent pauses in place to avoid a missed click.
+    const dock = () => voyage.finish();
+    boat.addEventListener(
+      "focus",
+      () => {
+        if (boat.matches(":focus-visible")) dock();
+      },
+      { signal }
+    );
+    const pause = () => {
+      if (voyage.playState === "running") voyage.pause();
+    };
+    boat.addEventListener("pointerenter", pause, { signal });
+    boat.addEventListener("pointerdown", pause, { signal });
+    boat.addEventListener(
+      "pointerleave",
+      () => {
+        if (voyage.playState === "paused" && !document.hidden) voyage.play();
+      },
+      { signal }
+    );
+    const syncReducedMotion = () => {
+      if (reduce.matches) dock();
+    };
+    reduce.addEventListener("change", syncReducedMotion, { signal });
+    const syncVisibility = () => {
+      if (voyage.playState === "finished") return;
+      if (document.hidden) voyage.pause();
+      else voyage.play();
+    };
+    document.addEventListener("visibilitychange", syncVisibility, { signal });
+    syncVisibility();
+    dispose = () => {
+      controller.abort();
+      resize.disconnect();
+      voyage.cancel();
+      boat.style.removeProperty("will-change");
+    };
+  });
+</script>
