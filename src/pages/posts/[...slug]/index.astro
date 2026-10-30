@@ -206,7 +206,10 @@ const ogImage = ogImageUrl
                 </p>
                 <RegionMap {region} loading="lazy" />
                 <p class="reading-coordinates">{region.location}</p>
-                <a class="reading-location-link" href={`/regions/${region.id}/`}>
+                <a
+                  class="reading-location-link"
+                  href={`/regions/${region.id}/`}
+                >
                   探索区域日志 <span aria-hidden="true">↗</span>
                 </a>
               </div>
