@@ -153,36 +153,6 @@
   text-align: center;
   margin: 16px 0;
 }
-.notes {
-  left: 30%;
-  top: 49%;
-}
-.station {
-  left: 58%;
-  top: 35%;
-}
-.observer {
-  left: 52%;
-  top: 66%;
-}
-.core {
-  left: 40%;
-  top: 29%;
-}
-.signal {
-  left: 71%;
-  top: 55%;
-}
-.core b,
-.signal b {
-  opacity: 0;
-}
-.core:hover b,
-.core:focus-visible b,
-.signal:hover b,
-.signal:focus-visible b {
-  opacity: 1;
-}
 .map-caption {
   display: flex;
   justify-content: space-between;
@@ -313,10 +283,6 @@ dialog button {
   .map-node b {
     font-size: 0.75rem;
   }
-  .core b,
-  .signal b {
-    opacity: 0.7;
-  }
   .map-caption {
     gap: 16px;
     letter-spacing: 0;
@@ -343,12 +309,6 @@ dialog button {
   .map-node {
     flex-direction: column;
     gap: 0;
-  }
-  .station {
-    left: 57%;
-  }
-  .signal {
-    left: 73%;
   }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -433,34 +393,6 @@ dialog button {
 .map-node {
   transform: translate(-50%, -50%);
 }
-.notes {
-  left: 30%;
-  top: 44%;
-}
-.station {
-  left: 62%;
-  top: 35%;
-}
-.observer {
-  left: 64%;
-  top: 69%;
-}
-.core {
-  left: 45%;
-  top: 54%;
-}
-.signal {
-  left: 78%;
-  top: 51%;
-}
-.signal b {
-  left: auto;
-  right: 40px;
-}
-.signal b::before {
-  left: auto;
-  right: -16px;
-}
 .map-node > span {
   background: #a9d3e080;
   box-shadow: 0 0 8px #9acbdd40;
@@ -474,12 +406,6 @@ dialog button {
   opacity: 0.12;
   animation: node-breath 9s cubic-bezier(0.65, 0, 0.35, 1) infinite alternate;
   pointer-events: none;
-}
-.station > span::after {
-  animation-delay: -3s;
-}
-.observer > span::after {
-  animation-delay: -6s;
 }
 @keyframes node-breath {
   from {
@@ -548,29 +474,10 @@ dialog button {
   }
 }
 
-/* Quiet visual markers; the original 48px interactive targets stay intact. */
-.map-node:is(.core, .signal) > span {
-  width: 4px;
-  height: 4px;
-  background: #b7d7e14d;
-  border-color: #8eafbf50;
-  box-shadow: none;
-}
-.map-node:is(.core, .signal) > span::after {
-  content: none;
-}
 .map-node:is(:hover, :focus-visible) > span {
   background: #8bbfd3;
 }
 @media (hover: none), (max-width: 800px) {
-  .map-node:is(.core, .signal) b {
-    visibility: hidden;
-    opacity: 0;
-  }
-  .map-node:is(.core, .signal):is(:hover, :focus-visible) b {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 
 /* V2.1 geographic anchors are calculated from EPSG:3031, not hand-positioned. */
