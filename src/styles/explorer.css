@@ -475,3 +475,12 @@
     display: none;
   }
 }
+
+/* Desktop-only regional index emphasis; leave mobile cards unchanged. */
+@media (min-width: 901px) {
+  .home-regions .region-directory b {
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
+    line-height: 1.45;
+  }
+}
