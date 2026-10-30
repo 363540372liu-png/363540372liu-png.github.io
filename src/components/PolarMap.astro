@@ -1,4 +1,5 @@
 ---
+import ExplorerBoat from "./ExplorerBoat.astro";
 import { regions } from "@/data/regions";
 import { Image } from "astro:assets";
 import polarReference from "@/assets/antarctica-etopo-2022.webp";
@@ -47,6 +48,7 @@ import polarReference from "@/assets/antarctica-etopo-2022.webp";
       </a>
     ))
   }
+  <ExplorerBoat />
 </div><nav class="region-mobile-nav" aria-label="四大探索区域">
   {regions.map(region => <a href={`/regions/${region.id}/`}>{region.name}</a>)}
 </nav><p class="explore-hint">探索微光 · 四处坐标，四种观察</p>

@@ -1,0 +1,213 @@
+---
+// Original vector artwork. The beacon belongs to the boat's SVG, never the map.
+---
+
+<a
+  class="explorer-boat"
+  href="/about/"
+  aria-label="About the Explorer"
+  data-explorer-boat
+>
+  <svg viewBox="0 0 80 80" aria-hidden="true" focusable="false">
+    <defs>
+      <linearGradient id="explorer-sail" x1="0" y1="0" x2="1" y2="1">
+        <stop stop-color="#be8d80"></stop><stop offset="1" stop-color="#975f56"
+        ></stop>
+      </linearGradient>
+    </defs>
+    <path
+      d="M8 65 Q32 69 65 64 M15 70 Q35 73 55 69"
+      fill="none"
+      stroke="#9bb9c4"
+      stroke-width=".8"
+      opacity=".45"></path>
+    <g stroke-linecap="round" stroke-linejoin="round">
+      <path
+        d="M39 10 L39 59 M38 13 L13 56 M41 16 L67 55"
+        fill="none"
+        stroke="#697d80"
+        stroke-width="1"></path>
+      <path
+        d="M36 15 Q20 29 17 48 Q25 46 36 49 Z"
+        fill="url(#explorer-sail)"
+        stroke="#966d64"
+        stroke-width=".6"></path>
+      <path
+        d="M43 22 L63 50 Q52 48 43 51 Z"
+        fill="#b38478"
+        stroke="#966d64"
+        stroke-width=".6"></path>
+      <path
+        d="M33 22 Q24 35 22 44 M47 31 L57 46"
+        fill="none"
+        stroke="#dcc0b4"
+        stroke-width=".65"
+        opacity=".7"></path>
+      <path
+        d="M14 57 Q37 61 68 54 L59 64 Q34 69 19 63 Z"
+        fill="#8e655f"
+        stroke="#6f6461"
+        stroke-width=".8"></path>
+      <path
+        d="M17 57 Q38 61 65 55"
+        fill="none"
+        stroke="#dac8b9"
+        stroke-width="1.5"></path>
+      <path
+        d="M30 56 L32 52 L43 52 L47 57"
+        fill="#c4b4a3"
+        stroke="#827f75"
+        stroke-width=".7"></path>
+      <circle
+        class="boat-halo"
+        cx="49"
+        cy="59"
+        r="9"
+        fill="#d7eef5"
+        fill-opacity=".3"
+        stroke="#92c2d4"
+        stroke-width=".8"></circle>
+      <circle
+        cx="49"
+        cy="59"
+        r="3"
+        fill="#d9f0f7"
+        stroke="#82afc3"
+        stroke-width=".8"></circle>
+      <circle cx="48.5" cy="58.5" r="1.2" fill="#f6fcff"></circle>
+    </g>
+  </svg>
+  <span class="boat-label">About the Explorer ↗</span>
+</a>
+
+<style>
+  .explorer-boat {
+    position: absolute;
+    left: 19%;
+    top: 46%;
+    width: clamp(48px, 9%, 68px);
+    aspect-ratio: 1;
+    transform: translate(-50%, -50%) rotate(-12deg);
+    z-index: 3;
+    display: block;
+    border-radius: 50%;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: #a9d3e040;
+  }
+  .explorer-boat svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .boat-halo {
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .boat-label {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: max-content;
+    padding: 8px 12px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    background: var(--background);
+    color: var(--foreground);
+    font-size: 0.75rem;
+    font-weight: 500;
+    box-shadow: 0 8px 24px #27465d12;
+    transform: rotate(12deg);
+    transform-origin: bottom left;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.25s ease,
+      visibility 0.25s ease;
+    pointer-events: none;
+  }
+  .explorer-boat:is(:hover, :focus-visible) .boat-halo {
+    opacity: 1;
+  }
+  .explorer-boat:is(:hover, :focus-visible) .boat-label {
+    opacity: 1;
+    visibility: visible;
+  }
+  .explorer-boat:focus-visible {
+    outline: 2px solid #82afc3;
+    outline-offset: 3px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .boat-halo,
+    .boat-label {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  let entered = false;
+  let dispose: (() => void) | undefined;
+  document.addEventListener("astro:before-swap", () => dispose?.());
+  document.addEventListener("astro:page-load", () => {
+    dispose?.();
+    const boat = document.querySelector<HTMLAnchorElement>(
+      "[data-explorer-boat]"
+    );
+    if (!boat || entered) return;
+    entered = true;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)");
+    if (reduce.matches) return;
+    // A cubic course in map percentages keeps the SVG and its hit area together,
+    // including if the viewport changes midway through the voyage.
+    const frames = Array.from({ length: 61 }, (_, i) => {
+      const t = i / 60;
+      const u = 1 - t;
+      return {
+        left: `${u ** 3 * 2 + 3 * u * u * t * 4 + 3 * u * t * t * 11 + t ** 3 * 19}%`,
+        top: `${u ** 3 * 67 + 3 * u * u * t * 53 + 3 * u * t * t * 47 + t ** 3 * 46}%`,
+      };
+    });
+    const voyage = boat.animate(frames, {
+      duration: 4400,
+      easing: "cubic-bezier(.25,.1,.25,1)",
+    });
+    const controller = new AbortController();
+    const { signal } = controller;
+    // Keyboard focus docks immediately; pointer intent pauses in place to avoid a missed click.
+    const dock = () => voyage.finish();
+    boat.addEventListener(
+      "focus",
+      () => {
+        if (boat.matches(":focus-visible")) dock();
+      },
+      { signal }
+    );
+    const pause = () => {
+      if (voyage.playState === "running") voyage.pause();
+    };
+    boat.addEventListener("pointerenter", pause, { signal });
+    boat.addEventListener("pointerdown", pause, { signal });
+    boat.addEventListener(
+      "pointerleave",
+      () => {
+        if (voyage.playState === "paused" && !document.hidden) voyage.play();
+      },
+      { signal }
+    );
+    const syncReducedMotion = () => {
+      if (reduce.matches) dock();
+    };
+    reduce.addEventListener("change", syncReducedMotion, { signal });
+    const syncVisibility = () => {
+      if (voyage.playState === "finished") return;
+      if (document.hidden) voyage.pause();
+      else voyage.play();
+    };
+    document.addEventListener("visibilitychange", syncVisibility, { signal });
+    syncVisibility();
+    dispose = () => {
+      controller.abort();
+      voyage.cancel();
+    };
+  });
+</script>
