@@ -10,6 +10,7 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
 import { regions } from "@/data/regions";
+import RegionMap from "@/components/RegionMap.astro";
 import "@/styles/reading.css";
 import ShareLinks from "./_components/ShareLinks.astro";
 import BackToTopButton from "./_components/BackToTopButton.astro";
@@ -74,6 +75,7 @@ const {
 
 const { Content, headings } = await render(post);
 const region = regions.find(item => item.id === post.data.region);
+const regionNumber = region ? regions.indexOf(region) + 1 : 0;
 const contents = headings.filter(
   item =>
     (item.depth === 2 || item.depth === 3) && item.slug !== "table-of-contents"
@@ -199,14 +201,17 @@ const ogImage = ogImageUrl
           >
             {region && (
               <div class="reading-location">
-                <p class="reading-rail-kicker">IN THE ATLAS / 所在区域</p>
-                <span class="reading-symbol" aria-hidden="true">
-                  {region.symbol}
-                </span>
-                <a href={`/regions/${region.id}/`}>{region.name}</a>
-                <p>{region.english}</p>
+                <p class="reading-rail-kicker">
+                  ATLAS / 0{regionNumber} · 所在坐标
+                </p>
+                <RegionMap {region} loading="lazy" />
                 <p class="reading-coordinates">{region.location}</p>
-                <p>{region.description}</p>
+                <a
+                  class="reading-location-link"
+                  href={`/regions/${region.id}/`}
+                >
+                  探索区域日志 <span aria-hidden="true">↗</span>
+                </a>
               </div>
             )}
             {hasToc && (

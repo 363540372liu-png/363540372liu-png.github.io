@@ -112,21 +112,62 @@ body:has(.reading-page) > footer {
     color-mix(in srgb, var(--reading-accent) 40%, var(--border));
   padding-left: 20px;
 }
-.reading-location > .reading-symbol {
+.reading-location .region-mini-map {
+  position: relative;
   display: block;
-  margin: 20px 0 8px;
+  aspect-ratio: 1;
+  width: min(100%, 190px);
+  margin: 12px 0 20px;
 }
-.reading-location > a {
-  display: block;
-  color: var(--foreground);
-  font-size: 0.9rem;
+.reading-location .mini-map-art {
+  position: absolute;
+  inset: 0;
+  opacity: 0.65;
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 72%);
 }
-.reading-location p + p {
-  margin-top: 16px;
+.reading-location .mini-map-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: saturate(0.35);
+}
+.reading-location .mini-map-point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: var(--point-color);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--point-color) 15%, transparent);
+}
+.reading-location .region-mini-map figcaption {
+  position: absolute;
+  bottom: -10px;
+  width: 100%;
+  text-align: center;
+  font-size: 0.625rem;
+  letter-spacing: 0.04em;
+  color: var(--muted-foreground);
 }
 .reading-coordinates {
-  font-size: 0.7rem;
+  font-size: 0.75rem;
+  line-height: 1.7;
+  margin: 12px 0 16px;
+  color: var(--muted-foreground);
+}
+.reading-location-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 8px;
+  font-size: 0.8125rem;
   color: var(--foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--reading-accent);
+  text-underline-offset: 5px;
+}
+.reading-location-link span {
+  color: var(--reading-accent);
 }
 .reading-toc {
   margin-top: 32px;
@@ -331,6 +372,43 @@ body:has(.reading-page) > footer {
     flex-wrap: wrap;
   }
 }
+
+/* Desktop-only refinements: retain the existing mobile reading layout. */
+@media (min-width: 901px) {
+  .reading-heading {
+    position: relative;
+    border-top: 1px solid
+      color-mix(in srgb, var(--reading-accent) 45%, var(--border));
+  }
+  .reading-heading::before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: 0;
+    width: 108px;
+    height: 3px;
+    background: var(--reading-accent);
+  }
+  .reading-region {
+    gap: 14px;
+  }
+  .reading-region .reading-symbol {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 3px;
+    border: 1px solid
+      color-mix(in srgb, var(--reading-accent) 25%, var(--border));
+    background: color-mix(in srgb, var(--reading-accent) 9%, transparent);
+    font-size: 1.45rem;
+  }
+  .reading-region:hover .reading-symbol,
+  .reading-region:focus-visible .reading-symbol {
+    background: color-mix(in srgb, var(--reading-accent) 15%, transparent);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .reading-page *,
   .reading-heading [data-reading-title] {

@@ -2,8 +2,11 @@
 import { Image } from "astro:assets";
 import relief from "@/assets/antarctica-etopo-2022.webp";
 import { regions } from "@/data/regions";
-type Props = { region: (typeof regions)[number] };
-const { region } = Astro.props;
+type Props = {
+  region: (typeof regions)[number];
+  loading?: "eager" | "lazy";
+};
+const { region, loading = "eager" } = Astro.props;
 ---
 
 <figure
@@ -17,7 +20,7 @@ const { region } = Astro.props;
       width={360}
       format="webp"
       quality={78}
-      loading="eager"
+      loading={loading}
     />
   </div>
   <span
