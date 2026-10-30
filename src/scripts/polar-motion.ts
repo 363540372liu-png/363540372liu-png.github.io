@@ -66,9 +66,9 @@ function initMotion() {
     article?.querySelectorAll<HTMLElement>("h2[id],h3[id]") ?? []
   );
   const tocLinks = Array.from(
-    article?.querySelectorAll<HTMLAnchorElement>(
-      'a[href^="#"]:not(.heading-link)'
-    ) ?? []
+    document.querySelectorAll<HTMLAnchorElement>(
+      '#article a[href^="#"]:not(.heading-link), .reading-toc a[href^="#"]'
+    )
   ).filter(link =>
     headings.some(h => "#" + h.id === link.getAttribute("href"))
   );

@@ -11,8 +11,7 @@
 }
 .eyebrow,
 .hero-foot,
-.map-caption,
-.atlas-index {
+.map-caption {
   font-size: 0.75rem;
   letter-spacing: 0.14em;
 }
@@ -147,23 +146,10 @@
 .map-node:active > span {
   transform: scale(0.96);
 }
-.explore-hint {
-  font-size: 0.75rem;
-  color: var(--muted-foreground);
-  text-align: center;
-  margin: 16px 0;
-}
 .map-caption {
   display: flex;
   justify-content: space-between;
   font-size: 0.75rem;
-  color: var(--muted-foreground);
-}
-.atlas-index {
-  border-block: 1px solid var(--border);
-  padding: 24px 0;
-  display: flex;
-  justify-content: space-between;
   color: var(--muted-foreground);
 }
 .journal-section {
@@ -286,12 +272,6 @@ dialog button {
   .map-caption {
     gap: 16px;
     letter-spacing: 0;
-  }
-  .atlas-index {
-    gap: 16px;
-  }
-  .atlas-index span:nth-child(2) {
-    display: none;
   }
   .journal-section,
   .lower-grid {

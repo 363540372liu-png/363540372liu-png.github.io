@@ -30,15 +30,10 @@ const journal = posts.filter(post => post.id !== featured?.id).slice(0, 3);
         </div><p class="hero-foot">独立记录 · 持续探索</p>
       </div><div class="hero-map">
         <PolarMap /><div class="map-caption">
-          <span>FIG. 01 / THE QUIET CONTINENT</span><span
-            >NOAA 地形艺术 · 探索微光坐标</span
-          >
+          <span>FIG. 01 / THE QUIET CONTINENT</span>
         </div>
       </div>
-    </section><div class="atlas-index">
-      <span>向留白处探索</span><span>FOUR PLACES / AN UNFINISHED ATLAS</span
-      ><span>SCROLL ↓</span>
-    </div><section
+    </section><section
       class="home-regions"
       data-reveal
       aria-labelledby="regions-title"
@@ -48,7 +43,7 @@ const journal = posts.filter(post => post.id !== featured?.id).slice(0, 3);
           <p class="eyebrow">02 / THE COORDINATES</p><h2 id="regions-title">
             Explore the Regions
           </h2>
-        </div><p class="section-aside">四处坐标，四种观察。</p>
+        </div>
       </div><div class="region-directory">
         {
           regions.map((region, index) => (
