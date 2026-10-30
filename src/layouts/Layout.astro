@@ -117,5 +117,14 @@ const rssHref = getRelativeLocaleUrl(
       import "@/scripts/theme";
       import "@/scripts/polar-motion";
     </script>
+    <!-- Cloudflare Web Analytics: one persistent beacon for the Astro ClientRouter.
+         Cloudflare automatically tracks soft navigations; do not send manual pageviews. -->
+    <script
+      is:inline
+      transition:persist="cloudflare-web-analytics"
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "f818064eb7144131bd9cdf97930f2767"}'
+    ></script>
   </body>
 </html>
