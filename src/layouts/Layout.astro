@@ -5,6 +5,7 @@ import { resolveDefaultOgImagePath } from "@/utils/resolveDefaultOgImagePath";
 import { getAssetPath } from "@/utils/withBase";
 import config from "@/config";
 import "@/styles/global.css";
+import "@/styles/motion.css";
 
 type Props = {
   title?: string;
@@ -114,6 +115,7 @@ const rssHref = getRelativeLocaleUrl(
     <slot />
     <script>
       import "@/scripts/theme";
+      import "@/scripts/polar-motion";
     </script>
   </body>
 </html>

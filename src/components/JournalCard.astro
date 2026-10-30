@@ -1,0 +1,30 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getPostUrl } from "@/utils/getPostPaths";
+import { slugifyStr } from "@/utils/slugify";
+import Datetime from "./Datetime.astro";
+type Props = { post: CollectionEntry<"posts">; large?: boolean };
+const { post, large = false } = Astro.props;
+---
+
+<article
+  data-reveal
+  class:list={["journal-card", { "journal-card-large": large }]}
+>
+  <Datetime {...post.data} /><h3>
+    <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)}
+      >{post.data.title}<span aria-hidden="true"> ↗</span></a
+    >
+  </h3><p>{post.data.description}</p><ul
+    class="journal-tags"
+    aria-label="文章标签"
+  >
+    {
+      post.data.tags.map(tag => (
+        <li>
+          <a href={"/tags/" + slugifyStr(tag) + "/"}>{tag}</a>
+        </li>
+      ))
+    }
+  </ul>
+</article>

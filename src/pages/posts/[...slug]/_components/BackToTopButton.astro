@@ -45,14 +45,23 @@ const t = useTranslations(Astro.currentLocale);
     if (!rootElement || !btnContainer || !backToTopBtn || !progressIndicator)
       return;
 
-    backToTopBtn.addEventListener("click", () => {
-      document.body.scrollTop = 0;
-      document.documentElement.scrollTop = 0;
-    });
+    const controller = new AbortController();
+    const { signal } = controller;
+    backToTopBtn.addEventListener(
+      "click",
+      () => {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      },
+      { signal }
+    );
 
     let lastVisible = null;
     function handleScroll() {
-      const scrollTotal = rootElement.scrollHeight - rootElement.clientHeight;
+      const scrollTotal = Math.max(
+        1,
+        rootElement.scrollHeight - rootElement.clientHeight
+      );
       const scrollTop = rootElement.scrollTop;
       const scrollPercent = Math.floor((scrollTop / scrollTotal) * 100);
 
@@ -72,16 +81,27 @@ const t = useTranslations(Astro.currentLocale);
       }
     }
 
-    let ticking = false;
-    document.addEventListener("scroll", () => {
-      if (!ticking) {
-        window.requestAnimationFrame(() => {
-          handleScroll();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    });
+    let frame = 0;
+    document.addEventListener(
+      "scroll",
+      () => {
+        if (!frame && !document.hidden)
+          frame = requestAnimationFrame(() => {
+            handleScroll();
+            frame = 0;
+          });
+      },
+      { passive: true, signal }
+    );
+    document.addEventListener(
+      "astro:before-swap",
+      () => {
+        controller.abort();
+        cancelAnimationFrame(frame);
+      },
+      { once: true }
+    );
+    handleScroll();
   }
   backToTop();
 </script>

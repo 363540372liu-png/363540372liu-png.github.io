@@ -35,6 +35,22 @@ content:
         options:
           time: true
           format: "yyyy-MM-dd'T'HH:mm:ssXXX"
+      - name: region
+        label: 所属区域
+        type: select
+        required: true
+        description: 手动选择一个区域；与自由标签独立。旧文未分类时仍在全站文章中显示。
+        options:
+          multiple: false
+          values:
+            - name: dry-valleys
+              label: 麦克默多干谷
+            - name: station-1810
+              label: 1810号科考站（虚构）
+            - name: port-lockroy
+              label: 洛克罗伊港
+            - name: inaccessibility
+              label: 不可接近之极
       - name: tags
         label: 标签
         type: string

@@ -572,3 +572,55 @@ dialog button {
     opacity: 1;
   }
 }
+
+/* V2.1 geographic anchors are calculated from EPSG:3031, not hand-positioned. */
+.region-node > span {
+  border-color: var(--node-accent);
+}
+.region-node[data-region="dry-valleys"] b {
+  left: auto;
+  right: 40px;
+}
+.region-node[data-region="dry-valleys"] b::before {
+  left: auto;
+  right: -16px;
+}
+.region-node b {
+  min-width: 224px;
+}
+.region-mobile-nav {
+  display: none;
+}
+@media (max-width: 800px), (hover: none) {
+  .atlas .region-node b {
+    position: absolute;
+    visibility: hidden;
+    opacity: 0;
+  }
+  .atlas .region-node:focus-visible b {
+    visibility: visible;
+    opacity: 1;
+  }
+  .region-mobile-nav {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    padding: 16px;
+    font-size: 0.875rem;
+  }
+  .region-mobile-nav a {
+    min-height: 44px;
+    padding: 12px 8px;
+    text-align: center;
+  }
+  .atlas .region-node b {
+    left: auto;
+    right: 28px;
+    min-width: 0;
+    width: max-content;
+    max-width: 240px;
+    background: var(--background);
+    padding: 8px;
+    border: 1px solid var(--border);
+  }
+}

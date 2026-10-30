@@ -42,3 +42,54 @@ code,
 pre {
   font-family: ui-monospace, Consolas, monospace;
 }
+
+@font-face {
+  font-family: "Manrope";
+  src: url("/fonts/Manrope-latin.woff2") format("woff2");
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --explorer-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+header nav a {
+  transition: color 0.3s var(--explorer-ease);
+  text-underline-offset: 8px;
+}
+header nav a:hover,
+header nav a[aria-current="page"] {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+}
+.active-nav {
+  text-decoration-style: solid;
+}
+a:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.hero-links a,
+.region-directory a,
+.text-link,
+.return-map {
+  transition: opacity 0.3s var(--explorer-ease);
+}
+.hero-links a:hover,
+.region-directory a:hover,
+.text-link:hover,
+.return-map:hover {
+  opacity: 0.75;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  header nav a,
+  .hero-links a,
+  .region-directory a,
+  .text-link,
+  .return-map {
+    transition: none;
+  }
+}

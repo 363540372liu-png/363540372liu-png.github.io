@@ -1,4 +1,5 @@
 ---
+import { regions } from "@/data/regions";
 import { discoveries } from "@/data/polar";
 import { Image } from "astro:assets";
 import polarReference from "@/assets/antarctica-etopo-2022.webp";
@@ -17,25 +18,37 @@ import polarReference from "@/assets/antarctica-etopo-2022.webp";
       fetchpriority="high"
     />
   </div>
-  <a
-    class="map-node notes"
-    aria-label="Field Notes：文章、观察与沿途思考"
-    href="/posts/"
-    ><span aria-hidden="true"></span><b
-      >Field Notes ↗<small>文章、观察与沿途思考</small></b
-    ></a
-  ><a
-    class="map-node station"
-    aria-label="Research Station：项目、实验与实践记录"
-    href="/projects/"
-    ><span aria-hidden="true"></span><b
-      >Research Station ↗<small>项目、实验与实践记录</small></b
-    ></a
-  ><a class="map-node observer" aria-label="Observer：关于我" href="/about/"
-    ><span aria-hidden="true"></span><b
-      >Observer ↗<small>认识地图背后的记录者</small></b
-    ></a
-  >{
+  {
+    regions.map(region => (
+      <a
+        class="map-node region-node"
+        data-region={region.id}
+        style={`left:${region.position.left}%;top:${region.position.top}%;--node-accent:${region.color}`}
+        aria-label={region.name + "：" + region.description}
+        href={"/regions/" + region.id + "/"}
+      >
+        <>
+          <span aria-hidden="true" />
+          <b>
+            {region.name} ↗
+            <>
+              <small>{region.english}</small>
+              <small>
+                {region.fictional
+                  ? "虚构站点 · 谈心与生活"
+                  : region.id === "inaccessibility"
+                    ? "保留探索区域"
+                    : region.id === "dry-valleys"
+                      ? "学习、研究与科学记录"
+                      : "社会、文化与现实观察"}
+              </small>
+            </>
+          </b>
+        </>
+      </a>
+    ))
+  }
+  {
     discoveries.map((item, i) => (
       <button
         class:list={["map-node", i === 0 ? "core" : "signal"]}
@@ -50,7 +63,9 @@ import polarReference from "@/assets/antarctica-etopo-2022.webp";
       </button>
     ))
   }
-</div><p class="explore-hint">探索微光 · 悬停或聚焦查看站点</p>
+</div><nav class="region-mobile-nav" aria-label="四大探索区域">
+  {regions.map(region => <a href={`/regions/${region.id}/`}>{region.name}</a>)}
+</nav><p class="explore-hint">探索微光 · 四处坐标，四种观察</p>
 {
   discoveries.map(item => (
     <dialog id={item.id} aria-labelledby={item.id + "-title"}>
