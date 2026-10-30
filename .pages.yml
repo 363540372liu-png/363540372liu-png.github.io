@@ -4,7 +4,7 @@ media:
 
 content:
   - name: posts
-    label: 文章管理
+    label: 所有文章 · 南极探索分区
     type: collection
     path: src/content/posts
     format: yaml-frontmatter
@@ -15,9 +15,13 @@ content:
       template: "{year}-{month}-{day}-{primary}.md"
       field: create
     view:
+      fields: [title, region, pubDatetime, tags, draft, featured]
       primary: title
-      sort: pubDatetime
-      order: desc
+      sort: [pubDatetime, title]
+      search: [title, region]
+      default:
+        sort: pubDatetime
+        order: desc
     fields:
       - name: title
         label: 标题
@@ -36,21 +40,21 @@ content:
           time: true
           format: "yyyy-MM-dd'T'HH:mm:ssXXX"
       - name: region
-        label: 所属区域
+        label: 发布到哪个南极分区
         type: select
         required: true
-        description: 手动选择一个区域；与自由标签独立。旧文未分类时仍在全站文章中显示。
+        description: 麦克默多干谷=技术学习；1810号科考站=生活成长；洛克罗伊港=世界观察；不可接近之极=自由探索。旧文章未分区时仍在全站文章列表显示。
         options:
           multiple: false
           values:
             - name: dry-valleys
-              label: 麦克默多干谷
+              label: 麦克默多干谷（技术与学习）
             - name: station-1810
-              label: 1810号科考站（虚构）
+              label: 1810号科考站（生活与成长）
             - name: port-lockroy
-              label: 洛克罗伊港
+              label: 洛克罗伊港（社会与世界观察）
             - name: inaccessibility
-              label: 不可接近之极
+              label: 不可接近之极（自由探索）
       - name: tags
         label: 标签
         type: string
