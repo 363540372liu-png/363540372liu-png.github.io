@@ -57,29 +57,6 @@
   transform: scale(1.6);
   opacity: 0.55;
 }
-.atlas .explorer-boat:not(:hover):not(:focus-visible):not(:active) .boat-halo {
-  animation: polar-boat-signal 10.5s ease-out -5s infinite paused;
-}
-@keyframes polar-boat-signal {
-  0% {
-    opacity: 0.65;
-    transform: scale(0.7);
-  }
-  30% {
-    opacity: 0;
-    transform: scale(2.2);
-  }
-  31%,
-  100% {
-    opacity: 0;
-    transform: scale(0.7);
-  }
-}
-.atlas.ambient-active
-  .explorer-boat:not(:hover):not(:focus-visible):not(:active)
-  .boat-halo {
-  animation-play-state: running;
-}
 .mini-map-point::after {
   content: "";
   position: absolute;
@@ -105,10 +82,6 @@
 }
 html.motion-suspended .atlas .atlas-atmosphere,
 html.motion-suspended .atlas .region-node > span::after,
-html.motion-suspended
-  .atlas
-  .explorer-boat:not(:hover):not(:focus-visible):not(:active)
-  .boat-halo,
 html.motion-suspended .region-mini-map .mini-map-point::after,
 html.motion-suspended .observation-orbit {
   animation-play-state: paused;
@@ -116,7 +89,6 @@ html.motion-suspended .observation-orbit {
 @media (prefers-reduced-motion: reduce) {
   .atlas .atlas-atmosphere,
   .atlas .region-node > span::after,
-  .atlas .explorer-boat:not(:hover):not(:focus-visible):not(:active) .boat-halo,
   .region-mini-map .mini-map-point::after,
   .observation-orbit {
     animation: none !important;
@@ -128,10 +100,5 @@ html.motion-suspended .observation-orbit {
   .mini-map-point::after {
     opacity: 0.15;
     transform: none;
-  }
-  .atlas
-    .explorer-boat:not(:hover):not(:focus-visible):not(:active)
-    .boat-halo {
-    opacity: 0;
   }
 }

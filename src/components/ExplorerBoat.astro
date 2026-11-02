@@ -1,5 +1,5 @@
 ---
-// Original vector artwork. The beacon belongs to the boat's SVG, never the map.
+// Original vector artwork. The entire vessel is the Observer link.
 ---
 
 <a
@@ -42,22 +42,6 @@
         fill="#c5b5a5"
         stroke="#9c998d"
         stroke-width=".45"></path>
-      <circle
-        class="boat-halo"
-        cx="49"
-        cy="58"
-        r="12"
-        fill="none"
-        stroke="#79a9bd"
-        stroke-width="1.5"></circle>
-      <circle
-        class="boat-dot"
-        cx="49"
-        cy="58"
-        r="5.8"
-        fill="#d8eaf0"
-        stroke="#8eafbf"
-        stroke-width=".9"></circle>
     </g>
   </svg>
   <span class="boat-label">观察者 / The Observer ↗</span>
@@ -85,18 +69,6 @@
     top: 17.5%;
     overflow: visible;
   }
-  .boat-halo {
-    opacity: 0;
-    transform: scale(0.8);
-    transform-box: fill-box;
-    transform-origin: center;
-    transition:
-      opacity 0.3s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .boat-dot {
-    transition: fill 0.25s ease;
-  }
   .boat-label {
     position: absolute;
     left: 50%;
@@ -119,13 +91,6 @@
       visibility 0.25s ease;
     pointer-events: none;
   }
-  .explorer-boat:is(:hover, :focus-visible, :active) .boat-halo {
-    opacity: 0.65;
-    transform: scale(1.25);
-  }
-  .explorer-boat:is(:hover, :focus-visible, :active) .boat-dot {
-    fill: #8bbfd3;
-  }
   .explorer-boat:is(:hover, :focus-visible) .boat-label {
     opacity: 1;
     visibility: visible;
@@ -135,8 +100,6 @@
     outline-offset: 3px;
   }
   @media (prefers-reduced-motion: reduce) {
-    .boat-halo,
-    .boat-dot,
     .boat-label {
       transition: none;
     }
