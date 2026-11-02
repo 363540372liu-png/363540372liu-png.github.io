@@ -31,8 +31,11 @@
 .home-enter .hero-copy > :nth-child(5) {
   animation-delay: 0.24s;
 }
+.home-enter .atlas {
+  animation: atlas-reveal 2.4s var(--polar-motion) both;
+}
 .home-enter .atlas-art {
-  animation: ice-resolve 1.2s var(--polar-motion) both;
+  animation: ice-resolve 2.4s var(--polar-motion) both;
 }
 .home-enter .region-node > span {
   animation: polar-appear 0.65s var(--polar-motion) both;
@@ -57,16 +60,22 @@
     transform: none;
   }
 }
-@keyframes ice-resolve {
+/* Fade the complete map assembly; only the relief softly resolves from mist.
+   No scale or coordinate movement, so the vessel and anchors remain aligned. */
+@keyframes atlas-reveal {
   from {
-    opacity: 0.35;
-    filter: blur(2px);
-    transform: scale(0.992);
+    opacity: 0;
   }
   to {
     opacity: 1;
+  }
+}
+@keyframes ice-resolve {
+  from {
+    filter: blur(8px);
+  }
+  to {
     filter: blur(0);
-    transform: scale(1);
   }
 }
 .region-enter .region-heading-copy > *,
@@ -142,6 +151,7 @@ a:focus-visible .entry-arrow,
     transition: none;
   }
   .home-enter .hero-copy > *,
+  .home-enter .atlas,
   .home-enter .atlas-art,
   .home-enter .region-node > span,
   .region-enter .region-heading-copy > *,
@@ -183,6 +193,7 @@ a:focus-visible .entry-arrow,
   opacity: 0.12;
 }
 .motion-suspended .home-enter .hero-copy > *,
+.motion-suspended .home-enter .atlas,
 .motion-suspended .home-enter .atlas-art,
 .motion-suspended .home-enter .region-node > span,
 .motion-suspended .region-enter * {
