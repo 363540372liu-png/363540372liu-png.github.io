@@ -1,0 +1,1245 @@
+/* A personal atlas: shared typography, map plates and a visible editorial rhythm. */
+:root,
+[data-theme="light"] {
+  --background: #f5f7f7;
+  --foreground: #233e49;
+  --muted-foreground: #65767b;
+  --border: #d5dfe0;
+  --archive-surface: #eaf0f0;
+  --archive-rule: #c4d1d4;
+  --archive-serif:
+    "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC",
+    STSong, Georgia, SimSun, serif;
+}
+[data-theme="dark"] {
+  --background: #152128;
+  --foreground: #dce5e5;
+  --muted-foreground: #9eafb5;
+  --border: #34454d;
+  --archive-surface: #1b2b33;
+  --archive-rule: #455c65;
+}
+.polar-edition > header,
+.polar-edition > footer {
+  max-width: 1360px;
+  padding-inline: 64px;
+}
+.polar-edition > header > div {
+  padding-block: 26px;
+  align-items: center;
+}
+.polar-edition > header > div > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 21px;
+  letter-spacing: -0.055em;
+  font-weight: 550;
+}
+.brand-meridian {
+  display: grid;
+  place-items: center;
+  font-size: 35px;
+  font-weight: 300;
+  color: var(--accent);
+}
+.brand-name small {
+  display: block;
+  font-size: 9px;
+  line-height: 1;
+  font-weight: 400;
+  color: var(--muted-foreground);
+  letter-spacing: 0.2em;
+  margin-top: 9px;
+}
+.polar-edition #menu-items {
+  gap: 8px;
+  align-items: center;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+}
+.polar-edition #menu-items svg {
+  width: 19px;
+  height: 19px;
+}
+.polar-edition .active-nav {
+  text-decoration-style: solid;
+  text-decoration-thickness: 1px;
+}
+.polar-edition > footer {
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.polar-edition > footer > div {
+  padding-block: 28px;
+}
+.polar-edition .polar-home {
+  max-width: 1360px;
+  padding-inline: 64px;
+}
+.polar-edition .polar-hero {
+  min-height: 720px;
+  grid-template-columns: 40% 60%;
+}
+.polar-edition .hero-copy {
+  padding-top: 12px;
+}
+.polar-edition .hero-copy h1 {
+  font-family: var(--archive-serif);
+  font-size: clamp(3.8rem, 5.6vw, 5.3rem);
+  line-height: 0.97;
+  letter-spacing: -0.065em;
+}
+.polar-edition .hero-copy h1 em {
+  font-style: normal;
+  font-family: var(--archive-serif);
+  font-size: 1.39em;
+  font-weight: 400;
+  letter-spacing: -0.07em;
+  line-height: 1.05;
+}
+.polar-edition .hero-copy h1 span {
+  font-size: 1rem;
+  letter-spacing: 0.17em;
+  margin-top: 25px;
+}
+.polar-edition .eyebrow {
+  font-size: 10px;
+  letter-spacing: 0.17em;
+}
+.polar-edition .intro {
+  font-size: 15px;
+  line-height: 2;
+  margin-block: 36px 26px;
+}
+.polar-edition .hero-foot {
+  margin-top: 38px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+}
+.polar-edition .hero-links {
+  font-size: 12px;
+  gap: 26px;
+}
+.polar-edition .hero-links a:first-child {
+  background: transparent;
+  color: var(--foreground);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--foreground);
+}
+.polar-edition .hero-links a {
+  padding: 10px 0;
+}
+.polar-edition .map-caption {
+  padding-top: 8px;
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  color: var(--muted-foreground);
+}
+/* Chapters replace the repeated grids with an anchored reading direction. */
+.polar-edition .home-regions,
+.polar-edition .home-journal {
+  display: grid;
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 2fr);
+  gap: 64px;
+  border-top: 1px solid var(--archive-rule);
+  padding-block: 76px;
+  margin-top: 0;
+}
+.chapter-intro {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+}
+.polar-edition .chapter-intro h2 {
+  font-size: clamp(2.3rem, 3.2vw, 3rem);
+  line-height: 1.45;
+  font-weight: 400;
+  letter-spacing: -0.055em;
+  margin: 28px 0 12px;
+}
+.chapter-english {
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 17px;
+  color: var(--muted-foreground);
+}
+.chapter-note {
+  color: var(--muted-foreground);
+  font-size: 13px;
+  line-height: 2;
+  margin-top: 38px;
+}
+.chapter-map-link {
+  display: inline-block;
+  font-size: 11px;
+  margin-top: 38px;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 6px;
+}
+.polar-edition .region-directory {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  padding: 0;
+}
+.polar-edition .region-directory .region-file {
+  position: relative;
+  display: block;
+  padding: 23px 26px 18px;
+  border: 1px solid var(--border);
+  border-top: 2px solid
+    color-mix(in srgb, var(--region-accent) 65%, var(--border));
+  background: linear-gradient(
+    145deg,
+    color-mix(in srgb, var(--region-accent) 5%, var(--background)),
+    var(--background) 70%
+  );
+  min-width: 0;
+  transition:
+    background 0.35s,
+    border-color 0.35s;
+}
+.region-file-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.polar-edition .region-file .region-index {
+  font-family: var(--archive-serif);
+  font-size: 25px;
+  line-height: 1;
+  letter-spacing: -0.05em;
+  margin: 0;
+  color: var(--region-accent);
+}
+.polar-edition .region-file .region-file-kind {
+  color: var(--muted-foreground);
+  font-size: 8px;
+  letter-spacing: 0.09em;
+}
+.polar-edition .region-file .entry-arrow {
+  font-size: 18px;
+  margin: 0 0 0 auto;
+  color: var(--region-accent);
+}
+.region-glyph {
+  display: block;
+  width: 100px;
+  height: 80px;
+  color: var(--region-accent, var(--accent));
+}
+.polar-edition .region-file > .region-glyph {
+  width: 104px;
+  height: 83px;
+  margin: 30px 0 25px;
+}
+.polar-edition .region-file h3 {
+  font-size: 21px;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+  margin: 0;
+}
+.polar-edition .region-file p {
+  min-height: 0;
+  margin: 0;
+}
+.polar-edition .region-file .region-file-english {
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 12px;
+  color: var(--muted-foreground);
+  margin-top: 8px;
+}
+.polar-edition .region-file .region-file-description {
+  font-size: 12px;
+  line-height: 1.9;
+  margin-top: 21px;
+}
+.region-file-bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 1px solid var(--border);
+  margin-top: 25px;
+  padding-top: 13px;
+}
+.polar-edition .region-file-bottom span {
+  font-size: 9px;
+  line-height: 1.7;
+  color: var(--muted-foreground);
+}
+.polar-edition .region-file-bottom span:last-child {
+  color: var(--region-accent);
+}
+.polar-edition .region-directory .region-file:is(:hover, :focus-visible) {
+  opacity: 1;
+  border-color: var(--region-accent);
+  background: color-mix(in srgb, var(--region-accent) 8%, var(--background));
+}
+.polar-edition .home-journal {
+  gap: 64px;
+}
+.polar-edition .home-journal .text-link {
+  display: inline-block;
+  margin-top: 42px;
+  font-size: 12px;
+}
+.polar-edition .home-journal .journal-grid {
+  display: block;
+  counter-reset: records;
+  margin-top: 0;
+}
+.polar-edition .home-journal .journal-card {
+  position: relative;
+  counter-increment: records;
+  display: grid;
+  grid-template-columns: 1fr;
+  padding: 28px 0 30px 48px;
+  border: 0;
+  border-top: 1px solid var(--archive-rule);
+  background: transparent;
+  border-radius: 0;
+  transform: none;
+}
+.polar-edition .home-journal .journal-card::before {
+  content: counter(records, decimal-leading-zero);
+  position: absolute;
+  left: 0;
+  top: 27px;
+  font-family: var(--archive-serif);
+  font-size: 20px;
+  color: var(--muted-foreground);
+}
+.journal-record-meta {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 16px;
+  font-size: 10px;
+  color: var(--muted-foreground);
+}
+.journal-record-meta > span {
+  color: var(--region-accent, var(--accent));
+}
+.polar-edition .journal-record-meta time {
+  font-size: 10px;
+}
+.polar-edition .home-journal .journal-card h3 {
+  font-size: 24px;
+  line-height: 1.65;
+  font-weight: 450;
+  letter-spacing: -0.025em;
+  margin: 18px 0 12px;
+  text-wrap: pretty;
+}
+.polar-edition .home-journal .journal-card p {
+  font-size: 12px;
+  line-height: 1.9;
+  max-width: 600px;
+}
+.polar-edition .journal-tags {
+  font-size: 10px;
+  margin-top: 16px;
+  gap: 16px;
+}
+.polar-edition .journal-tags a::before {
+  content: "# ";
+  opacity: 0.55;
+}
+.polar-edition .home-journal .journal-card:is(:hover, :focus-within) {
+  transform: none;
+  border-top-color: var(--region-accent);
+}
+.polar-edition .home-about {
+  display: grid;
+  grid-template-columns: 0.78fr 2fr;
+  gap: 64px;
+  padding: 76px 0 90px;
+  border-top: 1px solid var(--archive-rule);
+}
+.observer-home-identity {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.observation-seal {
+  width: 140px;
+  height: 140px;
+  color: var(--accent);
+}
+.polar-edition .home-about h2 {
+  font-size: 20px;
+  font-weight: 450;
+  margin-bottom: 7px;
+}
+.polar-edition .home-about .eyebrow {
+  margin-bottom: 18px;
+}
+.polar-edition .home-about .about-line {
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  line-height: 1.65;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  margin: 0 0 30px;
+}
+.polar-edition .home-about .about-line span {
+  color: var(--muted-foreground);
+}
+.polar-edition .observer-home-statement > p:not(.about-line) {
+  font-size: 14px;
+  line-height: 2;
+}
+.polar-edition .home-about .text-link {
+  display: inline-block;
+  margin-top: 32px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--archive-rule);
+  padding-bottom: 10px;
+}
+/* Region folios: a common plate with four different signatures. */
+.polar-edition:has(.region-archive) > header,
+.polar-edition:has(.reading-page) > header,
+.polar-edition:has(.observer-page) > header,
+.polar-edition:has(.region-archive) > footer,
+.polar-edition:has(.reading-page) > footer,
+.polar-edition:has(.observer-page) > footer {
+  max-width: 1200px;
+  padding-inline: 48px;
+}
+.polar-edition .region-archive {
+  max-width: 1200px;
+  padding-inline: 48px;
+  margin-top: 30px;
+}
+.polar-edition .region-tabs {
+  font-size: 11px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 50px;
+  gap: 28px;
+}
+.polar-edition .region-heading {
+  grid-template-columns: minmax(0, 1fr) 370px;
+  gap: 72px;
+  padding-bottom: 60px;
+  border-bottom: 1px solid var(--archive-rule);
+  margin-bottom: 45px;
+}
+.region-edition-index {
+  display: flex;
+  gap: 35px;
+  align-items: center;
+  margin-bottom: 25px;
+}
+.region-edition-index > span {
+  font-size: 72px;
+  line-height: 1;
+  font-family: var(--archive-serif);
+  font-style: normal;
+  color: color-mix(in srgb, var(--region-accent) 55%, var(--border));
+}
+.region-edition-index .region-glyph {
+  width: 90px;
+  height: 72px;
+}
+.polar-edition .region-heading .section-kicker {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  margin-bottom: 8px;
+}
+.polar-edition .region-english {
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 17px;
+  color: var(--muted-foreground);
+  margin-bottom: 17px;
+}
+.polar-edition .region-heading h1 {
+  font-size: clamp(2.4rem, 4vw, 3.4rem);
+  font-weight: 450;
+  letter-spacing: -0.045em;
+  margin-bottom: 27px;
+}
+.polar-edition .region-description {
+  font-size: 15px;
+  line-height: 2;
+  max-width: 490px;
+}
+.polar-edition .region-location {
+  font-size: 10px;
+  margin-top: 30px;
+}
+.region-location > span {
+  color: var(--region-accent);
+  margin-right: 5px;
+}
+.polar-edition .region-motto {
+  font-family: var(--archive-serif);
+  font-size: 14px;
+  margin-top: 17px;
+  color: var(--region-accent);
+}
+.polar-edition .region-heading .region-mini-map {
+  width: 100%;
+  max-width: 370px;
+}
+.map-graticule {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  color: var(--region-accent, var(--accent));
+  opacity: 0.45;
+  pointer-events: none;
+}
+.polar-edition .region-mini-map {
+  position: relative;
+  isolation: isolate;
+}
+.polar-edition .region-mini-map figcaption {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  font-size: 8px;
+  letter-spacing: 0.08em;
+  bottom: -5px;
+}
+.polar-edition .region-list-heading h2 {
+  font-size: 19px;
+  font-weight: 450;
+}
+.polar-edition .region-list-heading > span {
+  font-size: 11px;
+}
+.polar-edition .region-archive .journal-card {
+  border: 0;
+  border-top: 1px solid var(--border);
+  padding: 26px 0;
+  background: transparent;
+  transform: none;
+}
+.polar-edition .region-archive .journal-card h3 {
+  font-size: 23px;
+  line-height: 1.7;
+  font-weight: 450;
+  margin: 22px 0 15px;
+}
+.polar-edition .region-archive .journal-card p {
+  font-size: 13px;
+  line-height: 1.9;
+}
+.polar-edition .region-empty {
+  border: 0;
+  padding: 30px 0 60px;
+  max-width: 620px;
+}
+.polar-edition .region-empty h2 {
+  font-size: 28px;
+  font-weight: 400;
+}
+.polar-edition .region-empty p {
+  font-size: 14px;
+}
+.polar-edition .return-map {
+  font-size: 12px;
+}
+/* A record has a cover, a place of origin, then an undisturbed reading column. */
+.polar-edition .reading-page {
+  max-width: 1200px;
+  padding: 22px 48px 80px;
+}
+.polar-edition .reading-back {
+  margin-bottom: 24px;
+  font-size: 11px;
+}
+.record-cover {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 270px;
+  gap: 60px;
+  align-items: center;
+  border-block: 1px solid var(--archive-rule);
+  padding-block: 36px 42px;
+}
+.polar-edition .reading-page .reading-heading {
+  padding: 0;
+  border: 0;
+}
+.polar-edition .reading-heading::before {
+  display: none;
+}
+.polar-edition .reading-region {
+  gap: 12px;
+  font-size: 12px;
+}
+.polar-edition .reading-region > .region-glyph {
+  width: 52px;
+  height: 42px;
+}
+.polar-edition .reading-region small {
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 11px;
+  margin-top: 3px;
+  letter-spacing: 0;
+}
+.polar-edition .reading-page .reading-heading h1 {
+  font-family: var(--archive-serif);
+  font-size: clamp(2.4rem, 3.8vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: -0.035em;
+  margin: 26px 0 20px;
+  text-wrap: pretty;
+  max-width: 760px;
+}
+.record-cover {
+  min-width: 0;
+}
+.polar-edition .reading-page .reading-heading h1.record-title-short {
+  font-size: clamp(3.8rem, 6.5vw, 5.8rem);
+  line-height: 1.2;
+}
+.record-deck {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  line-height: 1.9;
+  max-width: 610px;
+  overflow-wrap: anywhere;
+  margin-bottom: 27px;
+}
+.polar-edition .reading-meta {
+  font-size: 10px;
+  gap: 16px;
+}
+.polar-edition .reading-meta a {
+  font-size: 10px;
+}
+.polar-edition .reading-meta svg {
+  width: 12px;
+  min-width: 12px;
+  height: 12px;
+}
+.record-origin {
+  border-left: 1px solid var(--border);
+  padding-left: 28px;
+  min-width: 0;
+}
+.origin-index {
+  font-size: 9px;
+  color: var(--muted-foreground);
+  letter-spacing: 0.15em;
+}
+.record-origin .region-mini-map {
+  width: 100%;
+  max-width: 242px;
+  aspect-ratio: 1;
+  margin: 20px 0 28px;
+}
+.record-origin .mini-map-art {
+  position: absolute;
+  inset: 0;
+  opacity: 0.75;
+  mask-image: radial-gradient(ellipse at center, #000 42%, transparent 72%);
+}
+.record-origin .mini-map-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.record-origin .mini-map-point {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  transform: translate(-50%, -50%);
+  background: var(--point-color);
+  border-radius: 50%;
+}
+.record-origin > p:not(.origin-index) {
+  font-size: 13px;
+  color: var(--reading-accent);
+  margin-bottom: 15px;
+}
+.record-origin small {
+  display: block;
+  margin-top: 5px;
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted-foreground);
+}
+.record-origin > span {
+  font-size: 9px;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+.polar-edition .reading-grid.has-rail {
+  grid-template-columns: minmax(0, 700px) minmax(0, 1fr);
+  gap: 72px;
+  padding-top: 50px;
+}
+.polar-edition .reading-page #article {
+  font-family: var(--font-app);
+  font-size: 18px;
+  line-height: 2.05;
+  font-weight: 400;
+}
+.polar-edition .reading-page #article p {
+  margin-bottom: 1.6em;
+}
+.polar-edition .reading-page #article h2 {
+  border: 0;
+  font-family: var(--archive-serif);
+  font-size: 25px;
+  line-height: 1.6;
+  margin: 2.4em 0 1em;
+  padding: 0;
+  font-weight: 550;
+}
+.polar-edition .reading-page #article h3 {
+  font-family: var(--archive-serif);
+  font-size: 20px;
+  font-weight: 550;
+}
+.polar-edition .reading-page #article > :first-child {
+  margin-top: 0;
+}
+.polar-edition .reading-rail {
+  top: 38px;
+  font-size: 11px;
+}
+.polar-edition .reading-location {
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 0 24px;
+}
+.polar-edition .reading-rail-kicker {
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  margin-bottom: 18px;
+}
+.polar-edition .reading-location .region-glyph {
+  width: 65px;
+  height: 52px;
+  margin-bottom: 20px;
+}
+.rail-region-name {
+  font-size: 13px;
+  color: var(--foreground);
+}
+.rail-region-name small {
+  display: block;
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 11px;
+  color: var(--muted-foreground);
+  margin-top: 4px;
+}
+.polar-edition .reading-coordinates {
+  font-size: 9px;
+  margin-block: 14px;
+}
+.rail-region-note {
+  font-family: var(--archive-serif);
+  font-size: 13px;
+  line-height: 1.9;
+}
+.polar-edition .reading-location-link {
+  font-size: 11px;
+  margin-top: 12px;
+}
+.polar-edition .reading-toc {
+  margin-top: 28px;
+  font-size: 11px;
+}
+.polar-edition .reading-toc .toc-sub {
+  font-size: 10px;
+}
+.polar-edition .reading-end {
+  border-top: 1px solid var(--archive-rule);
+  padding-top: 30px;
+}
+/* The person behind the atlas. */
+.polar-edition .observer-page {
+  max-width: 1200px;
+  padding: 25px 48px 90px;
+  margin: 0 auto;
+  width: 100%;
+}
+.observer-back {
+  font-size: 11px;
+  padding-block: 10px;
+  display: inline-block;
+}
+.observer-heading {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 30px 64px;
+  align-items: end;
+  padding-bottom: 50px;
+  margin: 48px 0 50px;
+  border-bottom: 1px solid var(--archive-rule);
+}
+.observer-heading .eyebrow {
+  grid-column: 1/-1;
+  margin: 0;
+}
+.observer-heading h1 {
+  font-size: 56px;
+  font-weight: 450;
+  letter-spacing: -0.05em;
+  line-height: 1.3;
+}
+.observer-heading h1 em {
+  font-style: normal;
+  display: block;
+  font-family: var(--archive-serif);
+  font-size: 76px;
+  line-height: 1.2;
+  color: var(--muted-foreground);
+  font-weight: 400;
+}
+.observer-heading > p:last-child {
+  font-family: var(--archive-serif);
+  font-size: 22px;
+  line-height: 1.9;
+  padding-bottom: 7px;
+}
+.observer-grid {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 700px);
+  gap: 100px;
+}
+.observer-identity {
+  position: sticky;
+  top: 40px;
+  align-self: start;
+}
+.observer-identity .observation-seal {
+  width: 155px;
+  height: 155px;
+  margin-bottom: 30px;
+}
+.observer-identity > p {
+  font-size: 19px;
+  margin: 0 0 30px;
+}
+.observer-identity small {
+  display: block;
+  color: var(--muted-foreground);
+  font-size: 10px;
+  margin-top: 8px;
+}
+.observer-identity nav a {
+  display: block;
+  font-size: 11px;
+  padding: 9px 0;
+  color: var(--muted-foreground);
+}
+.observer-journal {
+  display: inline-block;
+  font-size: 11px;
+  border-top: 1px solid var(--border);
+  padding-top: 15px;
+  margin-top: 28px;
+}
+.polar-edition .observer-prose {
+  min-width: 0;
+  max-width: 100%;
+  font-family: var(--font-app);
+  font-size: 18px;
+  line-height: 2.05;
+  overflow-wrap: anywhere;
+}
+.polar-edition .observer-prose h2 {
+  font-family: var(--archive-serif);
+  font-size: 26px;
+  font-weight: 500;
+  font-style: normal;
+  margin-top: 2em;
+}
+.polar-edition .observer-prose h3 {
+  font-family: var(--archive-serif);
+  font-style: normal;
+  font-size: 20px;
+}
+.polar-edition .observer-prose p {
+  margin-bottom: 1.6em;
+}
+.polar-edition .observer-prose > :first-child {
+  margin-top: 0;
+}
+@media (max-width: 1100px) {
+  .polar-edition > header,
+  .polar-edition > footer,
+  .polar-edition .polar-home {
+    padding-inline: 36px;
+  }
+  .polar-edition .home-regions,
+  .polar-edition .home-journal,
+  .polar-edition .home-about {
+    gap: 36px;
+    grid-template-columns: 0.7fr 2fr;
+  }
+  .polar-edition .region-file {
+    padding-inline: 20px;
+  }
+  .polar-edition .reading-grid.has-rail {
+    gap: 40px;
+  }
+  .record-cover {
+    gap: 35px;
+    grid-template-columns: minmax(0, 1fr) 230px;
+  }
+  .polar-edition .region-heading {
+    grid-template-columns: minmax(0, 1fr) 300px;
+    gap: 40px;
+  }
+  .observer-grid {
+    gap: 55px;
+    grid-template-columns: 210px minmax(0, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .polar-edition > header,
+  .polar-edition > footer,
+  .polar-edition .polar-home,
+  .polar-edition:has(.reading-page) > header,
+  .polar-edition:has(.region-archive) > header,
+  .polar-edition:has(.observer-page) > header {
+    padding-inline: 24px;
+  }
+  .polar-edition > header > div {
+    padding-block: 20px;
+    min-height: 78px;
+  }
+  .polar-edition > header > div > a {
+    font-size: 18px;
+    gap: 8px;
+  }
+  .brand-meridian {
+    font-size: 28px;
+  }
+  .brand-name small {
+    font-size: 8px;
+    margin-top: 6px;
+  }
+  .polar-edition .polar-hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+  }
+  .polar-edition .hero-copy {
+    padding-top: 44px;
+  }
+  .polar-edition .hero-copy h1 {
+    font-family: var(--archive-serif);
+    font-size: 3.9rem;
+  }
+  .polar-edition .hero-copy h1 span {
+    font-size: 14px;
+  }
+  .polar-edition .home-regions,
+  .polar-edition .home-journal,
+  .polar-edition .home-about {
+    grid-template-columns: 1fr;
+    gap: 35px;
+    padding-block: 45px;
+  }
+  .polar-edition .chapter-intro h2 {
+    font-size: 34px;
+    line-height: 1.4;
+    margin-top: 18px;
+  }
+  .chapter-intro {
+    position: static;
+  }
+  .chapter-intro h2 br {
+    display: none;
+  }
+  .chapter-note,
+  .chapter-map-link {
+    display: none;
+  }
+  .chapter-english {
+    font-size: 15px;
+  }
+  .polar-edition .region-directory {
+    gap: 14px;
+  }
+  .polar-edition .region-directory .region-file {
+    padding: 17px 15px 14px;
+  }
+  .polar-edition .region-file .region-file-kind {
+    display: none;
+  }
+  .polar-edition .region-file h3 {
+    font-size: 17px;
+  }
+  .polar-edition .region-file .region-file-english {
+    font-size: 10px;
+    min-height: 2.8em;
+  }
+  .polar-edition .region-file .region-file-description {
+    font-size: 11px;
+    min-height: 3.8em;
+  }
+  .polar-edition .region-file > .region-glyph {
+    width: 85px;
+    height: 68px;
+    margin-block: 20px;
+  }
+  .polar-edition .region-file-bottom span {
+    font-size: 8px;
+  }
+  .polar-edition .home-journal .text-link {
+    margin-top: 18px;
+  }
+  .polar-edition .home-journal .journal-card {
+    padding-left: 34px;
+  }
+  .polar-edition .home-journal .journal-card h3 {
+    font-size: 21px;
+  }
+  .observer-home-identity {
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+  }
+  .observer-home-identity .observation-seal {
+    width: 95px;
+    height: 95px;
+  }
+  .polar-edition .home-about .about-line {
+    font-size: 29px;
+  }
+  .polar-edition .region-archive,
+  .polar-edition .reading-page,
+  .polar-edition .observer-page {
+    padding-inline: 24px;
+  }
+  .polar-edition .region-heading {
+    grid-template-columns: 1fr;
+    gap: 32px;
+    padding-bottom: 40px;
+  }
+  .polar-edition .region-heading .region-mini-map {
+    max-width: 240px;
+    justify-self: center;
+  }
+  .polar-edition .region-tabs {
+    gap: 10px 20px;
+    margin-bottom: 35px;
+  }
+  .region-edition-index > span {
+    font-size: 56px;
+  }
+  .polar-edition .region-heading h1 {
+    font-size: 35px;
+  }
+  .record-cover {
+    display: block;
+    padding-block: 24px 30px;
+  }
+  .record-origin {
+    display: none;
+  }
+  .polar-edition .reading-page .reading-heading h1 {
+    font-size: 30px;
+    line-height: 1.5;
+  }
+  .polar-edition .reading-page .reading-heading h1.record-title-short {
+    font-size: 52px;
+  }
+  .record-deck {
+    font-size: 13px;
+  }
+  .polar-edition .reading-grid.has-rail {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding-top: 32px;
+  }
+  .polar-edition .reading-page #article {
+    font-size: 17px;
+    line-height: 2;
+  }
+  .polar-edition .reading-page #article h2 {
+    font-size: 23px;
+  }
+  .observer-heading {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 32px;
+    padding-bottom: 32px;
+  }
+  .observer-heading h1 {
+    font-size: 44px;
+  }
+  .observer-heading h1 em {
+    font-style: normal;
+    font-size: 56px;
+  }
+  .observer-heading > p:last-child {
+    font-size: 19px;
+  }
+  .observer-grid {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  .observer-identity {
+    position: static;
+    padding-bottom: 25px;
+    border-bottom: 1px solid var(--border);
+  }
+  .observer-identity .observation-seal,
+  .observer-identity nav {
+    display: none;
+  }
+  .observer-identity > p {
+    margin-bottom: 12px;
+  }
+  .observer-journal {
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+  .polar-edition .observer-prose {
+    font-size: 17px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .polar-edition .region-directory .region-file {
+    transition: none;
+  }
+}
+
+.polar-edition .reading-page:not([data-region]) .record-cover {
+  grid-template-columns: 1fr;
+}
+.polar-edition:has(.journal-archive) > header,
+.polar-edition:has(.journal-archive) > footer {
+  max-width: 1200px;
+  padding-inline: 48px;
+}
+.polar-edition .journal-archive {
+  max-width: 1200px;
+  padding-inline: 48px;
+  margin-top: 55px;
+}
+.journal-archive-heading {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: end;
+  gap: 24px 70px;
+  padding-bottom: 48px;
+}
+.journal-archive-heading .eyebrow {
+  grid-column: 1/-1;
+  margin: 0;
+}
+.journal-archive-heading h1 {
+  font-size: 55px;
+  font-weight: 400;
+  line-height: 1.4;
+  letter-spacing: -0.05em;
+}
+.journal-archive-heading h1 em {
+  font-family: var(--archive-serif);
+  font-style: normal;
+}
+.journal-archive-heading > p:last-child {
+  font-size: 14px;
+  color: var(--muted-foreground);
+  padding-bottom: 12px;
+  line-height: 1.9;
+}
+.journal-region-index {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px 30px;
+  border-block: 1px solid var(--archive-rule);
+  padding-block: 22px;
+  font-size: 11px;
+}
+.journal-region-index a {
+  color: var(--region-accent);
+}
+.polar-edition .journal-archive-list .journal-card {
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr);
+  gap: 0 55px;
+  position: relative;
+  border: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 35px 0;
+  background: transparent;
+  transform: none;
+}
+.journal-archive-list .journal-record-meta {
+  grid-column: 1;
+  grid-row: 1/4;
+  flex-direction: column;
+  justify-content: start;
+  gap: 15px;
+  padding-top: 8px;
+}
+.polar-edition .journal-archive-list .journal-card h3 {
+  font-size: 26px;
+  line-height: 1.7;
+  font-weight: 450;
+  margin: 0 0 15px;
+}
+.polar-edition .journal-archive-list .journal-card p {
+  font-size: 13px;
+  line-height: 1.9;
+  max-width: 700px;
+}
+@media (max-width: 800px) {
+  .polar-edition .journal-archive,
+  .polar-edition:has(.journal-archive) > header,
+  .polar-edition:has(.journal-archive) > footer {
+    padding-inline: 24px;
+  }
+  .journal-archive-heading {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding-bottom: 30px;
+  }
+  .journal-archive-heading h1 {
+    font-size: 37px;
+  }
+  .journal-region-index {
+    gap: 15px;
+    font-size: 10px;
+  }
+  .polar-edition .journal-archive-list .journal-card {
+    display: block;
+  }
+  .journal-archive-list .journal-record-meta {
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  .polar-edition .journal-archive-list .journal-card h3 {
+    font-size: 22px;
+  }
+}
+
+/* A consistent bilingual hierarchy: serif titles, sans-serif reading/UI. */
+.polar-edition .chapter-intro h2,
+.polar-edition .region-file h3,
+.polar-edition .journal-card h3,
+.polar-edition .region-heading h1,
+.polar-edition .region-list-heading h2,
+.polar-edition .region-empty h2,
+.polar-edition .home-about h2,
+.polar-edition .home-about .about-line,
+.polar-edition .observer-heading h1,
+.polar-edition .journal-archive-heading h1 {
+  font-family: var(--archive-serif);
+  font-weight: 500;
+}
+.polar-edition .reading-region small,
+.polar-edition .rail-region-name small,
+.polar-edition .record-origin small {
+  font-family: var(--font-app);
+  font-style: normal;
+}

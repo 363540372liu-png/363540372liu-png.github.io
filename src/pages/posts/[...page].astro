@@ -3,9 +3,9 @@ import type { GetStaticPaths } from "astro";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
-import Breadcrumb from "@/components/Breadcrumb.astro";
-import Main from "@/components/Main.astro";
-import Card from "@/components/Card.astro";
+import JournalCard from "@/components/JournalCard.astro";
+import { regions } from "@/data/regions";
+import "@/styles/explorer.css";
 import Footer from "@/components/Footer.astro";
 import Pagination from "@/components/Pagination.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
@@ -26,13 +26,28 @@ const t = useTranslations(locale);
 <Layout title={`${t.pages.postsTitle} | ${config.site.title}`}>
   <Header />
 
-  <Breadcrumb />
-
-  <Main pageTitle={t.pages.postsTitle} pageDesc={t.pages.postsDesc}>
-    <ul>
-      {page.data.map(data => <Card {...data} />)}
-    </ul>
-  </Main>
+  <main id="main-content" class="journal-archive explorer-page">
+    <header class="journal-archive-heading">
+      <p class="eyebrow">THE JOURNAL / 持续记录</p><h1>
+        地图上的<br /><em>每一份记录。</em>
+      </h1><p>技术探索、生活手记，以及对世界的观察。</p>
+    </header>
+    <nav class="journal-region-index" aria-label="按区域阅读">
+      {
+        regions.map(region => (
+          <a
+            style={`--region-accent:${region.color}`}
+            href={`/regions/${region.id}/`}
+          >
+            {region.symbol} {region.name} ↗
+          </a>
+        ))
+      }
+    </nav>
+    <div class="journal-archive-list">
+      {page.data.map(post => <JournalCard {post} />)}
+    </div>
+  </main>
 
   <Pagination {page} />
 

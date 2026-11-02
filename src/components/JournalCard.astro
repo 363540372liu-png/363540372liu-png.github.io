@@ -2,23 +2,34 @@
 import type { CollectionEntry } from "astro:content";
 import { getPostUrl } from "@/utils/getPostPaths";
 import { slugifyStr } from "@/utils/slugify";
-import Datetime from "./Datetime.astro";
+import { regions } from "@/data/regions";
 type Props = { post: CollectionEntry<"posts">; large?: boolean };
 const { post, large = false } = Astro.props;
+const region = regions.find(item => item.id === post.data.region);
+const date = new Intl.DateTimeFormat("zh-CN", {
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  timeZone: "Asia/Shanghai",
+}).format(post.data.pubDatetime);
 ---
 
 <article
   data-reveal
   class:list={["journal-card", { "journal-card-large": large }]}
+  style={region ? `--region-accent:${region.color}` : undefined}
 >
-  <Datetime {...post.data} /><h3>
+  <div class="journal-record-meta">
+    <span>{region ? `${region.symbol} ${region.name}` : "探索日志"}</span>
+    <time datetime={post.data.pubDatetime.toISOString()}>{date}</time>
+  </div>
+  <h3>
     <a href={getPostUrl(post.id, post.filePath, Astro.currentLocale)}
       >{post.data.title}<span aria-hidden="true"> ↗</span></a
     >
-  </h3><p>{post.data.description}</p><ul
-    class="journal-tags"
-    aria-label="文章标签"
-  >
+  </h3>
+  <p>{post.data.description}</p>
+  <ul class="journal-tags" aria-label="文章标签">
     {
       post.data.tags.map(tag => (
         <li>

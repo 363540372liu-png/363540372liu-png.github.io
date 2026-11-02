@@ -11,8 +11,24 @@ const { region, loading = "eager" } = Astro.props;
 
 <figure
   class="region-mini-map"
+  data-ambient
   aria-label={region.name + "位置示意，" + region.location}
 >
+  <svg
+    class="map-graticule"
+    viewBox="0 0 360 360"
+    fill="none"
+    aria-hidden="true"
+    ><g stroke="currentColor" stroke-width=".65"
+      ><circle cx="180" cy="180" r="148"></circle><circle
+        cx="180"
+        cy="180"
+        r="114"
+        stroke-dasharray="2 7"></circle><path
+        d="M180 20v24M180 316v24M20 180h24M316 180h24M22 40V22h18M320 22h18v18M338 320v18h-18M40 338H22v-18"
+      ></path></g
+    ></svg
+  >
   <div class="mini-map-art">
     <Image
       src={relief}

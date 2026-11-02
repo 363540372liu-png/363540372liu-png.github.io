@@ -1,0 +1,58 @@
+---
+type Props = { id: string; class?: string };
+const { id, class: className } = Astro.props;
+---
+
+<svg
+  class:list={["region-glyph", className]}
+  viewBox="0 0 120 96"
+  fill="none"
+  aria-hidden="true"
+>
+  <g
+    stroke="currentColor"
+    stroke-width="1"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    {
+      id === "dry-valleys" ? (
+        <>
+          <path d="M10 77 34 38 48 57 67 19 108 77M22 77 35 55 48 71 67 37 95 77M39 77 67 54 79 77" />
+          <path
+            d="M14 84h94M64 12h6M67 9v6M30 25h9M34.5 20.5v9"
+            opacity=".35"
+          />
+        </>
+      ) : id === "station-1810" ? (
+        <>
+          <path d="M19 73h84M32 73V43l28-21 29 21v30M26 47l34-26 35 26M53 73V53h15v20M38 50h8v9h-8M75 50h8v9h-8M79 35V19h8v22" />
+          <path
+            d="M11 81h49M73 81h37M20 32h15M27.5 24.5v15M99 18v17m-5-11h10"
+            opacity=".35"
+          />
+        </>
+      ) : id === "port-lockroy" ? (
+        <>
+          <path d="M14 66h93M24 66V49h17v17M49 66V40h31v26M90 66V25M84 31h12M14 75c10-7 18 7 28 0s18 7 28 0 18 7 28 0M23 84c10-7 18 7 28 0s18 7 28 0" />
+          <path
+            d="M49 40l15-13 16 13M59 48h10M14 24h20m-10-10v20M102 48v10"
+            opacity=".35"
+          />
+        </>
+      ) : (
+        <>
+          <circle cx="60" cy="47" r="27" stroke-dasharray="54 12 28 12" />
+          <circle
+            cx="60"
+            cy="47"
+            r="38"
+            stroke-dasharray="17 8 55 10"
+            opacity=".35"
+          />
+          <path d="M60 4v17M60 73v17M17 47h17M86 47h17M53 47h14M60 40v14" />
+        </>
+      )
+    }
+  </g>
+</svg>

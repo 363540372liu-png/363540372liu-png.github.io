@@ -1,4 +1,5 @@
 ---
+sample: true
 title: How to update dependencies of AstroPaper
 author: Sat Naing
 pubDatetime: 2023-07-20T15:33:05.569Z

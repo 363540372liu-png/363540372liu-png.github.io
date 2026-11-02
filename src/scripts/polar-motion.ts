@@ -12,6 +12,17 @@ function initMotion() {
     );
   syncVisibility();
   document.addEventListener("visibilitychange", syncVisibility, { signal });
+  // One observer for visible ambient surfaces; no rendering loop.
+  const ambient = new IntersectionObserver(
+    entries => {
+      for (const entry of entries)
+        entry.target.classList.toggle("ambient-active", entry.isIntersecting);
+    },
+    { threshold: 0.05 }
+  );
+  document
+    .querySelectorAll("[data-ambient]")
+    .forEach(el => ambient.observe(el));
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const pending = new Set<HTMLElement>();
   const intro = document.querySelector<HTMLElement>("[data-region-intro]");
@@ -116,6 +127,10 @@ function initMotion() {
   );
   dispose = () => {
     controller.abort();
+    ambient.disconnect();
+    document
+      .querySelectorAll(".ambient-active")
+      .forEach(el => el.classList.remove("ambient-active"));
     observer.disconnect();
     cancelAnimationFrame(frame);
     pending.forEach(el => el.classList.remove("reveal-pending"));
