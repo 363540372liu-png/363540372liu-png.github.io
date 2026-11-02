@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import RegionGlyph from "@/components/RegionGlyph.astro";
 import RegionMap from "@/components/RegionMap.astro";
 import JournalCard from "@/components/JournalCard.astro";
 import { regions } from "@/data/regions";
@@ -53,7 +54,10 @@ const { region, entries, current, count, total } = Astro.props;
       }
     </nav><section class="region-heading" data-region-intro>
       <div class="region-heading-copy">
-        <p class="section-kicker">{region.recordLabel}</p><p
+        <div class="region-edition-index">
+          <span>0{regions.findIndex(item => item.id === region.id) + 1}</span
+          ><RegionGlyph id={region.id} />
+        </div><p class="section-kicker">{region.recordLabel}</p><p
           class="region-english"
         >
           {region.english}

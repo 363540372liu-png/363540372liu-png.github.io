@@ -1,49 +1,51 @@
-/* Slow signals, not moving content. Static by default without JS. */
+/* Perceptible slow light. The relief, land and vessel never drift. */
 .atlas-atmosphere {
   position: absolute;
-  inset: 4%;
+  inset: 0;
   z-index: 1;
   pointer-events: none;
   background:
-    radial-gradient(ellipse at 20% 38%, #78b4cb 0%, transparent 58%),
-    radial-gradient(ellipse at 76% 72%, #82b6ca 0%, transparent 52%);
+    radial-gradient(ellipse at 16% 42%, #79bbd2 0%, transparent 48%),
+    radial-gradient(ellipse at 87% 65%, #a2d6e3 0%, transparent 43%);
   mask-image: radial-gradient(
-    ellipse 40% 43% at 60% 51%,
-    transparent 60%,
-    #000 85%,
-    transparent 120%
+    ellipse 39% 40% at 60% 51%,
+    transparent 64%,
+    #000 92%,
+    transparent 132%
   );
-  opacity: 0.035;
-  animation: polar-ocean-light 28s ease-in-out infinite alternate paused;
+  opacity: 0.16;
+  animation: polar-ocean-light 24s ease-in-out -7s infinite alternate paused;
 }
 @keyframes polar-ocean-light {
   from {
-    opacity: 0.025;
-    transform: scale(0.995);
+    opacity: 0.08;
+    transform: translate3d(-1%, 1%, 0) scale(0.98);
   }
   to {
-    opacity: 0.1;
-    transform: scale(1.012);
+    opacity: 0.43;
+    transform: translate3d(1.5%, -1%, 0) scale(1.04);
   }
 }
+/* Each ring is already part of its geographic anchor. No independent point. */
 .atlas .region-node > span::after {
-  animation: polar-beacon var(--beacon-period, 11s) ease-in-out
+  inset: -5px;
+  border-color: var(--node-accent);
+  animation: polar-beacon var(--beacon-period, 10s) ease-out
     var(--beacon-delay, 0s) infinite paused;
 }
 @keyframes polar-beacon {
-  0%,
-  62%,
-  100% {
-    opacity: 0.08;
-    transform: scale(0.85);
+  0% {
+    opacity: 0.62;
+    transform: scale(0.65);
   }
-  78% {
-    opacity: 0.28;
-    transform: scale(1.18);
-  }
-  91% {
+  32% {
     opacity: 0;
-    transform: scale(1.65);
+    transform: scale(2.8);
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: scale(0.65);
   }
 }
 .atlas.ambient-active .atlas-atmosphere,
@@ -52,10 +54,26 @@
 }
 .atlas.ambient-active .region-node:is(:hover, :focus-visible) > span::after {
   animation: none;
-  opacity: 0.3;
+  transform: scale(1.6);
+  opacity: 0.55;
 }
 .atlas .explorer-boat:not(:hover):not(:focus-visible):not(:active) .boat-halo {
-  animation: polar-beacon 12.7s ease-in-out -8.4s infinite paused;
+  animation: polar-boat-signal 10.5s ease-out -5s infinite paused;
+}
+@keyframes polar-boat-signal {
+  0% {
+    opacity: 0.65;
+    transform: scale(0.7);
+  }
+  30% {
+    opacity: 0;
+    transform: scale(2.2);
+  }
+  31%,
+  100% {
+    opacity: 0;
+    transform: scale(0.7);
+  }
 }
 .atlas.ambient-active
   .explorer-boat:not(:hover):not(:focus-visible):not(:active)
@@ -68,10 +86,22 @@
   inset: -5px;
   border-radius: 50%;
   border: 1px solid var(--point-color);
-  animation: polar-beacon 13s ease-in-out -5s infinite paused;
+  animation: polar-beacon 9s ease-out -2s infinite paused;
 }
 .region-mini-map.ambient-active .mini-map-point::after {
   animation-play-state: running;
+}
+.observation-orbit {
+  transform-origin: 80px 80px;
+  animation: polar-orbit 50s linear infinite paused;
+}
+.observation-seal.ambient-active .observation-orbit {
+  animation-play-state: running;
+}
+@keyframes polar-orbit {
+  to {
+    transform: rotate(360deg);
+  }
 }
 html.motion-suspended .atlas .atlas-atmosphere,
 html.motion-suspended .atlas .region-node > span::after,
@@ -79,25 +109,29 @@ html.motion-suspended
   .atlas
   .explorer-boat:not(:hover):not(:focus-visible):not(:active)
   .boat-halo,
-html.motion-suspended .region-mini-map .mini-map-point::after {
+html.motion-suspended .region-mini-map .mini-map-point::after,
+html.motion-suspended .observation-orbit {
   animation-play-state: paused;
 }
 @media (prefers-reduced-motion: reduce) {
   .atlas .atlas-atmosphere,
   .atlas .region-node > span::after,
   .atlas .explorer-boat:not(:hover):not(:focus-visible):not(:active) .boat-halo,
-  .region-mini-map .mini-map-point::after {
+  .region-mini-map .mini-map-point::after,
+  .observation-orbit {
     animation: none !important;
   }
   .atlas-atmosphere {
-    opacity: 0.035;
+    opacity: 0.08;
+  }
+  .atlas .region-node > span::after,
+  .mini-map-point::after {
+    opacity: 0.15;
+    transform: none;
   }
   .atlas
     .explorer-boat:not(:hover):not(:focus-visible):not(:active)
     .boat-halo {
     opacity: 0;
-  }
-  .mini-map-point::after {
-    opacity: 0.1;
   }
 }

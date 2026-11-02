@@ -1,27 +1,34 @@
 # Living Atlas visual review
 
-Based on main `5eaa155a79eaf5a2feb40a6c76fb4aac51b2d2f4`. Review on the feature branch before merging.
+Feature branch: `feat/polar-living-atlas`. Review before merging; GitHub Pages deployment remains limited to main.
 
-## Changes
+## Visual system
 
-- Home region entries use fine rules, shared regional colors, existing location descriptions and actual published record counts. Journal entries use typography instead of placeholder images. The Observer section and identity page share the same quiet archive language.
-- All four region pages share one template. The region configuration supplies the symbol, color, English name, location, record label and short motto. Station 1810 remains explicitly fictional. The unassigned pole remains open in meaning.
-- Articles retain the existing editorial grid, reading progress, heading navigation, Markdown/MDX, code and formula pipeline. Region maps and notes support the text; body typography and headings are refined. Unclassified posts retain the neutral fallback.
-- Ambient ocean light alternates gently over 28 seconds. Existing four beacon rings have periods of 9, 10.3, 11.6 and 12.9 seconds with negative staggered delays. The existing boat halo breathes every 12.7 seconds; the boat itself is unchanged. Only the current region marker appears on secondary maps, with a 13-second ring.
-- Ambient animation pauses offscreen and in hidden documents. ClientRouter teardown disconnects observers. Reduced-motion CSS disables ambient keyframes; existing boat reduced-motion behavior is retained. No per-frame ambient JS or new dependencies.
-- Eighteen retained AstroPaper samples receive `sample: true`. The shared publication filter hides them from public article routes, lists, RSS, tags, search and OG generation. Original article bodies and sample bodies are unchanged. Draft and scheduling behavior remains intact. Pages CMS configuration is unchanged.
+- A new masthead pairs the Polar Explorer wordmark with a small meridian symbol and Chinese identity line. The existing atlas headline and introduction remain; an italic atlas creates an identifiable cover rhythm.
+- Home chapters use an anchored introduction and two-column regional folios, followed by a vertical chronological journal. Each region has an original, code-native line symbol: valley, station, port or open coordinate. These are illustrative symbols, not geographic data or external assets.
+- Regional pages share an indexed folio with the symbol, bilingual name, configured color, actual location description and NOAA locator plate. Station 1810 remains explicitly fictional; the pole remains undefined.
+- Article covers combine the regional identity, title, original description and map of origin. Short titles receive greater scale based on title length, consistently across regions. The body uses a local serif font stack, while navigation and technical headings retain the existing sans-serif. There are no additional font downloads. The secondary rail provides a regional note and heading navigation where available.
+- The main journal archive now shares the same record language rather than falling back to the default list. Observer uses a bilingual identity cover and a slow meridian seal alongside the original writing.
+- Unclassified articles retain a neutral cover without an empty map column.
+
+## Default motion
+
+- The ocean-edge wash alternates over 24 seconds, opacity 0.08–0.43 with a very small transform. It overlays the outer ocean; the source relief and geographic anchors remain stationary.
+- The four existing beacon rings expand and fade over the opening 32% of their staggered 9–12.9-second cycles. Their peak opacity is 0.62, making the signal visible at normal viewing scale. The existing boat halo has a separate 10.5-second cycle. There is no additional independent About point.
+- Secondary maps animate only their current marker, on a 9-second cycle. Observer meridian arcs rotate over 50 seconds.
+- Ambient surfaces pause offscreen, and document visibility pauses all ambient keyframes. ClientRouter teardown disconnects observers. Reduced-motion CSS disables these keyframes, and the existing boat arrival reduced-motion behavior is unchanged.
+- Ambient effects use opacity/transform with no per-frame JavaScript or added dependencies.
+
+## Content and functionality
+
+The NOAA asset, map positions, boat component and flight, original article bodies, Observer Markdown, Pages CMS configuration, analytics and Markdown/MDX rendering pipeline are unchanged. Eighteen retained AstroPaper samples use `sample: true`; the shared publication filter excludes them from public routes, lists, feeds, search and OG generation without deleting their source. Draft and scheduling behavior remains intact.
 
 ## Validation
 
-- `pnpm install --frozen-lockfile`: passed.
-- `pnpm run lint`: passed.
-- `pnpm run format:check`: passed.
-- `pnpm run build`: passed; Astro checked 65 files with zero errors/warnings/hints; 18 static pages, three original articles indexed by Pagefind.
-- Chrome desktop: inspected homepage, all four regions, article and Observer. Verified article-to-region navigation and ClientRouter navigation, and light/dark Observer appearance.
-- Read live computed CSS: homepage atmosphere running; all four beacon periods/delays differ; current secondary-map marker running.
-- 390px iframe (375px content area after scrollbar): homepage and article have no horizontal overflow. This is a responsive smoke check, not physical-phone testing.
-- Original post bodies, Observer source, NOAA map asset and boat component verified unchanged. Temporary QA harness and local allowed-host setting removed.
+- Frozen-lockfile installation, lint, formatting check and full build.
+- Astro checks 67 files with zero diagnostics; 18 static pages, three original articles indexed by Pagefind.
+- Chrome desktop inspection of home, all regional folios, original articles, journal archive and Observer, including light/dark appearance and ClientRouter navigation.
+- Responsive smoke checks in a 390px iframe; keyboard activation of the boat remains an Observer link.
+- Motion is checked using live computed styles at different moments, not merely the presence of CSS animation declarations.
 
-## Review limits
-
-Physical mobile devices, Edge and OS reduced-motion preference switching were not exercised in this environment. Reduced-motion coverage was inspected in the CSS and existing boat code. Please review the deliberately subtle ambient intensity on your own display; it should remain secondary to the map and writing.
+Physical phones, Edge and OS-level reduced-motion preference switching are outside this environment's exercised coverage. The reduced-motion rules are inspected in source. Font appearance depends on the installed local Chinese serif font; the supplied stack intentionally avoids a large webfont download.

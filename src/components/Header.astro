@@ -52,7 +52,9 @@ const isActive = (path: string) => {
       href={getRelativeLocaleUrl(locale, "")}
       class="absolute py-1 text-xl leading-8 font-semibold whitespace-nowrap sm:static sm:my-auto sm:text-2xl sm:leading-none"
     >
-      Polar Explorer
+      <span class="brand-meridian" aria-hidden="true">✳</span><span
+        class="brand-name">Polar Explorer<small>个人地图与记录</small></span
+      >
     </a>
     <nav
       id="nav-menu"
@@ -74,11 +76,13 @@ const isActive = (path: string) => {
         id="menu-items"
         class="[&>li>a]:hover:text-accent mt-4 hidden w-44 grid-cols-2 place-content-center gap-2 sm:mt-0 sm:flex sm:w-auto sm:gap-x-5 sm:gap-y-0 sm:[&>li]:h-8 [&>li>a]:block [&>li>a]:px-4 [&>li>a]:py-3 [&>li>a]:text-center [&>li>a]:font-medium sm:[&>li>a]:px-2 sm:[&>li>a]:py-1"
       >
+        <li class="nav-coordinates col-span-2">
+          <a href="/#regions-title">坐标</a>
+        </li>
         <li class="col-span-2">
           <a
             href="/projects/"
-            aria-current={isActive("/projects") ? "page" : undefined}
-            >Projects</a
+            aria-current={isActive("/projects") ? "page" : undefined}>项目</a
           >
         </li>
         <li class="col-span-2">

@@ -10,6 +10,7 @@ import { getSortedPosts } from "@/utils/getSortedPosts";
 import { slugifyStr } from "@/utils/slugify";
 import { toTransitionName } from "@/utils/toTransitionName";
 import { regions } from "@/data/regions";
+import RegionGlyph from "@/components/RegionGlyph.astro";
 import RegionMap from "@/components/RegionMap.astro";
 import "@/styles/reading.css";
 import ShareLinks from "./_components/ShareLinks.astro";
@@ -128,39 +129,62 @@ const ogImage = ogImageUrl
         ← {region ? region.name : "全部文章"}
       </a>
     </div>
-    <header class="reading-heading">
+    <div class="record-cover">
+      <header class="reading-heading">
+        {
+          region ? (
+            <a class="reading-region" href={`/regions/${region.id}/`}>
+              <RegionGlyph id={region.id} />
+              <span>
+                {region.name}
+                <small>{region.english}</small>
+              </span>
+            </a>
+          ) : (
+            <p class="reading-neutral">FIELD NOTES / 探索日志</p>
+          )
+        }
+        <h1
+          style={{ viewTransitionName: toTransitionName(post.id) }}
+          class={Array.from(title).length <= 8
+            ? "record-title-short"
+            : undefined}
+          data-reading-title
+        >
+          {title}
+        </h1>
+        <p class="record-deck">{description}</p>
+        <div class="reading-meta">
+          <Datetime {pubDatetime} {modDatetime} {timezone} />
+          <ul aria-label="文章标签">
+            {
+              tags.map(tag => (
+                <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
+              ))
+            }
+          </ul>
+        </div>
+      </header>
       {
-        region ? (
-          <a class="reading-region" href={`/regions/${region.id}/`}>
-            <span class="reading-symbol" aria-hidden="true">
-              {region.symbol}
-            </span>
-            <span>
-              {region.name}
-              <small>{region.english}</small>
-            </span>
-          </a>
-        ) : (
-          <p class="reading-neutral">FIELD NOTES / 探索日志</p>
+        region && (
+          <aside
+            class="record-origin"
+            aria-label="记录所属区域"
+            data-pagefind-ignore
+          >
+            <>
+              <p class="origin-index">所在坐标 / 0{regionNumber}</p>
+              <RegionMap {region} />
+              <p>
+                {region.name}
+                <small>{region.english}</small>
+              </p>
+              <span>{region.location}</span>
+            </>
+          </aside>
         )
       }
-      <h1
-        style={{ viewTransitionName: toTransitionName(post.id) }}
-        data-reading-title
-      >
-        {title}
-      </h1>
-      <div class="reading-meta">
-        <Datetime {pubDatetime} {modDatetime} {timezone} />
-        <ul aria-label="文章标签">
-          {
-            tags.map(tag => (
-              <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />
-            ))
-          }
-        </ul>
-      </div>
-    </header>
+    </div>
     <div
       class:list={["reading-grid", { "has-rail": Boolean(region) || hasToc }]}
     >
@@ -200,15 +224,7 @@ const ogImage = ogImageUrl
           >
             {region && (
               <div class="reading-location">
-                <p class="reading-rail-kicker">
-                  ATLAS / 0{regionNumber} · 所在坐标
-                </p>
-                <RegionMap {region} loading="lazy" />
-                <p class="rail-region-name">
-                  {region.name}
-                  <small>{region.english}</small>
-                </p>
-                <p class="reading-coordinates">{region.location}</p>
+                <p class="reading-rail-kicker">{region.recordLabel}</p>
                 <p class="rail-region-note">{region.motto}</p>
                 <a
                   class="reading-location-link"

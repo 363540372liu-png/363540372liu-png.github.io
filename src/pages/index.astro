@@ -5,6 +5,8 @@ import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
 import JournalCard from "@/components/JournalCard.astro";
 import PolarMap from "@/components/PolarMap.astro";
+import RegionGlyph from "@/components/RegionGlyph.astro";
+import ObservationSeal from "@/components/ObservationSeal.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { regions } from "@/data/regions";
 import "@/styles/polar.css";
@@ -21,7 +23,7 @@ const journal = posts.filter(post => post.id !== featured?.id).slice(0, 3);
     <section id="hero" class="polar-hero">
       <div class="hero-copy">
         <p class="eyebrow">PERSONAL ATLAS / VOL. 02</p><h1>
-          An unfinished<br />atlas<span>一张尚未绘制完成的地图</span>
+          An unfinished<br /><em>atlas</em><span>一张尚未绘制完成的地图</span>
         </h1><p class="intro">
           你好，我是企鹅。<br />在技术与生活之间，记录观察、留下思考。<br
           />保持好奇，向尚未抵达的地方走去。
@@ -38,56 +40,62 @@ const journal = posts.filter(post => post.id !== featured?.id).slice(0, 3);
       data-reveal
       aria-labelledby="regions-title"
     >
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">02 / THE COORDINATES</p><h2 id="regions-title">
-            Explore the Regions
-          </h2>
-        </div><p class="archive-aside">沿着坐标，找到一份记录。</p>
-      </div><div class="region-directory">
+      <div class="chapter-intro">
+        <p class="eyebrow">02 / THE COORDINATES</p>
+        <h2 id="regions-title">沿着坐标，<br />继续探索。</h2>
+        <p class="chapter-english">Explore the Regions</p>
+        <p class="chapter-note">
+          有些记录向外追问，<br />有些只是为内心留一处停靠。
+        </p>
+        <a class="chapter-map-link" href="#hero">回到地图 ↑</a>
+      </div>
+      <div class="region-directory">
         {
           regions.map((region, index) => (
             <a
-              href={"/regions/" + region.id + "/"}
-              data-reveal
-              style={
-                "--region-accent:" +
-                region.color +
-                ";--reveal-delay:" +
-                index * 60 +
-                "ms"
-              }
+              class="region-file"
+              href={`/regions/${region.id}/`}
+              style={`--region-accent:${region.color}`}
             >
-              <>
-                <span class="region-index">
-                  0{index + 1} / {region.symbol}
-                </span>
-                <b>{region.name}</b>
+              <div class="region-file-top">
                 <>
-                  <small>{region.english}</small>
-                  <p>{region.description.split("。")[0]}。</p>
-                  <small class="region-coordinate">{region.location}</small>
-                  <span class="region-ledger">
+                  <span class="region-index">0{index + 1}</span>
+                  <span class="region-file-kind">{region.recordLabel}</span>
+                  <span class="entry-arrow" aria-hidden="true">
+                    ↗
+                  </span>
+                </>
+              </div>
+              <RegionGlyph id={region.id} />
+              <h3>{region.name}</h3>
+              <p class="region-file-english">{region.english}</p>
+              <p class="region-file-description">
+                {region.description.split("。")[0]}。
+              </p>
+              <div class="region-file-bottom">
+                <>
+                  <span>{region.location}</span>
+                  <span>
                     {
                       posts.filter(post => post.data.region === region.id)
                         .length
                     }{" "}
                     篇记录
                   </span>
-                  <span class="entry-arrow" aria-hidden="true">
-                    ↗
-                  </span>
                 </>
-              </>
+              </div>
             </a>
           ))
         }
       </div>
     </section><section class="home-journal" data-reveal>
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">03 / FIELD NOTES</p><h2>Latest journal</h2>
-        </div><a class="text-link" href="/posts/">浏览全部文章 ↗</a>
+      <div class="chapter-intro">
+        <p class="eyebrow">03 / FIELD NOTES</p><h2>最近的<br />记录。</h2><p
+          class="chapter-english"
+        >
+          Latest journal
+        </p>
+        <a class="text-link" href="/posts/">翻阅全部日志 ↗</a>
       </div><div
         class:list={["journal-grid", { "has-featured": Boolean(featured) }]}
       >
@@ -100,19 +108,19 @@ const journal = posts.filter(post => post.id !== featured?.id).slice(0, 3);
       data-reveal
       aria-labelledby="about-explorer"
     >
-      <div>
-        <p class="eyebrow">04 / THE OBSERVER</p><span
-          class="observer-mark"
-          aria-hidden="true">⊙</span
-        ><h2 id="about-explorer">
-          观察者<span class="observer-english">The Observer</span>
-        </h2>
-      </div><div>
-        <p class="about-line">保持观察。<br />允许地图尚未完成。</p><p>
-          你好，我是企鹅。在这里记录技术探索、学习笔记与生活思考，为尚未抵达的地方留一块空白。
-        </p><a class="text-link" href="/about/"
-          >观察者 <span class="entry-arrow" aria-hidden="true">↗</span></a
-        >
+      <div class="observer-home-identity">
+        <ObservationSeal /><div>
+          <p class="eyebrow">04 / THE OBSERVER</p><h2 id="about-explorer">
+            观察者
+          </h2><p class="chapter-english">The Observer</p>
+        </div>
+      </div>
+      <div class="observer-home-statement">
+        <p class="about-line">
+          保持观察。<br /><span>允许地图尚未完成。</span>
+        </p><p>
+          你好，我是企鹅。<br />在技术与生活之间，记录观察、留下思考。
+        </p><a class="text-link" href="/about/">关于这位观察者 ↗</a>
       </div>
     </section>
   </main><Footer /></Layout

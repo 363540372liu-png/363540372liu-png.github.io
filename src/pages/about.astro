@@ -3,6 +3,7 @@ import { getEntry, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
+import ObservationSeal from "@/components/ObservationSeal.astro";
 import config from "@/config";
 const about = await getEntry("pages", "about");
 if (!about) throw new Error("Missing observer content");
@@ -19,13 +20,15 @@ const { Content, headings } = await render(about);
   <main id="main-content" class="observer-page">
     <a class="observer-back" href="/">← 返回地图</a>
     <header class="observer-heading">
-      <p class="eyebrow">THE OBSERVER / 记录者</p><h1>观察者</h1><p>
+      <p class="eyebrow">THE PERSON BEHIND THE ATLAS</p><h1>
+        观察者<em>Observer.</em>
+      </h1><p>
         保持观察。<br />允许地图尚未完成。
       </p>
     </header>
     <div class="observer-grid">
       <aside class="observer-identity" aria-label="记录者索引">
-        <span class="observer-mark" aria-hidden="true">⊙</span>
+        <ObservationSeal />
         <p>企鹅<small>Polar Explorer 的记录者</small></p>
         <nav aria-label="观察者页面目录">
           {
