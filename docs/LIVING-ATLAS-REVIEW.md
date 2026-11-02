@@ -4,10 +4,10 @@ Feature branch: `feat/polar-living-atlas`. Review before merging; GitHub Pages d
 
 ## Visual system
 
-- A new masthead pairs the Polar Explorer wordmark with a small meridian symbol and Chinese identity line. The existing atlas headline and introduction remain; an italic atlas creates an identifiable cover rhythm.
+- A new masthead pairs the Polar Explorer wordmark with a small meridian symbol and Chinese identity line. The existing atlas headline and introduction remain; a shared bilingual serif title family creates an identifiable cover rhythm.
 - Home chapters use an anchored introduction and two-column regional folios, followed by a vertical chronological journal. Each region has an original, code-native line symbol: valley, station, port or open coordinate. These are illustrative symbols, not geographic data or external assets.
 - Regional pages share an indexed folio with the symbol, bilingual name, configured color, actual location description and NOAA locator plate. Station 1810 remains explicitly fictional; the pole remains undefined.
-- Article covers combine the regional identity, title, original description and map of origin. Short titles receive greater scale based on title length, consistently across regions. The body uses a local serif font stack, while navigation and technical headings retain the existing sans-serif. There are no additional font downloads. The secondary rail provides a regional note and heading navigation where available.
+- Article covers combine the regional identity, title, original description and map of origin. Short titles receive greater scale based on title length, consistently across regions. Titles use a shared bilingual serif stack, while body text, navigation and metadata use the existing sans-serif stack. English labels no longer switch arbitrarily to italic Georgia. There are no additional font downloads. The secondary rail provides a regional note and heading navigation where available.
 - The main journal archive now shares the same record language rather than falling back to the default list. Observer uses a bilingual identity cover and a slow meridian seal alongside the original writing.
 - Unclassified articles retain a neutral cover without an empty map column.
 
@@ -31,4 +31,4 @@ The NOAA asset, map positions, boat component and flight, original article bodie
 - Responsive smoke checks in a 390px iframe; keyboard activation of the boat remains an Observer link.
 - Motion is checked using live computed styles at different moments, not merely the presence of CSS animation declarations.
 
-Physical phones, Edge and OS-level reduced-motion preference switching are outside this environment's exercised coverage. The reduced-motion rules are inspected in source. Font appearance depends on the installed local Chinese serif font; the supplied stack intentionally avoids a large webfont download.
+Physical phones, Edge and OS-level reduced-motion preference switching are outside this environment's exercised coverage. The reduced-motion rules are inspected in source. Title font appearance depends on the installed local Chinese serif font; the supplied stack intentionally avoids a large webfont download.

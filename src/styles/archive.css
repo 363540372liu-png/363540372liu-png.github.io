@@ -8,7 +8,8 @@
   --archive-surface: #eaf0f0;
   --archive-rule: #c4d1d4;
   --archive-serif:
-    Georgia, "Noto Serif CJK SC", "Songti SC", STSong, SimSun, serif;
+    "Noto Serif SC", "Source Han Serif SC", "Noto Serif CJK SC", "Songti SC",
+    STSong, Georgia, SimSun, serif;
 }
 [data-theme="dark"] {
   --background: #152128;
@@ -84,12 +85,14 @@
   padding-top: 12px;
 }
 .polar-edition .hero-copy h1 {
+  font-family: var(--archive-serif);
   font-size: clamp(3.8rem, 5.6vw, 5.3rem);
   line-height: 0.97;
   letter-spacing: -0.065em;
 }
 .polar-edition .hero-copy h1 em {
-  font-family: Georgia, serif;
+  font-style: normal;
+  font-family: var(--archive-serif);
   font-size: 1.39em;
   font-weight: 400;
   letter-spacing: -0.07em;
@@ -156,8 +159,8 @@
   margin: 28px 0 12px;
 }
 .chapter-english {
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 17px;
   color: var(--muted-foreground);
 }
@@ -202,7 +205,7 @@
   gap: 10px;
 }
 .polar-edition .region-file .region-index {
-  font-family: Georgia, serif;
+  font-family: var(--archive-serif);
   font-size: 25px;
   line-height: 1;
   letter-spacing: -0.05em;
@@ -241,8 +244,8 @@
   margin: 0;
 }
 .polar-edition .region-file .region-file-english {
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 12px;
   color: var(--muted-foreground);
   margin-top: 8px;
@@ -303,7 +306,7 @@
   position: absolute;
   left: 0;
   top: 27px;
-  font-family: Georgia, serif;
+  font-family: var(--archive-serif);
   font-size: 20px;
   color: var(--muted-foreground);
 }
@@ -431,8 +434,8 @@
 .region-edition-index > span {
   font-size: 72px;
   line-height: 1;
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   color: color-mix(in srgb, var(--region-accent) 55%, var(--border));
 }
 .region-edition-index .region-glyph {
@@ -445,8 +448,8 @@
   margin-bottom: 8px;
 }
 .polar-edition .region-english {
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 17px;
   color: var(--muted-foreground);
   margin-bottom: 17px;
@@ -573,8 +576,8 @@
   height: 42px;
 }
 .polar-edition .reading-region small {
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 11px;
   margin-top: 3px;
   letter-spacing: 0;
@@ -659,8 +662,8 @@
 .record-origin small {
   display: block;
   margin-top: 5px;
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 11px;
   color: var(--muted-foreground);
 }
@@ -675,7 +678,7 @@
   padding-top: 50px;
 }
 .polar-edition .reading-page #article {
-  font-family: var(--archive-serif);
+  font-family: var(--font-app);
   font-size: 18px;
   line-height: 2.05;
   font-weight: 400;
@@ -685,7 +688,7 @@
 }
 .polar-edition .reading-page #article h2 {
   border: 0;
-  font-family: var(--font-app);
+  font-family: var(--archive-serif);
   font-size: 25px;
   line-height: 1.6;
   margin: 2.4em 0 1em;
@@ -693,7 +696,7 @@
   font-weight: 550;
 }
 .polar-edition .reading-page #article h3 {
-  font-family: var(--font-app);
+  font-family: var(--archive-serif);
   font-size: 20px;
   font-weight: 550;
 }
@@ -725,8 +728,8 @@
 }
 .rail-region-name small {
   display: block;
-  font-family: Georgia, serif;
-  font-style: italic;
+  font-family: var(--archive-serif);
+  font-style: normal;
   font-size: 11px;
   color: var(--muted-foreground);
   margin-top: 4px;
@@ -787,8 +790,9 @@
   line-height: 1.3;
 }
 .observer-heading h1 em {
+  font-style: normal;
   display: block;
-  font-family: Georgia, serif;
+  font-family: var(--archive-serif);
   font-size: 76px;
   line-height: 1.2;
   color: var(--muted-foreground);
@@ -841,20 +845,20 @@
 .polar-edition .observer-prose {
   min-width: 0;
   max-width: 100%;
-  font-family: var(--archive-serif);
+  font-family: var(--font-app);
   font-size: 18px;
   line-height: 2.05;
   overflow-wrap: anywhere;
 }
 .polar-edition .observer-prose h2 {
-  font-family: var(--font-app);
+  font-family: var(--archive-serif);
   font-size: 26px;
   font-weight: 500;
   font-style: normal;
   margin-top: 2em;
 }
 .polar-edition .observer-prose h3 {
-  font-family: var(--font-app);
+  font-family: var(--archive-serif);
   font-style: normal;
   font-size: 20px;
 }
@@ -927,6 +931,7 @@
     padding-top: 44px;
   }
   .polar-edition .hero-copy h1 {
+    font-family: var(--archive-serif);
     font-size: 3.9rem;
   }
   .polar-edition .hero-copy h1 span {
@@ -1069,6 +1074,7 @@
     font-size: 44px;
   }
   .observer-heading h1 em {
+    font-style: normal;
     font-size: 56px;
   }
   .observer-heading > p:last-child {
@@ -1215,4 +1221,25 @@
   .polar-edition .journal-archive-list .journal-card h3 {
     font-size: 22px;
   }
+}
+
+/* A consistent bilingual hierarchy: serif titles, sans-serif reading/UI. */
+.polar-edition .chapter-intro h2,
+.polar-edition .region-file h3,
+.polar-edition .journal-card h3,
+.polar-edition .region-heading h1,
+.polar-edition .region-list-heading h2,
+.polar-edition .region-empty h2,
+.polar-edition .home-about h2,
+.polar-edition .home-about .about-line,
+.polar-edition .observer-heading h1,
+.polar-edition .journal-archive-heading h1 {
+  font-family: var(--archive-serif);
+  font-weight: 500;
+}
+.polar-edition .reading-region small,
+.polar-edition .rail-region-name small,
+.polar-edition .record-origin small {
+  font-family: var(--font-app);
+  font-style: normal;
 }
