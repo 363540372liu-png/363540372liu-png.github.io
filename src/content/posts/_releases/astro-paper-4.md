@@ -1,4 +1,5 @@
 ---
+sample: true
 author: Sat Naing
 pubDatetime: 2024-01-04T09:30:41.816Z
 title: AstroPaper 4.0

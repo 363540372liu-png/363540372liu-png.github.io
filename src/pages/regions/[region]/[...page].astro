@@ -36,7 +36,8 @@ const { region, entries, current, count, total } = Astro.props;
   description={region.description}
   ><Header /><main
     id="main-content"
-    class="explorer-page"
+    class="explorer-page region-archive"
+    data-region={region.id}
     style={"--region-accent:" + region.color}
   >
     <nav class="region-tabs" aria-label="探索区域">
@@ -52,17 +53,16 @@ const { region, entries, current, count, total } = Astro.props;
       }
     </nav><section class="region-heading" data-region-intro>
       <div class="region-heading-copy">
-        <p class="section-kicker">{region.english}</p><h1>{region.name}</h1><p
-          class="region-description"
+        <p class="section-kicker">{region.recordLabel}</p><p
+          class="region-english"
         >
+          {region.english}
+        </p><h1>{region.name}</h1><p class="region-description">
           {region.description}
-        </p><p class="region-location">{region.location}</p>{
-          region.fictional && (
-            <p class="station-motto">
-              Not every place needs to exist on a map.
-            </p>
-          )
-        }
+        </p><p class="region-location">
+          <span aria-hidden="true">{region.symbol}</span>
+          {region.location}
+        </p><p class="region-motto">{region.motto}</p>
       </div><RegionMap {region} />
     </section><div class="region-list-heading">
       <h2>区域日志</h2><span>{total} 篇记录</span>

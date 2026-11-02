@@ -11,6 +11,7 @@ const { region, loading = "eager" } = Astro.props;
 
 <figure
   class="region-mini-map"
+  data-ambient
   aria-label={region.name + "位置示意，" + region.location}
 >
   <div class="mini-map-art">

@@ -2,36 +2,42 @@
 import { getEntry, render } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
-import Breadcrumb from "@/components/Breadcrumb.astro";
-import Main from "@/components/Main.astro";
 import Footer from "@/components/Footer.astro";
 import config from "@/config";
-import "@/styles/explorer.css";
-
 const about = await getEntry("pages", "about");
-
-if (!about) {
-  throw new Error(
-    "Missing content entry: `about.md` or `about.mdx` in `src/content/pages/`"
-  );
-}
-
-const { Content } = await render(about);
+if (!about) throw new Error("Missing observer content");
+const { Content, headings } = await render(about);
 ---
 
 <Layout
-  title={`${about.data.title} | ${config.site.title}`}
+  title={`观察者 | ${config.site.title}`}
   description={about.data.description}
   ogImage={about.data.ogImage}
   canonicalURL={about.data.canonicalURL}
 >
   <Header />
-
-  <Breadcrumb />
-
-  <Main pageTitle={about.data.title} class="app-prose">
-    <Content />
-  </Main>
-
+  <main id="main-content" class="observer-page">
+    <a class="observer-back" href="/">← 返回地图</a>
+    <header class="observer-heading">
+      <p class="eyebrow">THE OBSERVER / 记录者</p><h1>观察者</h1><p>
+        保持观察。<br />允许地图尚未完成。
+      </p>
+    </header>
+    <div class="observer-grid">
+      <aside class="observer-identity" aria-label="记录者索引">
+        <span class="observer-mark" aria-hidden="true">⊙</span>
+        <p>企鹅<small>Polar Explorer 的记录者</small></p>
+        <nav aria-label="观察者页面目录">
+          {
+            headings
+              .filter(h => h.depth === 2)
+              .map(h => <a href={`#${h.slug}`}>{h.text} ↗</a>)
+          }
+        </nav>
+        <a class="observer-journal" href="/posts/">阅读我的记录 ↗</a>
+      </aside>
+      <article class="app-prose observer-prose"><Content /></article>
+    </div>
+  </main>
   <Footer />
 </Layout>

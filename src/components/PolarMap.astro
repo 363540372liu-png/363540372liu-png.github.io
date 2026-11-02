@@ -5,7 +5,8 @@ import { Image } from "astro:assets";
 import polarReference from "@/assets/antarctica-etopo-2022.webp";
 ---
 
-<div class="atlas">
+<div class="atlas" data-ambient>
+  <div class="atlas-atmosphere" aria-hidden="true"></div>
   <div class="atlas-art">
     <Image
       src={polarReference}
@@ -23,7 +24,7 @@ import polarReference from "@/assets/antarctica-etopo-2022.webp";
       <a
         class="map-node region-node"
         data-region={region.id}
-        style={`left:${region.position.left}%;top:${region.position.top}%;--node-accent:${region.color}`}
+        style={`left:${region.position.left}%;top:${region.position.top}%;--node-accent:${region.color};--beacon-delay:-${regions.indexOf(region) * 2.9}s;--beacon-period:${9 + regions.indexOf(region) * 1.3}s`}
         aria-label={region.name + "：" + region.description}
         href={"/regions/" + region.id + "/"}
       >

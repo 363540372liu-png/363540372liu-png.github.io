@@ -8,6 +8,8 @@ export const regionIds = [
 export const regions = [
   {
     id: "dry-valleys",
+    recordLabel: "FIELD RESEARCH",
+    motto: "从问题出发，留下可以复查的记录。",
     name: "麦克默多干谷",
     english: "McMurdo Dry Valleys",
     color: "#477C93",
@@ -19,6 +21,8 @@ export const regions = [
   },
   {
     id: "station-1810",
+    recordLabel: "STATION NOTES",
+    motto: "为尚未整理好的想法，留一处停靠。",
     name: "1810号科考站",
     english: "Station 1810",
     color: "#A17D67",
@@ -30,6 +34,8 @@ export const regions = [
   },
   {
     id: "port-lockroy",
+    recordLabel: "WORLD OBSERVATIONS",
+    motto: "从一座港口，望向不断变化的世界。",
     name: "洛克罗伊港",
     english: "Port Lockroy",
     color: "#506D7B",
@@ -41,6 +47,8 @@ export const regions = [
   },
   {
     id: "inaccessibility",
+    recordLabel: "OPEN COORDINATES",
+    motto: "留白也是地图的一部分。",
     name: "不可接近之极",
     english: "Pole of Inaccessibility",
     color: "#8984A5",

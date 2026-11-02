@@ -127,7 +127,6 @@ const ogImage = ogImageUrl
       <a href={region ? `/regions/${region.id}/` : "/posts/"}>
         ← {region ? region.name : "全部文章"}
       </a>
-      <span>POLAR EXPLORER / JOURNAL</span>
     </div>
     <header class="reading-heading">
       {
@@ -205,7 +204,12 @@ const ogImage = ogImageUrl
                   ATLAS / 0{regionNumber} · 所在坐标
                 </p>
                 <RegionMap {region} loading="lazy" />
+                <p class="rail-region-name">
+                  {region.name}
+                  <small>{region.english}</small>
+                </p>
                 <p class="reading-coordinates">{region.location}</p>
+                <p class="rail-region-note">{region.motto}</p>
                 <a
                   class="reading-location-link"
                   href={`/regions/${region.id}/`}
