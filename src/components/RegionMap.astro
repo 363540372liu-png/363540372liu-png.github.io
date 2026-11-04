@@ -44,6 +44,6 @@ const { region, loading = "eager" } = Astro.props;
     style={`left:${region.position.left}%;top:${region.position.top}%;--point-color:${region.color}`}
     aria-hidden="true"></span>
   <figcaption>
-    {region.fictional ? "FICTIONAL / 虚构位置" : "ANTARCTIC ATLAS / 区域位置"}
+    {region.fictional ? "虚构位置" : "区域位置"}
   </figcaption>
 </figure>

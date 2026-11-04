@@ -1,38 +1,68 @@
 <svg
-  class="observation-seal"
+  class="observation-seal observer-lighthouse"
   data-ambient
-  viewBox="0 0 160 160"
+  viewBox="0 0 120 96"
   fill="none"
   aria-hidden="true"
 >
-  <circle
-    cx="80"
-    cy="80"
-    r="64"
-    stroke="currentColor"
-    stroke-width=".6"
-    opacity=".35"></circle>
-  <ellipse
-    cx="80"
-    cy="80"
-    rx="30"
-    ry="64"
-    stroke="currentColor"
-    stroke-width=".6"
-    opacity=".35"></ellipse>
-  <path
-    d="M16 80h128M80 16v128M25 48h110M25 112h110"
-    stroke="currentColor"
-    stroke-width=".6"
-    opacity=".25"></path>
-  <g class="observation-orbit"
-    ><circle
-      cx="80"
-      cy="80"
-      r="73"
+  <g class="lighthouse-beam"
+    ><path d="M62 31 110 19v24Z" fill="currentColor" opacity=".05"></path><path
+      d="m62 31 48-12M62 31l48 12"
       stroke="currentColor"
-      stroke-width="1.2"
-      stroke-dasharray="65 164"></circle></g
+      stroke-width=".7"
+      opacity=".2"></path></g
   >
-  <path d="M72 80h16M80 72v16" stroke="currentColor" stroke-width="1"></path>
+  <g class="lighthouse-beam lighthouse-beam-left"
+    ><path d="M62 31 110 19v24Z" fill="currentColor" opacity=".05"></path></g
+  >
+  <g
+    stroke="currentColor"
+    stroke-width="1"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <path
+      d="m51 23 11-9 11 9H51ZM55 26v12h14V26M62 26v9M51 41h22M55 44l-6 34h26l-6-34M59 78V65h6v13M43 78h38"
+    ></path>
+    <path d="M27 84h43m9 0h17M62 9v5M25 33h10m-5-5v10" opacity=".35"></path>
+  </g>
 </svg>
+
+<style>
+  .observer-lighthouse {
+    overflow: visible;
+    color: var(--accent);
+  }
+  .lighthouse-beam {
+    transform-origin: 62px 31px;
+    animation: lighthouse-sweep 10s ease-in-out infinite;
+    animation-play-state: paused;
+  }
+  .lighthouse-beam-left {
+    scale: -1 1;
+    animation-delay: -5s;
+  }
+  .ambient-active .lighthouse-beam {
+    animation-play-state: running;
+  }
+  :global(.motion-suspended) .lighthouse-beam {
+    animation-play-state: paused;
+  }
+  @keyframes lighthouse-sweep {
+    0%,
+    100% {
+      transform: rotate(-12deg) scaleY(0.55);
+      opacity: 0.3;
+    }
+    50% {
+      transform: rotate(10deg) scaleY(1);
+      opacity: 1;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .lighthouse-beam {
+      animation: none;
+      opacity: 0.55;
+    }
+  }
+</style>
