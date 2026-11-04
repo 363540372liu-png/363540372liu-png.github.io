@@ -104,10 +104,9 @@ async function syncProject(
       language: typeof data.language === "string" ? data.language : undefined,
       pushedAt,
     };
-  } catch (error) {
+  } catch {
     // A failed API request must not turn the static portfolio into an empty
     // page. Never fabricate dates, languages or engagement statistics.
-    console.warn("[project-sync] Showing curated fallback for", expected, error);
     return fallback;
   }
 }
