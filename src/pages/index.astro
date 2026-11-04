@@ -9,12 +9,13 @@ import RegionGlyph from "@/components/RegionGlyph.astro";
 import ObservationSeal from "@/components/ObservationSeal.astro";
 import { getSortedPosts } from "@/utils/getSortedPosts";
 import { regions } from "@/data/regions";
-import { projects } from "@/data/polar";
+import { getProjects } from "@/utils/getProjects";
 import "@/styles/polar.css";
 import "@/styles/explorer.css";
 const posts = getSortedPosts(await getCollection("posts"));
 const featured = posts.find(post => post.data.featured);
 const journal = posts.filter(post => post.id !== featured?.id);
+const projects = await getProjects();
 ---
 
 <Layout
@@ -112,7 +113,8 @@ const journal = posts.filter(post => post.id !== featured?.id);
     >
       <div class="chapter-intro">
         <h2 id="projects-title">正在成形的项目。</h2>
-        <p class="chapter-note">项目、实验与实践记录。</p>
+        <p class="chapter-note">精选公开项目，连接源码与工程记录。</p>
+        <a class="text-link" href="/projects/">查看完整项目档案 ↗</a>
       </div>
       <div class="home-project-list">
         {
