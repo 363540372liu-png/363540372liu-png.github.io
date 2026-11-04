@@ -14,6 +14,7 @@ export type ProjectSelection = {
   category: string;
   tags: string[];
   detailPath?: string;
+  cover?: string;
 };
 
 export type PortfolioProject = ProjectSelection & {
@@ -73,7 +74,9 @@ async function syncProject(
   try {
     const token = process.env.GITHUB_TOKEN;
     const response = await fetch(
-      "https://api.github.com/repos/" + encodeURIComponent(owner) + "/" +
+      "https://api.github.com/repos/" +
+        encodeURIComponent(owner) +
+        "/" +
         encodeURIComponent(selected.repo),
       {
         headers: {
@@ -116,7 +119,10 @@ let pendingProjects: Promise<PortfolioProject[]> | undefined;
 /** Invoked during Astro static generation, never in the visitor's browser. */
 export function getProjects(): Promise<PortfolioProject[]> {
   pendingProjects ??= Promise.all(selectedProjects.map(syncProject)).then(
-    projects => projects.filter((project): project is PortfolioProject => project !== null)
+    projects =>
+      projects.filter(
+        (project): project is PortfolioProject => project !== null
+      )
   );
   return pendingProjects;
 }
