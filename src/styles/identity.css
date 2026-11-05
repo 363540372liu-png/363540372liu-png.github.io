@@ -626,6 +626,34 @@ html:has(.polar-home) {
     margin-top: 24px;
   }
 }
+/* Keep the next chapter below the opening viewport without clipping its rule. */
+@media (min-width: 801px) {
+  .polar-edition .polar-home .polar-hero {
+    min-height: max(720px, calc(100svh - 23px));
+  }
+}
+.polar-edition .home-regions .region-file h3 {
+  font-size: 25px;
+  line-height: 1.5;
+}
+.polar-edition .home-regions .region-file .region-file-description {
+  font-size: 16px;
+  line-height: 1.9;
+}
+.polar-edition .home-regions .region-file-bottom span {
+  font-size: 13px;
+  line-height: 1.8;
+}
+.polar-edition .home-regions .region-file > .region-glyph {
+  width: 112px;
+  height: 90px;
+  margin-block: 24px;
+}
+@media (max-width: 800px) {
+  .polar-edition .home-regions .region-file h3 {
+    font-size: 23px;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   html:has(.polar-home) {
     scroll-behavior: auto;
