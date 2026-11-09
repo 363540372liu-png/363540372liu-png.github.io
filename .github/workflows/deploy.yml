@@ -15,10 +15,11 @@ permissions:
 
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -27,8 +28,17 @@ jobs:
         uses: withastro/action@v6
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          PUBLIC_POLAR_SUPABASE_URL: ${{ vars.PUBLIC_POLAR_SUPABASE_URL }}
+          PUBLIC_POLAR_SUPABASE_KEY: ${{ vars.PUBLIC_POLAR_SUPABASE_KEY }}
+          PUBLIC_POLAR_TURNSTILE_SITE_KEY: ${{ vars.PUBLIC_POLAR_TURNSTILE_SITE_KEY }}
         with:
           node-version: 24
+      - name: Synchronize article catalog before release
+        run: node scripts/polar-catalog.mjs
+        env:
+          PUBLIC_POLAR_SUPABASE_URL: ${{ vars.PUBLIC_POLAR_SUPABASE_URL }}
+          PUBLIC_POLAR_SUPABASE_KEY: ${{ vars.PUBLIC_POLAR_SUPABASE_KEY }}
+          POLAR_CATALOG_SIGNING_KEY: ${{ secrets.POLAR_CATALOG_SIGNING_KEY }}
 
   deploy:
     needs: build

@@ -1,0 +1,66 @@
+---
+import PolarLogin from "./PolarLogin.astro";
+import "@/styles/interactions.css";
+
+interface Props {
+  postKey: string;
+}
+const { postKey } = Astro.props;
+---
+
+<polar-observations data-post={postKey} data-pagefind-ignore>
+  <section class="polar-ice" aria-label="文章点赞">
+    <button type="button" data-ice disabled aria-pressed="false">
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.2"
+        aria-hidden="true"
+      >
+        <path
+          d="m12 2 7.8 5v10L12 22l-7.8-5V7L12 2Z M12 2v20 M4.2 7l15.6 10 M19.8 7 4.2 17"
+        ></path>
+        <path d="m12 7 4 2.5v5L12 17l-4-2.5v-5L12 7Z"></path>
+      </svg>
+      <span data-ice-label>添一块冰</span>
+    </button>
+    <span data-ice-count role="status">正在读取冰块数量……</span>
+    <button type="button" data-ice-retry hidden>重试</button>
+    <div data-ice-proof class="polar-ice-proof" hidden></div>
+  </section>
+  <section id="observations" aria-labelledby="observations-title">
+    <header class="polar-observations-heading">
+      <h2 id="observations-title">观测回声</h2>
+      <span data-comment-count></span>
+    </header>
+    <div class="polar-actions polar-comment-actions">
+      <button type="button" data-compose>留下你的观测</button>
+      <button type="button" data-logout hidden>退出登录</button>
+      <button type="button" data-comment-retry hidden>重新加载</button>
+    </div>
+    <p data-comment-status class="polar-status" role="status">正在读取观测……</p>
+    <form data-comment-form class="polar-comment-form" hidden>
+      <label for="polar-observation-body" data-compose-label>留下你的观测</label
+      >
+      <textarea
+        id="polar-observation-body"
+        rows="4"
+        maxlength="2000"
+        required
+        placeholder="在这里留下你的发现、疑问，或不同的看法……"></textarea>
+      <div class="polar-actions">
+        <button type="submit" data-submit>送出观测</button>
+        <button type="button" data-cancel>关闭编辑</button>
+      </div>
+    </form>
+    <ol data-comments aria-label="文章观测"></ol>
+    <button type="button" data-more hidden>加载更多观测</button>
+  </section>
+  <PolarLogin />
+</polar-observations>
+<script>
+  import "@/scripts/post-interactions";
+</script>

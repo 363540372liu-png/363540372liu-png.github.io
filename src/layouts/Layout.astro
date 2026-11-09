@@ -14,6 +14,7 @@ type Props = {
   description?: string;
   ogImage?: string;
   canonicalURL?: string;
+  sensitivePage?: boolean;
 };
 
 const { site } = config;
@@ -23,6 +24,7 @@ const {
   description = site.description,
   ogImage = resolveDefaultOgImagePath(config),
   canonicalURL = new URL(Astro.url.pathname, Astro.site).href,
+  sensitivePage = false,
 } = Astro.props;
 
 const socialImageURL = new URL(ogImage, Astro.site ?? Astro.url);
@@ -40,6 +42,7 @@ const rssHref = getRelativeLocaleUrl(
 >
   <head>
     <meta charset="UTF-8" />
+    {sensitivePage && <meta name="referrer" content="no-referrer" />}
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" type="image/svg+xml" href={getAssetPath("favicon.svg")} />
     <link rel="icon" href={getAssetPath("favicon.ico")} />
@@ -120,13 +123,16 @@ const rssHref = getRelativeLocaleUrl(
       import "@/scripts/polar-motion";
     </script>
     <!-- Cloudflare Web Analytics: one persistent beacon for Astro ClientRouter. -->
-    <!-- prettier-ignore -->
-    <script
-      is:inline
-      transition:persist="cloudflare-web-analytics"
-      type="module"
-      src="https://static.cloudflareinsights.com/beacon.min.js"
-      data-cf-beacon='{"token": "f818064eb7144131bd9cdf97930f2767"}'
-    ></script>
+    {
+      !sensitivePage && (
+        <script
+          is:inline
+          transition:persist="cloudflare-web-analytics"
+          type="module"
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          data-cf-beacon='{"token": "f818064eb7144131bd9cdf97930f2767"}'
+        />
+      )
+    }
   </body>
 </html>
