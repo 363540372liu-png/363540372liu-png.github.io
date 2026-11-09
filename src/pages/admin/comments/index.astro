@@ -1,0 +1,48 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import PolarLogin from "@/components/interactions/PolarLogin.astro";
+import "@/styles/interactions.css";
+---
+
+<Layout title="观测审核 | Polar Explorer">
+  <meta slot="head" name="robots" content="noindex, nofollow" />
+  <Header />
+  <main id="main-content" class="polar-review" data-pagefind-ignore>
+    <polar-review>
+      <h1>观测审核</h1>
+      <p data-review-status class="polar-status" role="status">
+        正在确认权限……
+      </p>
+      <div class="polar-actions">
+        <button type="button" data-login-open hidden>登录</button>
+        <button type="button" data-logout hidden>退出登录</button>
+      </div>
+      <section data-review-panel hidden aria-label="审核队列">
+        <form class="polar-actions polar-review-filters">
+          <label
+            >状态
+            <select name="status">
+              <option value="pending">待审核</option>
+              <option value="approved">已通过</option>
+              <option value="rejected">已拒绝</option>
+            </select>
+          </label>
+          <label
+            >文章
+            <select name="post"><option value="">全部文章</option></select>
+          </label>
+          <button type="submit">刷新队列</button>
+        </form>
+        <ol data-review-rows aria-label="审核记录"></ol>
+        <button type="button" data-more hidden>加载更多记录</button>
+      </section>
+      <PolarLogin />
+    </polar-review>
+  </main>
+  <Footer />
+</Layout>
+<script>
+  import "@/scripts/polar-review";
+</script>

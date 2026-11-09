@@ -5,6 +5,10 @@
 !/src
 !/public
 !/.github
+!/supabase
+!/tests
+!/scripts
+/scripts/maps/
 !tsconfig.json
 !astro.config.ts
 !package.json

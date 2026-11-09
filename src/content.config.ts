@@ -26,6 +26,10 @@ const posts = defineCollection({
       pubDatetime: contentDate,
       modDatetime: contentDate.optional().nullable(),
       title: z.string(),
+      interactionId: z
+        .string()
+        .regex(/^[a-f0-9]{64}$/)
+        .optional(),
       region: z.enum(regionIds).optional(),
       featured: z.boolean().optional(),
       draft: z.boolean().optional(),

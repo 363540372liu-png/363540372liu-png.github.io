@@ -27,6 +27,8 @@ jobs:
         uses: withastro/action@v6
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          PUBLIC_POLAR_SUPABASE_URL: ${{ vars.PUBLIC_POLAR_SUPABASE_URL }}
+          PUBLIC_POLAR_SUPABASE_KEY: ${{ vars.PUBLIC_POLAR_SUPABASE_KEY }}
         with:
           node-version: 24
 
