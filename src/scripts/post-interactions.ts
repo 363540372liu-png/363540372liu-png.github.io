@@ -155,11 +155,13 @@ class PolarObservations extends HTMLElement {
             .querySelector("svg")
             ?.animate(
               [
-                { transform: "scale(1)" },
-                { transform: "scale(1.17)" },
-                { transform: "scale(1)" },
+                { transform: "rotate(0deg)" },
+                { transform: "rotate(-10deg)" },
+                { transform: "rotate(8deg)" },
+                { transform: "rotate(-4deg)" },
+                { transform: "rotate(0deg)" },
               ],
-              { duration: 380, easing: "ease-out" }
+              { duration: 350, easing: "ease-out" }
             );
         }
       } catch (error) {
