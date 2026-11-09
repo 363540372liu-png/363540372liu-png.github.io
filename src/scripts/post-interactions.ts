@@ -1,4 +1,8 @@
 import {
+  iceVerificationAvailable,
+  verifyIceVisitor,
+} from "@/lib/polar-turnstile";
+import {
   client,
   configured,
   errorText,
@@ -27,6 +31,7 @@ class PolarObservations extends HTMLElement {
     const iceButton = find<HTMLButtonElement>(this, "[data-ice]");
     const iceLabel = find(this, "[data-ice-label]");
     const iceCount = find(this, "[data-ice-count]");
+    const iceProof = find<HTMLElement>(this, "[data-ice-proof]");
     const iceRetry = find<HTMLButtonElement>(this, "[data-ice-retry]");
     const compose = find<HTMLButtonElement>(this, "[data-compose]");
     const logout = find<HTMLButtonElement>(this, "[data-logout]");
@@ -51,6 +56,7 @@ class PolarObservations extends HTMLElement {
     }
 
     let liked = false;
+    let lastIceAction: boolean | undefined;
     let user: string | null | undefined;
     let replyTo: string | null = null;
     let requestId = crypto.randomUUID();
@@ -114,10 +120,26 @@ class PolarObservations extends HTMLElement {
     }
 
     async function loadIce(desired?: boolean) {
+      lastIceAction = desired;
       iceButton.disabled = true;
       iceRetry.hidden = true;
       try {
-        const result = await ice(post, signal, desired);
+        let result;
+        try {
+          result = await ice(post, signal, desired);
+        } catch (error) {
+          if (
+            signal.aborted ||
+            (error as { code?: string }).code !== "PT428" ||
+            desired !== true ||
+            !iceVerificationAvailable
+          )
+            throw error;
+          iceCount.textContent = "请完成验证，再添一块冰。";
+          iceProof.hidden = false;
+          const proof = await verifyIceVisitor(iceProof, signal);
+          result = await ice(post, signal, desired, proof);
+        }
         if (signal.aborted) return;
         liked = result.liked;
         iceButton.setAttribute("aria-pressed", String(liked));
@@ -142,8 +164,14 @@ class PolarObservations extends HTMLElement {
         }
       } catch (error) {
         if (signal.aborted) return;
-        iceCount.textContent = errorText(error, "暂时无法确认冰块数量。");
+        const code = (error as { code?: string }).code;
+        iceCount.textContent =
+          code === "PT428" || code === "PT422"
+            ? "验证未能完成，请重试。"
+            : errorText(error, "暂时无法确认冰块数量。");
         iceRetry.hidden = false;
+      } finally {
+        iceProof.hidden = true;
       }
     }
 
@@ -266,7 +294,9 @@ class PolarObservations extends HTMLElement {
     }
 
     iceButton.addEventListener("click", () => void loadIce(!liked), { signal });
-    iceRetry.addEventListener("click", () => void loadIce(), { signal });
+    iceRetry.addEventListener("click", () => void loadIce(lastIceAction), {
+      signal,
+    });
     retry.addEventListener("click", () => void load(), { signal });
     more.addEventListener("click", () => void load(true), { signal });
     cancel.addEventListener(

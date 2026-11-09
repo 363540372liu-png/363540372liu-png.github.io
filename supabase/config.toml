@@ -2,3 +2,6 @@ project_id = "polar-explorer-interactions"
 
 [functions.polar-ice]
 verify_jwt = false
+
+[functions.polar-catalog]
+verify_jwt = false

@@ -244,3 +244,8 @@ polar-review [hidden] {
     transition: none !important;
   }
 }
+
+.polar-ice-proof {
+  flex-basis: 100%;
+  min-width: 0;
+}

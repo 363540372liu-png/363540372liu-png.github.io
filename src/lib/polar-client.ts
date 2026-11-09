@@ -167,13 +167,14 @@ function visitorId() {
 export async function ice(
   post: string,
   signal: AbortSignal,
-  liked?: boolean
+  liked?: boolean,
+  proof?: string
 ): Promise<Ice> {
   const response = await fetch(`${url}/functions/v1/polar-ice`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ post, visitor: visitorId(), liked }),
-    signal: AbortSignal.any([signal, AbortSignal.timeout(10000)]),
+    body: JSON.stringify({ post, visitor: visitorId(), liked, proof }),
+    signal: AbortSignal.any([signal, AbortSignal.timeout(17000)]),
     cache: "no-store",
     credentials: "omit",
   });

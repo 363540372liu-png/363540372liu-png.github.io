@@ -1,3 +1,5 @@
+import { boundedText, supabaseRpc } from "../_shared/request.ts";
+
 // The public browser endpoint accepts an explicit desired state, never a count.
 const url = Deno.env.get("SUPABASE_URL") ?? "";
 const key = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY") ?? "";
@@ -7,6 +9,7 @@ const origins = new Set(
     .split(",")
     .map(value => value.trim())
 );
+const turnstileSecret = Deno.env.get("POLAR_TURNSTILE_SECRET") ?? "";
 const useCloudflareIp = Deno.env.get("POLAR_TRUST_CF_IP") === "true";
 const encoder = new TextEncoder();
 const hmac =
@@ -22,27 +25,22 @@ const hmac =
 const uuid =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/;
 
-async function boundedJson(request: Request) {
-  const reader = request.body?.getReader();
-  if (!reader) throw new Error("missing_body");
-  const decoder = new TextDecoder();
-  let size = 0;
-  let body = "";
-  try {
-    for (;;) {
-      const { value, done } = await reader.read();
-      if (done) break;
-      size += value.byteLength;
-      if (size > 512) {
-        await reader.cancel();
-        throw new Error("body_too_large");
-      }
-      body += decoder.decode(value, { stream: true });
+async function verifyProof(proof: string, origin: string) {
+  const response = await fetch(
+    "https://challenges.cloudflare.com/turnstile/v0/siteverify",
+    {
+      method: "POST",
+      body: new URLSearchParams({ secret: turnstileSecret, response: proof }),
+      signal: AbortSignal.timeout(6000),
     }
-    return JSON.parse(body + decoder.decode());
-  } finally {
-    reader.releaseLock();
-  }
+  );
+  if (!response.ok) throw new Error("verification_unavailable");
+  const result = await response.json();
+  return (
+    result.success === true &&
+    result.action === "polar_ice" &&
+    result.hostname === new URL(origin).hostname
+  );
 }
 
 Deno.serve(async request => {
@@ -68,11 +66,12 @@ Deno.serve(async request => {
   ) {
     return json({ error: "invalid_content_type" }, 415);
   }
-  if (!url || !key || !hmac) return json({ error: "unavailable" }, 503);
+  if (!url || !key || (useCloudflareIp && !hmac))
+    return json({ error: "unavailable" }, 503);
 
   let data;
   try {
-    data = await boundedJson(request);
+    data = JSON.parse(await boundedText(request, 3072));
   } catch {
     return json({ error: "invalid_request" }, 400);
   }
@@ -82,7 +81,12 @@ Deno.serve(async request => {
     !/^[a-f0-9]{64}$/.test(data.post) ||
     typeof data.visitor !== "string" ||
     !uuid.test(data.visitor) ||
-    (data.liked !== undefined && typeof data.liked !== "boolean")
+    (data.liked !== undefined && typeof data.liked !== "boolean") ||
+    (data.proof !== undefined &&
+      (data.liked !== true ||
+        typeof data.proof !== "string" ||
+        data.proof.length < 1 ||
+        data.proof.length > 2048))
   ) {
     return json({ error: "invalid_request" }, 400);
   }
@@ -97,37 +101,43 @@ Deno.serve(async request => {
       const ip = useCloudflareIp
         ? request.headers.get("cf-connecting-ip")
         : null;
-      // Until the gateway's header handling is verified, use a shared write
-      // budget. Client-supplied forwarding headers never grant a new budget.
-      const source = ip && /^[0-9a-f:.]{3,45}$/i.test(ip) ? ip : "shared";
-      const digest = await crypto.subtle.sign(
-        "HMAC",
-        await hmac,
-        encoder.encode(source)
-      );
-      args.p_network = Array.from(new Uint8Array(digest), n =>
-        n.toString(16).padStart(2, "0")
-      ).join("");
-      args.p_liked = data.liked;
-    }
-    const response = await fetch(
-      `${url}/rest/v1/rpc/polar_ice_${write ? "write" : "read"}`,
-      {
-        method: "POST",
-        headers: {
-          apikey: key,
-          Authorization: `Bearer ${key}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(args),
-        signal: AbortSignal.timeout(8000),
+      args.p_network = null;
+      if (hmac && ip && /^[0-9a-f:.]{3,45}$/i.test(ip)) {
+        const digest = await crypto.subtle.sign(
+          "HMAC",
+          await hmac,
+          encoder.encode(ip)
+        );
+        args.p_network = Array.from(new Uint8Array(digest), n =>
+          n.toString(16).padStart(2, "0")
+        ).join("");
       }
+      args.p_liked = data.liked;
+      args.p_verified = false;
+      if (data.proof !== undefined) {
+        if (!turnstileSecret || !(await verifyProof(data.proof, origin))) {
+          return json({ error: "verification_failed" }, 422);
+        }
+        args.p_verified = true;
+      }
+    }
+    const response = await supabaseRpc(
+      url,
+      key,
+      write ? "polar_ice_write_v2" : "polar_ice_read",
+      args
     );
     if (!response.ok) {
-      if (response.status === 429) headers.set("Retry-After", "60");
-      const status = [400, 404, 429].includes(response.status)
-        ? response.status
-        : 502;
+      if (response.status === 428 && turnstileSecret) {
+        return json({ error: "verification_required" }, 428);
+      }
+      const limited = response.status === 429 || response.status === 428;
+      if (limited) headers.set("Retry-After", "60");
+      const status = limited
+        ? 429
+        : [400, 404].includes(response.status)
+          ? response.status
+          : 502;
       return json(
         { error: status === 429 ? "rate_limited" : "request_failed" },
         status
