@@ -254,7 +254,11 @@ polar-review [hidden] {
 polar-observations {
   --field-accent: var(--reading-accent, var(--accent));
   --field-rule: color-mix(in srgb, var(--field-accent) 22%, var(--border));
-  --field-surface: color-mix(in srgb, var(--field-accent) 5%, var(--background));
+  --field-surface: color-mix(
+    in srgb,
+    var(--field-accent) 5%,
+    var(--background)
+  );
   margin-block-start: clamp(3.25rem, 7vw, 5rem);
   border-block-start: 0;
 }
@@ -301,7 +305,9 @@ polar-observations .polar-ice button[data-ice] {
   color: var(--field-accent);
   font-weight: 500;
   text-decoration: none;
-  transition: background 180ms ease, border-color 180ms ease;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
 }
 polar-observations .polar-ice button[data-ice]:is(:hover, :focus-visible) {
   border-color: var(--field-accent);
@@ -373,7 +379,9 @@ polar-observations .polar-comment-actions [data-compose] {
   text-decoration: none;
   transition: background 180ms ease;
 }
-polar-observations .polar-comment-actions [data-compose]:is(:hover, :focus-visible) {
+polar-observations
+  .polar-comment-actions
+  [data-compose]:is(:hover, :focus-visible) {
   background: var(--field-surface);
   text-decoration: none;
 }
@@ -441,7 +449,11 @@ polar-observations .polar-comment-form textarea {
   border-bottom-color: var(--field-rule);
   border-radius: 0;
   background-color: transparent;
-  background-image: linear-gradient(to bottom, transparent calc(100% - 1px), var(--field-rule) calc(100% - 1px));
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(100% - 1px),
+    var(--field-rule) calc(100% - 1px)
+  );
   background-size: 100% 2.25rem;
   background-attachment: local;
   color: var(--foreground);
@@ -475,7 +487,9 @@ polar-observations .polar-form-actions [data-submit] {
   font-size: 0.9rem;
   font-weight: 500;
 }
-polar-observations .polar-form-actions [data-submit]:is(:hover, :focus-visible) {
+polar-observations
+  .polar-form-actions
+  [data-submit]:is(:hover, :focus-visible) {
   text-decoration: none;
   background: color-mix(in srgb, var(--field-accent) 84%, var(--foreground));
 }
