@@ -249,3 +249,316 @@ polar-review [hidden] {
   flex-basis: 100%;
   min-width: 0;
 }
+
+/* A field-journal layout for reader participation. No generic chat bubbles. */
+polar-observations {
+  --field-accent: var(--reading-accent, var(--accent));
+  --field-rule: color-mix(in srgb, var(--field-accent) 22%, var(--border));
+  --field-surface: color-mix(
+    in srgb,
+    var(--field-accent) 5%,
+    var(--background)
+  );
+  margin-block-start: clamp(3.25rem, 7vw, 5rem);
+  border-block-start: 0;
+}
+.polar-field-kicker {
+  margin: 0 0 0.45rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+}
+polar-observations .polar-ice {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 1rem 2rem;
+  min-height: 110px;
+  padding: 1.6rem 0;
+  border-block: 1px solid var(--field-rule);
+}
+.polar-ice-note > p:last-child {
+  margin: 0;
+  font-family: var(--archive-serif, serif);
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  line-height: 1.7;
+}
+.polar-ice-controls {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.45rem 1rem;
+  font-variant-numeric: tabular-nums;
+  font-size: 0.82rem;
+}
+polar-observations .polar-ice button[data-ice] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 46px;
+  padding: 0.45rem 1.05rem;
+  border: 1px solid var(--field-rule);
+  border-radius: 2px;
+  background: var(--field-surface);
+  color: var(--field-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+polar-observations .polar-ice button[data-ice]:is(:hover, :focus-visible) {
+  border-color: var(--field-accent);
+  background: color-mix(in srgb, var(--field-accent) 11%, var(--background));
+  text-decoration: none;
+}
+polar-observations .polar-ice button[data-ice][aria-pressed="true"] {
+  border-color: var(--field-accent);
+  background: color-mix(in srgb, var(--field-accent) 13%, var(--background));
+}
+.polar-ice-controls [data-ice-count] {
+  color: var(--muted-foreground);
+  white-space: nowrap;
+}
+polar-observations .polar-ice-proof {
+  grid-column: 1 / -1;
+  padding: 0.9rem 1rem;
+  border-inline-start: 2px solid var(--field-accent);
+  background: var(--field-surface);
+}
+polar-observations #observations {
+  padding-block-start: clamp(3rem, 7vw, 4.75rem);
+}
+polar-observations .polar-observations-heading {
+  align-items: start;
+  gap: 1rem;
+  padding: 0 0 1.35rem;
+}
+polar-observations .polar-observations-heading h2 {
+  margin: 0;
+  font-family: var(--archive-serif, serif);
+  font-size: clamp(1.8rem, 4vw, 2.55rem);
+  line-height: 1.45;
+  letter-spacing: -0.04em;
+  font-weight: 500;
+}
+.polar-observations-intro {
+  max-width: 35rem;
+  margin: 0.7rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.89rem;
+  line-height: 1.85;
+}
+polar-observations .polar-observations-heading [data-comment-count] {
+  padding-top: 0.65rem;
+  white-space: nowrap;
+  color: var(--field-accent);
+  font-size: 0.83rem;
+}
+polar-observations .polar-comment-actions {
+  justify-content: space-between;
+  gap: 0.5rem 1.25rem;
+  padding-block: 0.95rem;
+  margin-block: 0.55rem 1rem;
+  border-block: 1px solid var(--field-rule);
+}
+polar-observations .polar-comment-actions [data-compose] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  min-height: 46px;
+  padding-inline: 1rem;
+  border: 1px solid var(--field-accent);
+  border-radius: 2px;
+  color: var(--field-accent);
+  background: transparent;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 180ms ease;
+}
+polar-observations
+  .polar-comment-actions
+  [data-compose]:is(:hover, :focus-visible) {
+  background: var(--field-surface);
+  text-decoration: none;
+}
+polar-observations .polar-comment-actions [data-logout] {
+  margin-inline-start: auto;
+  font-size: 0.78rem;
+  color: var(--muted-foreground);
+  text-decoration: underline;
+  text-decoration-color: var(--field-rule);
+  text-underline-offset: 0.35em;
+}
+polar-observations .polar-comment-actions [data-comment-retry] {
+  font-size: 0.83rem;
+}
+polar-observations .polar-status {
+  line-height: 1.85;
+  font-size: 0.85rem;
+}
+polar-observations .polar-comment-form {
+  position: relative;
+  margin: 1.5rem 0 2.5rem;
+  padding: clamp(1.1rem, 3.2vw, 1.8rem);
+  background: var(--field-surface);
+  border: 1px solid var(--field-rule);
+  border-inline-start: 2px solid var(--field-accent);
+}
+polar-observations .polar-comment-form::after {
+  content: "";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 16px;
+  height: 16px;
+  border-top: 1px solid var(--field-accent);
+  border-right: 1px solid var(--field-accent);
+  opacity: 0.55;
+  pointer-events: none;
+}
+.polar-form-masthead {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  padding-bottom: 1rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--field-rule);
+  color: var(--muted-foreground);
+  font-size: 0.74rem;
+}
+.polar-form-masthead span:last-child {
+  color: var(--field-accent);
+}
+polar-observations .polar-comment-form label {
+  margin-bottom: 0.6rem;
+  font-family: var(--archive-serif, serif);
+  font-size: 1.03rem;
+  color: var(--foreground);
+}
+polar-observations .polar-comment-form textarea {
+  display: block;
+  width: 100%;
+  min-height: 155px;
+  padding: 0.7rem 0.7rem 0.5rem;
+  border: 1px solid transparent;
+  border-bottom-color: var(--field-rule);
+  border-radius: 0;
+  background-color: transparent;
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(100% - 1px),
+    var(--field-rule) calc(100% - 1px)
+  );
+  background-size: 100% 2.25rem;
+  background-attachment: local;
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 2.25rem;
+  resize: vertical;
+}
+polar-observations .polar-comment-form textarea::placeholder {
+  color: var(--muted-foreground);
+}
+polar-observations .polar-comment-form textarea:focus-visible {
+  border-color: var(--field-rule);
+  outline: 1px solid var(--field-accent);
+  outline-offset: 2px;
+}
+polar-observations .polar-form-actions {
+  justify-content: flex-end;
+  gap: 0.65rem 1rem;
+  margin-top: 1rem;
+}
+polar-observations .polar-form-actions [data-submit] {
+  display: inline-flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  min-height: 44px;
+  background: var(--field-accent);
+  color: var(--background);
+  border: 1px solid var(--field-accent);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+polar-observations
+  .polar-form-actions
+  [data-submit]:is(:hover, :focus-visible) {
+  text-decoration: none;
+  background: color-mix(in srgb, var(--field-accent) 84%, var(--foreground));
+}
+polar-observations .polar-form-actions [data-cancel] {
+  padding-inline: 0.6rem;
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+polar-observations ol[data-comments] {
+  padding: 0;
+  margin: 1.5rem 0 0;
+}
+polar-observations .polar-comment {
+  position: relative;
+  padding-block: 1.5rem 1.7rem;
+  border-color: var(--field-rule);
+}
+polar-observations .polar-comment-header {
+  gap: 0.4rem 0.8rem;
+}
+polar-observations .polar-comment-header strong {
+  font-family: var(--archive-serif, serif);
+  font-size: 1rem;
+  font-weight: 500;
+}
+polar-observations .polar-comment-header time,
+polar-observations .polar-comment-state {
+  font-size: 0.78rem;
+}
+polar-observations .polar-comment-body {
+  padding-block: 0.25rem;
+  font-size: 0.94rem;
+  line-height: 1.9;
+}
+polar-observations .polar-replies {
+  margin-block-start: 1.15rem;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 1px solid var(--field-rule);
+}
+polar-observations [data-more] {
+  display: block;
+  margin-block-start: 1rem;
+  padding: 0.5rem 0;
+  font-size: 0.85rem;
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+}
+@media (max-width: 650px) {
+  polar-observations .polar-ice {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: 1rem;
+  }
+  .polar-ice-controls {
+    justify-content: flex-start;
+  }
+  polar-observations .polar-comment-actions [data-logout] {
+    margin-inline-start: auto;
+  }
+  polar-observations .polar-observations-heading h2 {
+    font-size: 2rem;
+  }
+  polar-observations .polar-comment-form textarea {
+    min-height: 170px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  polar-observations .polar-ice button[data-ice],
+  polar-observations .polar-comment-actions [data-compose] {
+    transition: none;
+  }
+}
