@@ -135,9 +135,51 @@
   display: inline;
 }
 
+/* 7. Contrast: the site-wide muted tone was deepened in archive.css
+      (#65767b -> #56676d). The accepted Hero keeps its original tone. */
+:root .polar-hero,
+[data-theme="light"] .polar-hero {
+  --muted-foreground: #65767b;
+}
+[data-theme="dark"] .polar-hero {
+  --muted-foreground: #9eafb5;
+}
+
+/* 8. Mobile header: the index toggle gets a fixed footprint so the theme
+      button beside it can never drift into or away from it. */
+@media (max-width: 800px) {
+  .folio-index-toggle {
+    width: 112px;
+    justify-content: flex-end;
+    box-sizing: border-box;
+  }
+  .folio-theme {
+    right: calc(18px + 112px + 6px);
+  }
+}
+
+/* 9. Code blocks: a quieter, hairline copy button in the atlas style. */
+.reading-page .copy-code {
+  border: 1px solid var(--border);
+  border-radius: 0;
+  background: var(--background);
+  color: var(--muted-foreground);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  padding: 3px 10px;
+  transition:
+    color 200ms ease,
+    border-color 200ms ease;
+}
+.reading-page .copy-code:is(:hover, :focus-visible) {
+  color: var(--foreground);
+  border-color: var(--region-accent, var(--accent));
+}
+
 @media (prefers-reduced-motion: reduce) {
   .folio-index-toggle,
-  .index-drift span {
+  .index-drift span,
+  .reading-page .copy-code {
     transition: none;
   }
 }

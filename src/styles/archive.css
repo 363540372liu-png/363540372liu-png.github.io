@@ -3,7 +3,7 @@
 [data-theme="light"] {
   --background: #f5f7f7;
   --foreground: #233e49;
-  --muted-foreground: #65767b;
+  --muted-foreground: #56676d;
   --border: #d5dfe0;
   --archive-surface: #eaf0f0;
   --archive-rule: #c4d1d4;
@@ -972,14 +972,15 @@
     display: none;
   }
   .polar-edition .region-file h3 {
-    font-size: 17px;
+    font-size: 19px;
   }
   .polar-edition .region-file .region-file-english {
-    font-size: 10px;
+    font-size: 11px;
     min-height: 2.8em;
   }
   .polar-edition .region-file .region-file-description {
-    font-size: 11px;
+    font-size: 13px;
+    line-height: 1.7;
     min-height: 3.8em;
   }
   .polar-edition .region-file > .region-glyph {
@@ -988,7 +989,7 @@
     margin-block: 20px;
   }
   .polar-edition .region-file-bottom span {
-    font-size: 8px;
+    font-size: 11px;
   }
   .polar-edition .home-journal .text-link {
     margin-top: 18px;

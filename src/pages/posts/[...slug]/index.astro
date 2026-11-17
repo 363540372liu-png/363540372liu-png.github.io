@@ -322,7 +322,7 @@ const ogImage = ogImageUrl
   addHeadingLinks();
 
   function attachCopyButtons() {
-    const copyButtonLabel = "Copy";
+    const copyButtonLabel = "复制";
     const codeBlocks = Array.from(document.querySelectorAll("pre"));
 
     for (const codeBlock of codeBlocks) {
@@ -357,11 +357,11 @@ const ogImage = ogImageUrl
 
       await navigator.clipboard.writeText(text ?? "");
 
-      button.innerText = "Copied";
+      button.innerText = "已复制 ✓";
 
       setTimeout(() => {
         button.innerText = copyButtonLabel;
-      }, 700);
+      }, 1400);
     }
   }
   attachCopyButtons();
