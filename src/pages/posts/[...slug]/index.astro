@@ -85,6 +85,23 @@ const contents = headings.filter(
 );
 const hasToc = contents.length > 1;
 
+// Observation seal: a quiet closing note with length and reading time.
+const plainBody = (post.body ?? "")
+  .replace(/```[\s\S]*?```/g, " ")
+  .replace(/!\[[^\]]*\]\([^)]*\)/g, " ")
+  .replace(/\[([^\]]*)\]\([^)]*\)/g, "$1")
+  .replace(/<[^>]+>/g, " ")
+  .replace(/[#>*_`~|-]/g, " ");
+const cjkCount = (plainBody.match(/[\u3400-\u9fff\uf900-\ufaff]/g) ?? []).length;
+const latinCount = (
+  plainBody.replace(/[\u3400-\u9fff\uf900-\ufaff]/g, " ").match(/[A-Za-z0-9]+/g) ??
+  []
+).length;
+const wordCount = cjkCount + latinCount;
+const readingMinutes = Math.max(1, Math.round(cjkCount / 400 + latinCount / 220));
+const sealDate = new Date(pubDatetime);
+const sealDateText = `${sealDate.getFullYear()}.${String(sealDate.getMonth() + 1).padStart(2, "0")}.${String(sealDate.getDate()).padStart(2, "0")}`;
+
 let ogImageUrl: string | undefined;
 
 if (typeof initOgImage === "string") {
@@ -199,6 +216,29 @@ const ogImage = ogImageUrl
         </article>
         <footer class="reading-end" data-pagefind-ignore>
           <p class="reading-end-mark">— 记录于此，探索继续 —</p>
+          <div
+            class="observation-stamp"
+            role="group"
+            aria-label="观测印记"
+          >
+            <span class="stamp-ring" aria-hidden="true">
+              {region ? region.symbol : "✦"}
+            </span>
+            <dl>
+              <div>
+                <dt>观测坐标</dt>
+                <dd>{region ? region.location.split(" · ")[0] : "未标注坐标"}</dd>
+              </div>
+              <div>
+                <dt>成文日期</dt>
+                <dd>{sealDateText}</dd>
+              </div>
+              <div>
+                <dt>记录篇幅</dt>
+                <dd>约 {wordCount.toLocaleString("zh-CN")} 字 · {readingMinutes} 分钟</dd>
+              </div>
+            </dl>
+          </div>
           {
             region && (
               <a class="reading-return" href={`/regions/${region.id}/`}>

@@ -1,0 +1,143 @@
+/*
+ * Quiet touches (preview branch).
+ * Small additions that keep the "unfinished atlas" tone; the accepted Hero
+ * layout, colours, edge fade and map interactions are intentionally untouched.
+ */
+
+/* 1. Floating index: a soft paper backing once the page scrolls, so long
+      headlines no longer slide straight through the label. */
+.folio-index-toggle {
+  transition:
+    background-color 300ms ease,
+    box-shadow 300ms ease,
+    backdrop-filter 300ms ease;
+}
+.folio-header[data-scrolled] .folio-index-toggle {
+  background: color-mix(in srgb, var(--background) 82%, transparent);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--border) 70%, transparent);
+}
+
+/* 2. Random drift entry inside the index sheet. */
+.index-drift {
+  font-style: italic;
+  opacity: 0.85;
+}
+.index-drift:is(:hover, :focus-visible) {
+  opacity: 1;
+}
+.index-drift span {
+  display: inline-block;
+  margin-left: 2px;
+  transition: transform 500ms ease;
+}
+.index-drift:is(:hover, :focus-visible) span {
+  transform: translateX(3px) rotate(-6deg);
+}
+
+/* 3. Narrow screens: let the four regions breathe in a single column so
+      names such as 麦克默多干谷 never break mid-word. */
+@media (max-width: 520px) {
+  .polar-edition .region-directory,
+  .home-regions .region-directory {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .polar-edition .home-regions .region-file h3 {
+    word-break: keep-all;
+  }
+  .polar-edition .region-file .region-file-description,
+  .polar-edition .region-file .region-file-english {
+    min-height: 0;
+  }
+}
+
+/* 4. Empty region: a dotted course line that fades out before it arrives. */
+.region-empty .empty-course {
+  display: block;
+  width: min(220px, 60%);
+  height: 1px;
+  margin-bottom: 22px;
+  background-image: linear-gradient(
+    90deg,
+    var(--region-accent, var(--accent)) 50%,
+    transparent 50%
+  );
+  background-size: 8px 1px;
+  -webkit-mask-image: linear-gradient(90deg, #000 30%, transparent);
+  mask-image: linear-gradient(90deg, #000 30%, transparent);
+  opacity: 0.7;
+}
+
+/* 5. Observation stamp at the end of each record. */
+.observation-stamp {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 4px 0 28px;
+  padding: 18px 20px;
+  border: 1px dashed
+    color-mix(in srgb, var(--region-accent, var(--accent)) 45%, var(--border));
+  background: color-mix(
+    in srgb,
+    var(--region-accent, var(--accent)) 4%,
+    var(--background)
+  );
+  color: var(--muted-foreground);
+}
+.observation-stamp .stamp-ring {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 1px solid
+    color-mix(in srgb, var(--region-accent, var(--accent)) 60%, transparent);
+  outline: 1px solid
+    color-mix(in srgb, var(--region-accent, var(--accent)) 25%, transparent);
+  outline-offset: 3px;
+  color: var(--region-accent, var(--accent));
+  font-size: 20px;
+  transform: rotate(-8deg);
+}
+.observation-stamp dl {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 32px;
+  margin: 0;
+}
+.observation-stamp dt {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  opacity: 0.75;
+}
+.observation-stamp dd {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+
+/* 6. Footer: a one-line duty-log note that follows the theme. */
+.polar-watch {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: var(--muted-foreground);
+}
+.polar-watch .watch-night {
+  display: none;
+}
+[data-theme="dark"] .polar-watch .watch-day {
+  display: none;
+}
+[data-theme="dark"] .polar-watch .watch-night {
+  display: inline;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .folio-index-toggle,
+  .index-drift span {
+    transition: none;
+  }
+}

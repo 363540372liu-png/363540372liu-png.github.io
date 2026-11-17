@@ -80,17 +80,18 @@ const { region, entries, current, count, total } = Astro.props;
       ) : (
         <section class="region-empty">
           <>
+            <span class="empty-course" aria-hidden="true" />
             <h2>
               {region.id === "inaccessibility"
                 ? "方向尚未定义"
-                : "这里还没有公开记录"}
+                : "航线尚未抵达此处"}
             </h2>
             <p>
               {region.id === "inaccessibility"
                 ? "这一页暂时留白，主题由记录者在未来决定。"
-                : "当有文章被选择归入这里，它会出现在这片区域。"}
+                : "坐标已先标出。等第一篇记录靠岸，它会安静地出现在这里。"}
             </p>
-            <a href="/posts/">浏览全站文章 ↗</a>
+            <a href="/posts/">先去别处看看 ↗</a>
           </>
         </section>
       )

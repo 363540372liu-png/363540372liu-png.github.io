@@ -6,10 +6,17 @@ import { stripBase, stripLocale } from "@/utils/withBase";
 import { useTranslations } from "@/i18n";
 import config from "@/config";
 import { regions } from "@/data/regions";
+import { getCollection } from "astro:content";
+import { getSortedPosts } from "@/utils/getSortedPosts";
+import { getPostUrl } from "@/utils/getPostPaths";
 import "@/styles/identity.css";
+import "@/styles/quiet-touches.css";
 type Props = { pageTitle?: string };
 const { pageTitle } = Astro.props;
 const locale = Astro.currentLocale ?? config.site.lang;
+const driftUrls = getSortedPosts(await getCollection("posts")).map(post =>
+  getPostUrl(post.id, post.filePath, locale)
+);
 const t = useTranslations(locale);
 const segments = stripLocale(stripBase(Astro.url.pathname), locale)
   .split("/")
@@ -137,6 +144,18 @@ const isActive = (path: string) =>
           utilities.map(item => (
             <a href={getRelativeLocaleUrl(locale, item.path)}>{item.label}</a>
           ))
+        }
+        {
+          driftUrls.length > 0 && (
+            <a
+              href={driftUrls[0]}
+              class="index-drift"
+              data-drift={JSON.stringify(driftUrls)}
+              title="随机前往一篇记录"
+            >
+              随机漂流 <span aria-hidden="true">⛵︎</span>
+            </a>
+          )
         }
       </nav>
       <button type="button" class="index-close" data-close-index
@@ -322,6 +341,32 @@ const isActive = (path: string) =>
     index
       ?.querySelector("[data-close-index]")
       ?.addEventListener("click", () => closeIndex(true), { signal });
+    // Random drift: pick any record other than the current page.
+    const drift = document.querySelector<HTMLAnchorElement>("[data-drift]");
+    drift?.addEventListener(
+      "click",
+      event => {
+        if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
+          return;
+        let urls: string[] = [];
+        try {
+          urls = JSON.parse(drift.dataset.drift ?? "[]");
+        } catch {
+          return;
+        }
+        const here = location.pathname.replace(/\/+$/, "");
+        const choices = urls.filter(url => url.replace(/\/+$/, "") !== here);
+        if (!choices.length) return;
+        drift.href = choices[Math.floor(Math.random() * choices.length)];
+      },
+      { signal }
+    );
+    // Give the floating index a quiet backing once the page starts moving.
+    const header = document.querySelector<HTMLElement>(".folio-header");
+    const markScrolled = () =>
+      header?.toggleAttribute("data-scrolled", scrollY > 24);
+    markScrolled();
+    window.addEventListener("scroll", markScrolled, { passive: true, signal });
     document.getElementById("skip-to-content")?.addEventListener(
       "click",
       event => {
